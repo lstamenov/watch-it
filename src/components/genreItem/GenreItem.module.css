@@ -1,0 +1,20 @@
+.genre .clicked{
+  transition: .3s ease;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.genre {
+  color: #AA7489;
+  font-weight: 700;
+}
+
+.genre:hover{
+  color: #b45177;
+}
+
+.clicked{
+  color: #b45177;
+  transform: scale(1.2);
+  font-weight: 700;
+}

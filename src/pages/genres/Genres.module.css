@@ -1,0 +1,28 @@
+.container{
+  padding-top: 80px;
+}
+
+.btnGroup {
+  width: 100%;
+  display: flex;
+  margin: 40px 0;
+  box-shadow: 2px 2px 6px;
+  background-color: #2D2E2E;
+}
+
+.btn, .selectedBtn{
+  width: 90%;
+  color: #AA7489;
+  font-weight: 900;
+  font-size: 25px;
+  background-color: #2D2E2E;
+  margin: 0 -1px;
+}
+
+.selectedBtn {
+  background-color: #3f4141;
+}
+
+.btn:hover{
+  background-color: #3f4141;
+}

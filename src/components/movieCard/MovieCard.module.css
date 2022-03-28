@@ -1,0 +1,49 @@
+.card{
+  background-color: #2D2E2E;
+  height: 270px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-top: 1px solid gray;
+  padding-top: 5px;
+}
+
+.bigPoster{
+  height: 270px;
+  transition: .5s ease;
+  cursor: pointer;
+}
+
+.smallPoster{
+  height: 120px;
+  transition: .5s;
+  cursor: pointer;
+}
+
+.title {
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 26px;
+  border-bottom: 1px solid gray;
+  text-align: center;
+}
+
+.icon{
+  cursor: pointer;
+  transition: .5s ease;
+}
+
+.icon:hover{
+  color: #AA7489;
+}

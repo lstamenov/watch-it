@@ -1,0 +1,21 @@
+.btn, .clickedBtn{
+  text-decoration: none;
+  height: 100%;
+  transition: .3s ease;
+}
+
+.btn{
+  font-weight: 600;
+  color: #AA7489;
+  background-color: transparent;
+}
+
+.clickedBtn{
+  background-color: rgba(25, 118, 210, 0.04);
+  color: #b45177;
+  font-weight: 700;
+}
+
+.btn:hover{
+  color: #b45177;
+}

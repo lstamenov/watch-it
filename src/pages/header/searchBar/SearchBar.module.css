@@ -1,0 +1,64 @@
+.searchBar{
+  margin: 0 30px;
+  display: flex;
+  gap: 15px;
+}
+
+@keyframes hide {
+  0%   {width: 200px;}
+  100% {
+    width: 0px;
+    opacity: 0;
+  }
+}
+
+.defaultInput{
+  display: none;
+}
+
+.input{
+  animation-name: hide;
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.icon{
+  font-size: 24px;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.icon:hover{
+  color: #b45177;
+}
+
+@keyframes show {
+  0%   {width: 0px;}
+  100% {width: 200px;}
+}
+
+.input, .shownInput{
+  position: relative;
+  border: none;
+  border-bottom: 3px solid #AA7489;
+  background-color: transparent;
+  color: white;
+}
+
+.input, .shownInput::placeholder{
+  color: white;
+}
+
+.shownInput{
+  padding: 0 15px;
+  font-size: 18px;
+  animation-name: show;
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.shownInput:focus{
+  outline: none;
+}

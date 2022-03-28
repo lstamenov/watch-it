@@ -1,0 +1,10 @@
+.icon{
+  font-size: 35px;
+  color: white;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.icon:hover{
+  color: #b45177;
+}

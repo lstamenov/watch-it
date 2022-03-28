@@ -1,0 +1,18 @@
+.wrapper{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.genre{
+  color: white;
+  text-decoration: none;
+  border-bottom: none;
+  font-size: 17px;
+  font-weight: 600;
+  transition: .4s;
+}
+
+.genre:hover{
+  color: #b45177;
+}

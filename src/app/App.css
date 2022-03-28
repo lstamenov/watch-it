@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@1,200&display=swap');
+
+*{
+  font-family: 'JetBrains Mono', monospace;
+  user-select: none;
+}
+
+#root{
+  background-color: #2D2E2E;
+  margin: -8px;
+}
+
+:root{
+  scrollbar-color: #4F4F4F #2D2E2E !important;
+  scrollbar-width: 15px !important;
+}
+

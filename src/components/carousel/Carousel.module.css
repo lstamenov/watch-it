@@ -1,0 +1,63 @@
+.title{
+  margin: 0 0 -75px 50px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.carousel{
+  display: flex;
+}
+
+.content{
+  overflow-x: hidden;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 1;
+  height: 435px;
+  padding: 0 55px;
+}
+
+.leftArrowWrapper, .rightArrowWrapper, .transparentLeftArrow, .transparentRightArrow{
+  transition: .5s;
+  height: 435px;
+  z-index: 31;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.leftArrowWrapper, .rightArrowWrapper {
+  background-color: rgba(45, 46, 46, 0.75);
+}
+
+.leftArrowWrapper:hover, .rightArrowWrapper:hover ,.transparentLeftArrow:hover, .transparentRightArrow:hover{
+  opacity: 1;
+}
+
+.leftArrowWrapper, .transparentLeftArrow{
+  position: absolute;
+}
+
+.rightArrowWrapper, .transparentRightArrow{
+  position: absolute;
+  right: 0;
+  align-self: start;
+}
+
+.arrow{
+  font-size: 60px;
+  font-weight: 100;
+  color: #AA7489;
+}
+
+.leftArrowWrapper:hover{
+  background-color: rgba(45, 46, 46, 0.85);
+}
+
+.rightArrowWrapper:hover{
+  background-color: rgba(45, 46, 46, 0.85);
+}
