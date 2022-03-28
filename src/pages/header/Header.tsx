@@ -10,6 +10,7 @@ import styles from './Header.module.css';
 import HamburgerItem from '../../components/HamburgerItem/HamburgerItem';
 
 enum UrlParams {
+  HOME = '/',
   MOVIES = 'movies',
   SHOWS = 'shows',
   GENRES = 'genres',
@@ -18,6 +19,7 @@ enum UrlParams {
 const Header: React.FC = () => {
   const path = useLocation().pathname;
 
+  const [isHomeClicked, setIsHomeClicked] = useState(false);
   const [isMoviesClicked, setIsMoviesClicked] = useState(false);
   const [isShowsClicked, setIsShowsClicked] = useState(false);
   const [isGenresClicked, setIsGenresClicked] = useState(false);
@@ -27,6 +29,7 @@ const Header: React.FC = () => {
     setIsMoviesClicked(false);
     setIsShowsClicked(false);
     setIsGenresClicked(false);
+    setIsHomeClicked(false);
   };
 
   useEffect(() => {
@@ -34,18 +37,23 @@ const Header: React.FC = () => {
 
     if (path.includes(UrlParams.MOVIES)) {
       setIsMoviesClicked(true);
-    }
-
-    if (path.includes(UrlParams.SHOWS)) {
+    } else if (path.includes(UrlParams.SHOWS)) {
       setIsShowsClicked(true);
-    }
-
-    if (path.includes(UrlParams.GENRES)) {
+    } else if (path.includes(UrlParams.GENRES)) {
       setIsGenresClicked(true);
+    } else {
+      setIsHomeClicked(true);
     }
+ 
+
   }, [path]);
 
   const items = [
+    {
+      title: 'Home',
+      path: '/',
+      isClicked: isHomeClicked,
+    },
     {
       title: 'Movies',
       path: '/movies',
@@ -92,6 +100,9 @@ const Header: React.FC = () => {
                 backgroundColor: '#4F4F4F',
                 marginLeft: '-15px',
                 boxShadow: 'none',
+                width: '150px',
+                display: 'flex',
+                justifyContent: 'center',
               },
             }}
             className={styles.dropdown}

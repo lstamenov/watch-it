@@ -9,12 +9,8 @@ const initialState: LoaderState = {
 export default (state: LoaderState = initialState, action: LoadingAction) => {
   switch (action.type) {
     case LoadingActionTypes.LOADED:
-      console.log('loaded');
-      
       return { isLoading: false };
     case LoadingActionTypes.LOADING:
-      console.log('loading');
-      
       return { isLoading: true };
     default:
       return state;
