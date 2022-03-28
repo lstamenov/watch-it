@@ -7,7 +7,7 @@ import styles from './NavButton.module.css';
 const NavButton: React.FC<ButtonProps> = ({ text, path, isClicked = false }) => {
   return (
     <StyledEngineProvider injectFirst>
-      <Link to={path}>
+      <Link className={styles.link} to={path}>
         <Button size='large' variant='text' className={isClicked ? styles.clickedBtn : styles.btn}>{text}</Button>
       </Link>
     </StyledEngineProvider>

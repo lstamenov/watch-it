@@ -19,3 +19,7 @@
 .btn:hover{
   color: #b45177;
 }
+
+.link{
+  text-decoration: none;
+}
