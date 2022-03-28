@@ -1,0 +1,12 @@
+.item{
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #AA7489;
+}
+
+.clickedItem{
+  text-transform: uppercase;
+  background-color: rgba(25, 118, 210, 0.04);
+  color: #b45177;
+  font-weight: 600;
+}

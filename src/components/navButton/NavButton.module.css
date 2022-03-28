@@ -23,3 +23,9 @@
 .link{
   text-decoration: none;
 }
+
+@media screen and (max-width: 768px) {
+  .btn, .clickedBtn {
+    display: none;
+  } 
+}

@@ -19,7 +19,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie }) => {
   };
   
   return (
-    movie.poster_path ? <Grid item xs={6}>
+    movie.poster_path ? <Grid>
       <Card onMouseEnter={onHover} onMouseLeave={onMouseLeave} className={styles.wrapper} elevation={6}>
         <CardMedia className={styles.poster} image={getMoviePosterPath(movie.poster_path)}/>
         {isWrapperHovered && <CardContent className={styles.content}>

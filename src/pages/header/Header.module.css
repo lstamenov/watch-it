@@ -12,3 +12,21 @@
   align-items: center;
   align-self: flex-start;
 }
+
+.menu {
+  color: #AA7489;
+  font-size: 40px;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    display: block;
+    cursor: pointer;
+    padding: 12px 5px;
+  } 
+
+  .header {
+    padding: 5px;
+  }
+}
