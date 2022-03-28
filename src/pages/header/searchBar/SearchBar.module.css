@@ -21,6 +21,11 @@
   animation-duration: .5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
 }
 
 .icon{
@@ -44,6 +49,11 @@
   border-bottom: 3px solid #AA7489;
   background-color: transparent;
   color: white;
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
 }
 
 .input, .shownInput::placeholder{
