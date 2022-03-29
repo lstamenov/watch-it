@@ -13,7 +13,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
   const [currentEpisode, setCurrentEpisode] = useState(1);
 
   const movieURL = `https://imdbembed.xyz/movie/imdb/${id}`;
-  const showURL = `https://imdbembed.xyz/tv/imdb/${id}-${currentSeason.season_number}-${currentEpisode}`;
+  const showURL = `https://imdbembed.xyz/tv/imdb/${id}-${currentSeason?.season_number}-${currentEpisode}`;
 
   const handleSeasonChange = (value: string) => {
     setCurrentSeason(seasons.filter(season => season.season_number === Number(value))[0]);
