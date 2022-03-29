@@ -1,0 +1,26 @@
+.select {
+  background-color: #2D2E2E;
+  border: none;
+  color: #AA7489;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 600;
+  padding: 7px 0;
+  box-shadow: 3px 3px 5px black;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.option {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .select{
+    width: 200px;
+  }
+}

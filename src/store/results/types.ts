@@ -10,7 +10,7 @@ export interface ResultsState {
       page: number,
       results: TrendingShow[],
     }
-  }
+  },
 }
 
 export enum ResultActionTypes {

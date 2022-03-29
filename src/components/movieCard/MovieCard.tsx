@@ -36,7 +36,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
   };
 
   const getWatchUrl = () => {
-    return isShow() ? `/tv/play/${movie.id}` : `/movies/play/${movie.id}`;
+    return isShow() ? `/shows/play/${movie.id}` : `/movies/play/${movie.id}`;
   };
 
   return (

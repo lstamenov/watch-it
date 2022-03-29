@@ -7,6 +7,7 @@ import Home from '../pages/home/Home';
 import Movies from '../pages/movies/Movies';
 import Shows from '../pages/shows/Shows';
 import MoviePlayer from '../pages/Watch/Movie/MoviePlayer';
+import ShowPlayer from '../pages/Watch/Show/ShowPlayer';
 import './App.css';
 
 const App: React.FC = () => {
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <div className="App">
         <Header />
         <Routes>
+          <Route path='/shows/play/:id' element={<ShowPlayer />} />
           <Route path="/movies/play/:id" element={<MoviePlayer />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/shows" element={<Shows />} />

@@ -14,9 +14,9 @@ interface Props {
 
 const CarouselCardActions: React.FC<Props> = ({ id, isMovie = false }) => {
 
-  const getWatchLink = () => isMovie ? `/movies/play/${id}` : `/tv/play/${id}`; 
+  const getWatchLink = () => isMovie ? `/movies/play/${id}` : `/shows/play/${id}`; 
 
-  const getInfoLink = () => isMovie ? `/movies/${id}` : `/tv/${id}`;
+  const getInfoLink = () => isMovie ? `/movies/${id}` : `/shows/${id}`;
 
   return (
     <CardActions>

@@ -120,3 +120,10 @@ export const loadSuggestedMovies = () => async (dispatch: Dispatch, getState: ()
   loadSimilarMovies()(dispatch, getState);
   dispatch(loaded());
 };
+
+export const loadSuggestedShows = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  dispatch(loading());
+  loadRecommendedShows()(dispatch, getState);
+  loadSimilarShows()(dispatch, getState);
+  dispatch(loaded());
+};
