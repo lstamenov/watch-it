@@ -5,13 +5,6 @@
   z-index: 20;
   position: relative;
   background-color: #2D2E2E;
-  /* box-shadow: 0px 3px 10px; */
-}
-
-.wrapper:hover{
-  transform: scale(1.1);
-  z-index: 111;
-  height: 340px;
 }
 
 .poster{
@@ -67,3 +60,10 @@
   gap: 15px;
 }
 
+@media screen and (min-width: 768px){
+  .wrapper:hover{
+    transform: scale(1.1);
+    z-index: 111;
+    height: 340px;
+  }
+}

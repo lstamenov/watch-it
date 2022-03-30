@@ -17,6 +17,7 @@
   z-index: 1;
   height: 435px;
   padding: 0 55px;
+  touch-action: none;
 }
 
 .leftArrowWrapper, .rightArrowWrapper, .transparentLeftArrow, .transparentRightArrow{
@@ -65,5 +66,10 @@
 @media screen and (max-width: 768px) {
   .title{
     font-size: 25px;
+    margin-left: 0;
+  }
+
+  .content{
+    padding: 0;
   }
 }

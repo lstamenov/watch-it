@@ -1,13 +1,20 @@
 import React, { useRef, useState } from 'react';
+import useMobile from '../../hooks/useMobile';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CarouselProps } from './types';
 import { Grid, StyledEngineProvider, Typography } from '@mui/material';
 import styles from './Carousel.module.css';
 
-const Carousel: React.FC<CarouselProps> = ({ title, isTransparent = false, children }) => {
+const Carousel: React.FC<CarouselProps> = ({
+  title,
+  isTransparent = false,
+  children,
+}) => {
   const contentElement = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
   const [scrollAmount, setScrollAmount] = useState(0);
+  const [lastPageX, setLastPageX] = useState(0);
 
   const scrollLeftHandler = (): void => {
     const contentWrapper = contentElement.current;
@@ -16,7 +23,7 @@ const Carousel: React.FC<CarouselProps> = ({ title, isTransparent = false, child
 
     contentWrapper.scrollTo({
       top: 0,
-      left: (scrollAmount - 210),
+      left: scrollAmount - 210,
       behavior: 'smooth',
     });
 
@@ -34,7 +41,7 @@ const Carousel: React.FC<CarouselProps> = ({ title, isTransparent = false, child
 
     contentWrapper.scrollTo({
       top: 0,
-      left: (scrollAmount + 210),
+      left: scrollAmount + 210,
       behavior: 'smooth',
     });
 
@@ -45,18 +52,75 @@ const Carousel: React.FC<CarouselProps> = ({ title, isTransparent = false, child
     }
   };
 
-  return (
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const contentWrapper = contentElement.current;
+    const currentPageX = e.touches[e.touches.length - 1].pageX;
+
+    if (!contentWrapper) return;
+
+    contentWrapper.scrollTo({
+      top: 0,
+      left: (currentPageX > lastPageX) ? scrollAmount - 40 : scrollAmount + 40,
+      behavior: 'smooth',
+    });
+
+    setScrollAmount((currentPageX > lastPageX) ? scrollAmount - 40 : scrollAmount + 40);
+    setLastPageX(currentPageX);
+
+    if (scrollAmount >= 3640 || scrollAmount < -50) {
+      setScrollAmount(-50);
+    }
+  };
+
+  const renderMobile = () => (
     <StyledEngineProvider injectFirst>
       <div className={styles.carouselWrapper}>
-        <Typography className={styles.title} variant='h4' color='white'>{title}</Typography>
+        <Typography className={styles.title} variant="h4" color="white">
+          {title}
+        </Typography>
         <Grid container className={styles.carousel}>
-          <div onClick={scrollLeftHandler} className={isTransparent ? styles.transparentLeftArrow : styles.leftArrowWrapper}>
+          <div
+            ref={contentElement}
+            onTouchMove={handleTouchMove}
+            className={styles.content}
+          >
+            {children}
+          </div>
+        </Grid>
+      </div>
+    </StyledEngineProvider>
+  );
+
+  return isMobile ? (
+    renderMobile()
+  ) : (
+    <StyledEngineProvider injectFirst>
+      <div className={styles.carouselWrapper}>
+        <Typography className={styles.title} variant="h4" color="white">
+          {title}
+        </Typography>
+        <Grid container className={styles.carousel}>
+          <div
+            onClick={scrollLeftHandler}
+            className={
+              isTransparent
+                ? styles.transparentLeftArrow
+                : styles.leftArrowWrapper
+            }
+          >
             <FontAwesomeIcon className={styles.arrow} icon={faAngleLeft} />
           </div>
           <div ref={contentElement} className={styles.content}>
             {children}
           </div>
-          <div onClick={scrollRightHandler} className={isTransparent ? styles.transparentRightArrow : styles.rightArrowWrapper}>
+          <div
+            onClick={scrollRightHandler}
+            className={
+              isTransparent
+                ? styles.transparentRightArrow
+                : styles.rightArrowWrapper
+            }
+          >
             <FontAwesomeIcon className={styles.arrow} icon={faAngleRight} />
           </div>
         </Grid>
