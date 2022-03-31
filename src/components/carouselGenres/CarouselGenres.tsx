@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './CarouselGenres.module.css';
 import { StyledEngineProvider, Typography } from '@mui/material';
 import { Genre } from '../../types/types';
+import styles from './CarouselGenres.module.css';
 
 interface Props {
   genres: (Genre | undefined)[],
@@ -23,7 +23,7 @@ const CarouselGenres: React.FC<Props> = ({ genres, isShow = false }) => {
               <Typography className={styles.genre}>{genre?.name}</Typography>
             </Link>
           ))
-          .filter((genre, index) => isShow ? index <= 0 : index <= 1)}
+          .filter((genre, index) => isShow ? index <= 0 : index <= 0)}
       </div>
     </StyledEngineProvider>
   );

@@ -98,7 +98,7 @@ const Header: React.FC = () => {
             PaperProps={{
               style: {
                 backgroundColor: '#4F4F4F',
-                marginLeft: '-15px',
+                marginLeft: '-16px',
                 boxShadow: 'none',
                 width: '150px',
                 display: 'flex',

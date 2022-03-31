@@ -24,9 +24,10 @@
     display: block;
     cursor: pointer;
     padding: 12px 5px;
+    font-size: 30px;
   } 
 
   .header {
-    padding: 5px;
+    padding: 0 5px;
   }
 }

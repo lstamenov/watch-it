@@ -31,6 +31,10 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     setIsHovered(false);
   };
 
+  const onClick = () => {
+    setIsHovered(!isHovered);
+  };
+
   const isShow = () => {
     const firstAirDate = (movie as TrendingShow).first_air_date;
     return !!firstAirDate;
@@ -47,13 +51,9 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     return isShow() ? `/shows/play/${movie.id}` : `/movies/play/${movie.id}`;
   };
 
-  const renderCardContent = (shouldShow: boolean) => (
+  const renderCardContent = () => (
     <>
-      <CardMedia
-        image={getMoviePosterPath(movie.poster_path)}
-        className={isHovered ? styles.smallPoster : styles.bigPoster}
-      />
-      {shouldShow && (
+      {isHovered && (
         <div className={styles.container}>
           <Typography className={styles.title} variant="h6">
             {getTitle()}
@@ -76,14 +76,33 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
   return movie.poster_path ? (
     <StyledEngineProvider injectFirst>
       <Grid item md={3} xs={6} sm={4}>
-        <Card
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          className={styles.card}
-          elevation={3}
-        >
-          {isMobile ? null : renderCardContent(isHovered)}
-        </Card>
+        {isMobile ? (
+          <Card
+            onClick={onClick}
+            className={styles.card}
+            elevation={3}
+          >
+            <CardMedia
+              onClick={onClick}
+              image={getMoviePosterPath(movie.poster_path)}
+              className={isHovered ? styles.smallPoster : styles.bigPoster}
+            />
+            {renderCardContent()}
+          </Card>
+        ) : (
+          <Card
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            className={styles.card}
+            elevation={3}
+          >
+            <CardMedia
+              image={getMoviePosterPath(movie.poster_path)}
+              className={isHovered ? styles.smallPoster : styles.bigPoster}
+            />
+            {isMobile ? null : renderCardContent()}
+          </Card>
+        )}
       </Grid>
     </StyledEngineProvider>
   ) : null;
