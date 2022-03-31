@@ -30,11 +30,8 @@ const Home: React.FC = () => {
     <Loader />
   ) : (
     <Container className={styles.home}>
-      <Typography className={styles.title} variant="h3">
-        What are you up to?
-      </Typography>
       <Typography className={styles.title} variant="h4">
-        If you do not know browse through our weekly suggestions :)
+        find something to watch
       </Typography>
       <InfiniteScrollLayout
         movies={trending}

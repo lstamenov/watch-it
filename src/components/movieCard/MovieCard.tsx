@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Card, CardMedia, Grid, StyledEngineProvider, Typography } from '@mui/material';
+import {
+  Card,
+  CardMedia,
+  Grid,
+  StyledEngineProvider,
+  Typography,
+} from '@mui/material';
 import { TrendingMovie, TrendingShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import CarouselGenres from '../carouselGenres/CarouselGenres';
@@ -7,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import styles from './MovieCard.module.css';
 import PlayButton from '../PlayButton/PlayButton';
+import useMobile from '../../hooks/useMobile';
 
 interface Props {
   movie: TrendingMovie | TrendingShow;
@@ -14,6 +21,7 @@ interface Props {
 
 const MovieCard: React.FC<Props> = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useMobile();
 
   const onMouseEnter = () => {
     setIsHovered(true);
@@ -39,8 +47,34 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     return isShow() ? `/shows/play/${movie.id}` : `/movies/play/${movie.id}`;
   };
 
-  return (
-    movie.poster_path ? <StyledEngineProvider injectFirst>
+  const renderCardContent = (shouldShow: boolean) => (
+    <>
+      <CardMedia
+        image={getMoviePosterPath(movie.poster_path)}
+        className={isHovered ? styles.smallPoster : styles.bigPoster}
+      />
+      {shouldShow && (
+        <div className={styles.container}>
+          <Typography className={styles.title} variant="h6">
+            {getTitle()}
+          </Typography>
+          <CarouselGenres isShow={false} genres={movie.genres} />
+          <div className={styles.details}>
+            <FontAwesomeIcon
+              className={styles.icon}
+              size={'2x'}
+              color="white"
+              icon={faCircleInfo}
+            />
+            <PlayButton url={getWatchUrl()} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+
+  return movie.poster_path ? (
+    <StyledEngineProvider injectFirst>
       <Grid item md={3} xs={6} sm={4}>
         <Card
           onMouseEnter={onMouseEnter}
@@ -48,22 +82,11 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
           className={styles.card}
           elevation={3}
         >
-          <CardMedia
-            image={getMoviePosterPath(movie.poster_path)}
-            className={isHovered ? styles.smallPoster : styles.bigPoster}
-          />
-          {isHovered && <div className={styles.container}>
-            <Typography className={styles.title} variant='h6'>{getTitle()}</Typography>
-            <CarouselGenres isShow={false} genres={movie.genres} />
-            <div className={styles.details}>
-              <FontAwesomeIcon className={styles.icon} size={'2x'} color='white' icon={faCircleInfo} />
-              <PlayButton url={getWatchUrl()} />
-            </div>
-          </div>}
+          {isMobile ? null : renderCardContent(isHovered)}
         </Card>
       </Grid>
-    </StyledEngineProvider> : null
-  );
+    </StyledEngineProvider>
+  ) : null;
 };
 
 export default MovieCard;

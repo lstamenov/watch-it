@@ -4,7 +4,6 @@ import {
   ButtonGroup,
   Container,
   StyledEngineProvider,
-  Typography,
 } from '@mui/material';
 import styles from './Genres.module.css';
 import GenresLayout from '../../layouts/GenresLayout/GenresLayout';
@@ -120,9 +119,6 @@ const Genres: React.FC = () => {
   return (
     <StyledEngineProvider injectFirst>
       <Container className={styles.container}>
-        <Typography align="center" gutterBottom color="white" variant="h4">
-          Genres
-        </Typography>
         <GenresLayout>
           {renderGenres()}
         </GenresLayout>
@@ -130,7 +126,7 @@ const Genres: React.FC = () => {
           <Button
             ref={moviesButtonRef}
             onClick={onMoviesButtonClick}
-            className={styles.btn}
+            className={`${styles.btn} ${styles.selectedBtn}`}
           >
             Movies
           </Button>
