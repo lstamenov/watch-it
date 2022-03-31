@@ -1,0 +1,16 @@
+.wrapper{
+  margin: 30px 3px 0 3px;
+}
+
+.carousel{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px 0 10px 0;
+}
+
+.title {
+  margin-left: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+

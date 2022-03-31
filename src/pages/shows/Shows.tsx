@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
 import Loader from '../../components/loader/Loader';
+import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
+import useMobile from '../../hooks/useMobile';
 import { useAppSelector } from '../../store/hooks';
 import { selectLoader } from '../../store/loader/selectors';
 import {
@@ -18,6 +20,7 @@ const Shows: React.FC = () => {
   const dispatch = useDispatch();
 
   const isLoading = useAppSelector(selectLoader);
+  const isMobile = useMobile();
 
   useEffect(() => {
     dispatch(loadShowsPageData());
@@ -27,11 +30,20 @@ const Shows: React.FC = () => {
   const topRatedShows: TvShow[] = useAppSelector(selectTopRatedShows);
   const trendingShows: TvShow[] = useAppSelector(selectTrendingShows);
 
+  const renderMobile = () => (
+    <>
+      <MobileCarousel items={popularShows} title='popular'/>
+      <MobileCarousel items={topRatedShows} title='top rated'/>
+      <MobileCarousel items={trendingShows} title='trending'/>
+    </>
+  );
+
   return (
     <div className={styles.shows}>
       {isLoading ? (
         <Loader />
       ) : (
+        isMobile ? renderMobile() :
         <>
           <Carousel title="Popular">
             {popularShows.map((show, index) => (

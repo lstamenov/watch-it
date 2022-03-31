@@ -1,3 +1,10 @@
 .home{
   padding-top: 120px;
 }
+
+@media screen and (max-width: 768px) {
+  .home {
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+}

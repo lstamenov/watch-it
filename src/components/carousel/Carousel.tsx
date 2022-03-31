@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import useMobile from '../../hooks/useMobile';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CarouselProps } from './types';
@@ -12,9 +11,7 @@ const Carousel: React.FC<CarouselProps> = ({
   children,
 }) => {
   const contentElement = useRef<HTMLDivElement>(null);
-  const isMobile = useMobile();
   const [scrollAmount, setScrollAmount] = useState(0);
-  const [lastPageX, setLastPageX] = useState(0);
 
   const scrollLeftHandler = (): void => {
     const contentWrapper = contentElement.current;
@@ -39,61 +36,28 @@ const Carousel: React.FC<CarouselProps> = ({
 
     if (!contentWrapper) return;
 
-    contentWrapper.scrollTo({
-      top: 0,
-      left: scrollAmount + 210,
-      behavior: 'smooth',
-    });
+    if (scrollAmount >= 2505) {
+      contentWrapper.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+      setScrollAmount(0);
+    } else {
+      contentWrapper.scrollTo({
+        top: 0,
+        left: scrollAmount + 210,
+        behavior: 'smooth',
+      });
 
-    setScrollAmount(scrollAmount + 210);
+      setScrollAmount(scrollAmount + 210);
+    }
 
     if (scrollAmount >= 2505) {
-      setScrollAmount(-40);
+      setScrollAmount(0);
     }
   };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const contentWrapper = contentElement.current;
-    const currentPageX = e.touches[e.touches.length - 1].pageX;
-
-    if (!contentWrapper) return;
-
-    contentWrapper.scrollTo({
-      top: 0,
-      left: (currentPageX > lastPageX) ? scrollAmount - 40 : scrollAmount + 40,
-      behavior: 'smooth',
-    });
-
-    setScrollAmount((currentPageX > lastPageX) ? scrollAmount - 40 : scrollAmount + 40);
-    setLastPageX(currentPageX);
-
-    if (scrollAmount >= 3640 || scrollAmount < -50) {
-      setScrollAmount(-50);
-    }
-  };
-
-  const renderMobile = () => (
-    <StyledEngineProvider injectFirst>
-      <div className={styles.carouselWrapper}>
-        <Typography className={styles.title} variant="h4" color="white">
-          {title}
-        </Typography>
-        <Grid container className={styles.carousel}>
-          <div
-            ref={contentElement}
-            onTouchMove={handleTouchMove}
-            className={styles.content}
-          >
-            {children}
-          </div>
-        </Grid>
-      </div>
-    </StyledEngineProvider>
-  );
-
-  return isMobile ? (
-    renderMobile()
-  ) : (
+  return (
     <StyledEngineProvider injectFirst>
       <div className={styles.carouselWrapper}>
         <Typography className={styles.title} variant="h4" color="white">

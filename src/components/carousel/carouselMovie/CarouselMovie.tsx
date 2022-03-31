@@ -9,10 +9,8 @@ import CarouselDetail from '../../carouselDetail/CarouselDetail';
 import styles from './CarouselMovie.module.css';
 import { Card, CardContent, CardMedia, Grid } from '@mui/material';
 import CarouselCardActions from '../../carouselCardActions/CarouselCardActions';
-import useMobile from '../../../hooks/useMobile';
 
 const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie }) => {
-  const isMobile = useMobile();
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
 
   const onMouseLeave = () => {
@@ -23,22 +21,9 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie }) => {
     setIsWrapperHovered(true);
   };
 
-  const renderMobile = () => (
-    <Grid>
-      <Card
-        className={styles.wrapper}
-        elevation={6}
-      >
-        <CardMedia
-          className={styles.poster}
-          image={getMoviePosterPath(movie.poster_path)}
-        />
-      </Card>
-    </Grid>
-  );
 
   return movie.poster_path ? (
-    isMobile ? renderMobile() : <Grid>
+    <Grid>
       <Card
         onMouseEnter={onHover}
         onMouseLeave={onMouseLeave}

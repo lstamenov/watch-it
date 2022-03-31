@@ -13,9 +13,12 @@ import {
 } from '../../store/movies/selectors';
 import { selectLoader } from '../../store/loader/selectors';
 import styles from './Movies.module.css';
+import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
+import useMobile from '../../hooks/useMobile';
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
+  const isMobile = useMobile();
 
   const dailyTrendingMovies = useAppSelector(selectDailyTrendingMovies);
   const weeklyTrendingMovies = useAppSelector(selectWeeklyTrendingMovies);
@@ -27,10 +30,21 @@ const Movies: React.FC = () => {
     dispatch(loadMoviesPageData());
   }, []);
 
+  const renderMobile = () => (
+    <>
+      <MobileCarousel isMovieCarousel items={dailyTrendingMovies} title="daily trending" />
+      <MobileCarousel isMovieCarousel items={popularMovies} title="popular" />
+      <MobileCarousel isMovieCarousel items={upcomingMovies} title="upcoming" />
+      <MobileCarousel isMovieCarousel items={weeklyTrendingMovies} title="weekly trending" />
+    </>
+  );
+
   return (
     <div className={styles.home}>
       {isLoading ? (
         <Loader />
+      ) : isMobile ? (
+        renderMobile()
       ) : (
         <>
           <Carousel title="Daily trending movies">
