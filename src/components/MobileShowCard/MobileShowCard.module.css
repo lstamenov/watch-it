@@ -44,3 +44,9 @@
   padding: 10px 0;
   gap: 20px;
 }
+
+.xIcon{
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
