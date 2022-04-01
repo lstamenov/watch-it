@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import MobileMovieCard from '../MobileMovieCard/MobileMovieCard';
 import { Typography } from '@mui/material';
+import MobileShowCard from '../MobileShowCard/MobileShowCard';
 
 interface Props {
   title: string;
@@ -35,10 +36,11 @@ const MobileCarousel: React.FC<Props> = ({
       >
         {items.map((item) => (
           <SwiperSlide>
-            <MobileMovieCard
-              path={isMovieCarousel ? '/movies' : '/shows'}
-              movie={item as Movie}
-            />
+            {isMovieCarousel ? (
+              <MobileMovieCard movie={item as Movie} />
+            ) : (
+              <MobileShowCard show={item as TvShow} />
+            )}
           </SwiperSlide>
         ))}
       </Swiper>

@@ -28,7 +28,7 @@ const CarouselShow: React.FC<Props> = ({ show }) => {
         <Card onMouseEnter={onHover} onMouseLeave={onMouseLeave} className={styles.wrapper} elevation={6}>
             <CardMedia className={styles.poster} image={getMoviePosterPath(show.poster_path)}/>
             {isWrapperHovered && <CardContent className={styles.content}>
-              <CarouselGenres isShow genres={show.genres} />
+              <CarouselGenres genres={show.genres} />
               <Grid className={styles.details} container spacing={1}>
                 <Grid item>
                   <CarouselDetail value={`${show.number_of_seasons} ${show.number_of_seasons === 1 ? 'Season' : 'Seasons'}`} />

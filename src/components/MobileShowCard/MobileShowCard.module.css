@@ -1,0 +1,45 @@
+.card{
+  width: 210px;
+  height: 260px;
+}
+
+.modal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background-color:rgb(45, 46, 46, .85);
+  box-shadow: 3px 5px 10px;
+  border-radius: 3px;
+}
+
+.modalPicture{
+  height: 180px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.title{
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.overview{
+  color: white;
+}
+
+.wrapper{
+  padding: 5px 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  gap: 20px;
+}

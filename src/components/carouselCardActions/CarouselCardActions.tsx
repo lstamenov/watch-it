@@ -1,11 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListUl } from '@fortawesome/free-solid-svg-icons';
 import { CardActions } from '@mui/material';
-import { Link } from 'react-router-dom';
 import PlayButton from '../PlayButton/PlayButton';
-
-import styles from './CarouselCardActions.module.css';
+import ListButton from '../ListButton/ListButton';
 
 interface Props {
   id: number,
@@ -21,9 +17,7 @@ const CarouselCardActions: React.FC<Props> = ({ id, isMovie = false }) => {
   return (
     <CardActions>
       <PlayButton url={getWatchLink()} />
-      <Link to={getInfoLink()}>
-        <FontAwesomeIcon className={styles.icon} icon={faListUl} />
-      </Link>
+      <ListButton url={getInfoLink()} />
     </CardActions>
   );
 };

@@ -36,7 +36,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie }) => {
         />
         {isWrapperHovered && (
           <CardContent className={styles.content}>
-            <CarouselGenres isShow={false} genres={movie.genres} />
+            <CarouselGenres genres={movie.genres} />
             <Grid className={styles.details} container spacing={1}>
               <Grid item>
                 <CarouselDetail value={convertMinutesToHours(movie.runtime)} />

@@ -5,11 +5,11 @@ import { Genre } from '../../types/types';
 import styles from './CarouselGenres.module.css';
 
 interface Props {
-  genres: (Genre | undefined)[],
-  isShow: boolean,
+  genres: (Genre | undefined)[]
+  numberToShow?: number;
 }
  
-const CarouselGenres: React.FC<Props> = ({ genres, isShow = false }) => {
+const CarouselGenres: React.FC<Props> = ({ genres, numberToShow = 1 }) => {
   return (
     <StyledEngineProvider injectFirst>
       <div className={styles.wrapper}>
@@ -23,7 +23,7 @@ const CarouselGenres: React.FC<Props> = ({ genres, isShow = false }) => {
               <Typography className={styles.genre}>{genre?.name}</Typography>
             </Link>
           ))
-          .filter((genre, index) => isShow ? index <= 0 : index <= 0)}
+          .filter((genre, index) => index <= numberToShow - 1)}
       </div>
     </StyledEngineProvider>
   );

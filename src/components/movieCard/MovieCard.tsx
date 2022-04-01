@@ -58,7 +58,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
           <Typography className={styles.title} variant="h6">
             {getTitle()}
           </Typography>
-          <CarouselGenres isShow={false} genres={movie.genres} />
+          <CarouselGenres genres={movie.genres} />
           <div className={styles.details}>
             <FontAwesomeIcon
               className={styles.icon}
