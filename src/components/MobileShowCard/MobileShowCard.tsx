@@ -14,7 +14,7 @@ interface Props {
 
 const MobileShowCard: React.FC<Props> = ({ show }) => {
   const [isClicked, setIsClicked] = useState(false);
-
+  
   return (
       <>
       <Modal
@@ -31,14 +31,14 @@ const MobileShowCard: React.FC<Props> = ({ show }) => {
           <Divider />
           <Container>
             <Typography variant='body1' className={styles.overview}>
-              {show.overview}
+              {show.overview.length > 500 ? show.overview.substring(0, 500) + '...' : show.overview}
             </Typography>
             <Divider />
             <CarouselGenres genres={show.genres} numberToShow={3} />
             <Divider />
             <div className={styles.wrapper}>
               <CarouselDetail value={show.number_of_seasons > 1 ? `${show.number_of_seasons} Seasons` : '1 Season'} />
-              <CarouselDetail value={`${show.episode_run_time.toLocaleString().toUpperCase()} min`} />
+              {show.episode_run_time[0] && <CarouselDetail value={`${show.episode_run_time[0].toLocaleString().toUpperCase()} min`} />}
               <CarouselDetail value={show.original_language.toUpperCase()} />
             </div>
             <div className={styles.container}>

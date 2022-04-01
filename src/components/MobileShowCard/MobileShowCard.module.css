@@ -12,6 +12,7 @@
   background-color:rgb(45, 46, 46, .85);
   box-shadow: 3px 5px 10px;
   border-radius: 3px;
+  outline: 0
 }
 
 .modalPicture{
