@@ -6,9 +6,10 @@ import styles from './GenreItem.module.css';
 interface Props {
   genre: Genre;
   onClick: Function;
+  isActive?: boolean;
 }
-const GenreItem: React.FC<Props> = ({ genre, onClick }) => {
-  const [isClicked, setIsClicked] = useState(false);
+const GenreItem: React.FC<Props> = ({ genre, onClick, isActive = false }) => {
+  const [isClicked, setIsClicked] = useState(isActive);
 
   const onClickHandler = () => {
     onClick(genre, isClicked);

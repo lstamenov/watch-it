@@ -16,7 +16,8 @@ const CarouselGenres: React.FC<Props> = ({ genres, numberToShow = 1 }) => {
         {genres
           .map((genre) => (
             <Link
-              to={`genres/${genre?.id}`}
+              to='/genres'
+              state={genre && { selectedGenre: genre }}
               key={genre?.id}
               className={styles.genre}
             >

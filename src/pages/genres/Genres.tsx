@@ -25,8 +25,10 @@ import {
 } from '../../store/results/thunk';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
 import InfoText from '../../components/InfoText/InfoText';
+import { useLocation } from 'react-router-dom';
 
 const Genres: React.FC = () => {
+  const passedState: any = useLocation().state;
   const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
   const [hasResults, setHasResults] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('movies');
@@ -90,13 +92,13 @@ const Genres: React.FC = () => {
     if (selectedCategory === 'movies') {
       return (
         movieGenres.map((genre) => (
-          <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
+          passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} /> : <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
         ))
       );
     } else {
       return (
         tvGenres.map((genre) => (
-          <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
+          passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} /> : <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
         ))
       );
     }
@@ -116,6 +118,23 @@ const Genres: React.FC = () => {
     moviesButtonRef.current?.classList.remove(styles.selectedBtn);
   };
 
+  useEffect(() => {
+    if (movieGenres && tvGenres && passedState.selectedGenre) {
+      const foundTvGenre = tvGenres.find(genre => genre.id === passedState.selectedGenre.id);
+      const foundMovieGenre = movieGenres.find(genre => genre.id === passedState.selectedGenre.id);
+      
+      if (foundTvGenre) {
+        onShowsButtonClick();
+        setSelectedGenres([passedState.selectedGenre]);
+      }
+
+      if (foundMovieGenre) {
+        onMoviesButtonClick();
+        setSelectedGenres([passedState.selectedGenre]);
+      }
+    }
+  }, [movieGenres, tvGenres]);
+  
   return (
     <StyledEngineProvider injectFirst>
       <Container className={styles.container}>
