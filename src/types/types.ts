@@ -105,6 +105,7 @@ export interface TvShow {
   production_companies: ProdcutionCompany[],
   seasons: Season[],
   media_type?: string,
+  vote_average: number;
 }
 
 export interface TrendingShow {
