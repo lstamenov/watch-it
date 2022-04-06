@@ -1,0 +1,66 @@
+@keyframes open {
+  0% {
+    gap: 0px;
+  }
+
+  100% {
+    gap: 25px;
+  }
+}
+
+@keyframes close {
+  0% {
+    gap: 25px;
+  }
+
+  100% {
+    gap: 0px;
+  }
+}
+
+.wrapper{
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  transition: .3s ease;
+  animation-name: close;
+  animation-duration: .2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.focused{
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  transition: .3s ease;
+  animation-name: open;
+  animation-duration: .2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.input{
+  color: #AA7489;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid;
+  transition: .3s ease;
+  padding-left: 10px;
+}
+
+.input:focus{
+  color: #b45177;
+  outline: none;
+}
+
+.label{
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-left: 15px;
+  margin-bottom: -20px;
+  transition: .3s;
+}

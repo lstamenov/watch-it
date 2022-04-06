@@ -90,17 +90,13 @@ const Genres: React.FC = () => {
 
   const renderGenres = () => {
     if (selectedCategory === 'movies') {
-      return (
-        movieGenres.map((genre) => (
-          passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} /> : <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
-        ))
-      );
+      return passedState ? movieGenres.map((genre) => (
+        passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} /> : <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
+      )) : movieGenres.map(genre => <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />);
     } else {
-      return (
-        tvGenres.map((genre) => (
-          passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} /> : <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
-        ))
-      );
+      return passedState ? tvGenres.map((genre) => (
+        passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} /> : <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
+      )) : tvGenres.map(genre => <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />);
     }
   };
 
@@ -119,7 +115,7 @@ const Genres: React.FC = () => {
   };
 
   useEffect(() => {
-    if (movieGenres && tvGenres && passedState.selectedGenre) {
+    if (movieGenres && tvGenres && passedState) {
       const foundTvGenre = tvGenres.find(genre => genre.id === passedState.selectedGenre.id);
       const foundMovieGenre = movieGenres.find(genre => genre.id === passedState.selectedGenre.id);
       

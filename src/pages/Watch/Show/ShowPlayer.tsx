@@ -51,7 +51,7 @@ const ShowPlayer: React.FC = () => {
         title={show.name}
         isShow
       >
-        <Player isShow={true} id={show.imdb_id} seasons={show.seasons} />
+        <Player isShow={true} id={show.imdb_id} seasons={show.seasons.filter(season => season.name.toLowerCase() !== 'specials')} />
       </WatchLayout>
     </StyledEngineProvider>
   ) : null;

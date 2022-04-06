@@ -9,3 +9,9 @@
   font-weight: 700;
   text-transform: uppercase;
 }
+
+@media screen and (max-width: 768px) {
+  .home{
+    margin-top: 60px;
+  }
+}

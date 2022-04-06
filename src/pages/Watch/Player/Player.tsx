@@ -41,6 +41,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
         frameBorder="0"
         allow="encrypted-media"
         allowFullScreen
+        sandbox="allow-scripts allow-forms allow-same-origin"
       ></iframe>
     </>
   ) : (
@@ -50,6 +51,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
       allow="encrypted-media"
       frameBorder="0"
       allowFullScreen
+      sandbox="allow-scripts allow-forms allow-same-origin"
     ></iframe>
   );
 };

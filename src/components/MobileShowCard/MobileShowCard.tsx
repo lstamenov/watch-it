@@ -12,7 +12,7 @@ interface Props {
 
 const MobileShowCard: React.FC<Props> = ({ show }) => {
   const [isClicked, setIsClicked] = useState(false);
-
+  
   return (
     <>
       <Modal

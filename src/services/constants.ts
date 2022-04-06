@@ -1,4 +1,10 @@
 export const API_KEY: string = '9467dada6c562150e0606a619c9ba8ff';
+export const API_URL = 'https://watch-it-server.herokuapp.com';
+
+export const LOGIN_URL = `${API_URL}/login`;
+export const LOGOUT_URL = `${API_URL}/logout`;
+export const REGISTER_URL = `${API_URL}/register`;
+
 export const TRENDING_DAILY_MOVIES_URL: string = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&language=en-US&page=`;
 export const TRENDING_WEEKLY_MOVIES_URL: string = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&language=en-US&page=`;
 export const POPULAR_MOVIES_URL: string = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=`;
