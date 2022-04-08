@@ -39,6 +39,11 @@
   animation-duration: .2s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
 }
 
 .input{
@@ -49,6 +54,11 @@
   border-bottom: 2px solid;
   transition: .3s ease;
   padding-left: 10px;
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
 }
 
 .input:focus{
