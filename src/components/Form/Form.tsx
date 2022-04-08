@@ -16,7 +16,7 @@ interface Props {
 
 const Form: React.FC<Props> = ({ inputs, btnText, onSubmit }) => (
   <form className={styles.form} autoComplete='off'>
-    {inputs.map(item => <Input {...item} />)}
+    {inputs.map(item => <Input key={item.placeholder} {...item} />)}
     <FormButton text={btnText} onClick={onSubmit}/>
   </form>
 );

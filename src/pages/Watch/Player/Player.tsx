@@ -39,7 +39,6 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
         className={styles.player}
         src={showURL}
         frameBorder="0"
-        allow="encrypted-media"
         allowFullScreen
         sandbox="allow-scripts allow-forms allow-same-origin"
       ></iframe>
@@ -48,7 +47,6 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
     <iframe
       className={styles.player}
       src={movieURL}
-      allow="encrypted-media"
       frameBorder="0"
       allowFullScreen
       sandbox="allow-scripts allow-forms allow-same-origin"

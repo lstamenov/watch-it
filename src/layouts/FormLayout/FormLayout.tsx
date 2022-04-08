@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import photo from '../../assets/auth-img.png';
+import useMobile from '../../hooks/useMobile';
 import styles from './FormLayout.module.css';
 
 interface Props {
@@ -8,13 +9,15 @@ interface Props {
 }
 
 const FormLayout: React.FC<Props> = ({ children, title }) => {
+  const isMobile = useMobile();
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <Typography className={styles.title} variant='h4'>{title}</Typography>
         {children}
       </div>
-      <img src={photo} className={styles.img} alt='preview' />
+      {!isMobile && <img src={photo} className={styles.img} alt='preview' />}
     </div>
   );
 };
