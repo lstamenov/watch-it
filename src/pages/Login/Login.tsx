@@ -30,7 +30,7 @@ const Login: React.FC = () => {
   }, [message, numberOfTries]);
 
   useEffect(() => {
-    if (user) {
+    if (user || localStorage.getItem('user')) {
       navigate(path !== '/login' ? path : '/');
     }
   }, [user]);

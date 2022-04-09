@@ -12,14 +12,15 @@ import MoviePlayer from '../pages/Watch/Movie/MoviePlayer';
 import ShowPlayer from '../pages/Watch/Show/ShowPlayer';
 import './App.css';
 import ProtectedRoute from '../routes/ProtectedRoute';
+import AuthRoute from '../routes/AuthRoute';
 const App: React.FC = () => {
   return (
     <StyledEngineProvider injectFirst>
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
+          <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
           <Route path='/shows/play/:id' element={<ProtectedRoute><ShowPlayer /></ProtectedRoute>} />
           <Route path="/movies/play/:id" element={<ProtectedRoute><MoviePlayer /></ProtectedRoute>} />
           <Route path="/movies" element={<ProtectedRoute><Movies /></ProtectedRoute>} />

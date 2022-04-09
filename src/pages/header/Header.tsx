@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.css';
 import HamburgerItem from '../../components/HamburgerItem/HamburgerItem';
+import { useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/user/selectors';
 
 enum UrlParams {
   HOME = '/',
@@ -21,6 +23,8 @@ enum UrlParams {
 const Header: React.FC = () => {
   const path = useLocation().pathname;
   const user: string | null = localStorage.getItem('user');
+  const reduxUser = useAppSelector(selectUser);
+
 
   const [isHomeClicked, setIsHomeClicked] = useState(false);
   const [isMoviesClicked, setIsMoviesClicked] = useState(false);
@@ -199,7 +203,7 @@ const Header: React.FC = () => {
   return (
     <StyledEngineProvider injectFirst>
       <AppBar className={styles.header}>
-        {user ? renderAuthenticatedHeader() : renderGuestHeader()}
+        {(user || reduxUser) ? renderAuthenticatedHeader() : renderGuestHeader()}
       </AppBar>
     </StyledEngineProvider>
   );
