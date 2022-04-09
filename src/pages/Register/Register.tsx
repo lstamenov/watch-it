@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormLayout from '../../layouts/FormLayout/FormLayout';
 import Form from '../../components/Form/Form';
 import Link from '../../components/Link/Link';
@@ -36,7 +36,8 @@ const Register: React.FC = () => {
     setHasError(message !== '' && numberOfTries !== 0 ? true : false);
   }, [message, numberOfTries]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    
     if (user) {
       navigate('/');
     }

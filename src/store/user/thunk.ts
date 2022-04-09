@@ -10,6 +10,7 @@ export const login = (credentials: LoginCredentials) => async (dispatch: Dispatc
   try {
     const result = await service.login(credentials);
     const user: User = await result.data;
+    localStorage.setItem('user', JSON.stringify(user));
 
     dispatch(loaded());
     dispatch(userLoggedIn(user));

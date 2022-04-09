@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -29,7 +29,7 @@ const Login: React.FC = () => {
     setHasError(message !== '' && numberOfTries !== 0 ? true : false);
   }, [message, numberOfTries]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (user) {
       navigate(path !== '/login' ? path : '/');
     }

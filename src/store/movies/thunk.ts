@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import * as service from '../../services/movieService';
 import { Movie } from '../../types/types';
-import { loaded, loading } from '../loader/actions';
 import { latestMoviesLoadedSuccess, popularMoviesLoadedSuccess, moreDailyMoviesLoaded, trendingMoviesLoadedSuccess, upcomingMoviesLoadedSuccess, weeklyTrendingMoviesLoadedSuccess } from './actions';
 
 const fetchMovieById = async (id: number = 1) => {
@@ -34,7 +33,6 @@ export const loadLatestMovies = (page: number = 1) => async (dispatch: Dispatch)
   const fullDetailedMovies = await fullDetailedMoviesResponse;
   
   if (page !== 1) {
-    console.log(fullDetailedMovies);
     dispatch(moreDailyMoviesLoaded(fullDetailedMovies));
   } else {
     dispatch(latestMoviesLoadedSuccess(fullDetailedMovies));
@@ -60,11 +58,9 @@ export const loadWeeklyMovies = (page: number = 1) => async (dispatch: Dispatch)
 };
 
 export const loadMoviesPageData = () => async (dispatch: Dispatch) => {
-  dispatch(loading());
   await loadDailyTrendingMovies()(dispatch);
   await loadUpcomingMovies()(dispatch);
   await loadWeeklyMovies()(dispatch);
   await loadUpcomingMovies()(dispatch);
   await loadPopularMovies()(dispatch);
-  dispatch(loaded());
 };

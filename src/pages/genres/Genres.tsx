@@ -54,8 +54,11 @@ const Genres: React.FC = () => {
 
   useEffect(() => {
     if (selectedGenres.length > 0) {
-      dispatch(loadMovieGenreResults(selectedGenres));
-      dispatch(loadShowGenreResults(selectedGenres));
+      if (selectedCategory === 'movies') {
+        dispatch(loadMovieGenreResults(selectedGenres));
+      } else {
+        dispatch(loadShowGenreResults(selectedGenres));
+      }
       setHasResults(true);
     } else {
       setHasResults(false);
@@ -73,7 +76,7 @@ const Genres: React.FC = () => {
       return (
         <InfiniteScrollLayout
           movies={movies.results}
-          loadMovies={() => loadMoreMovieGenreResults(selectedGenres, movies.page + 1)}
+          loadMovies={() => loadMoreMovieGenreResults(selectedGenres, (movies.page || 1) + 1)}
           page={movies.page}
         />
       );
@@ -81,7 +84,7 @@ const Genres: React.FC = () => {
       return (
         <InfiniteScrollLayout
           movies={shows.results}
-          loadMovies={() => loadMoreShowGenreResults(selectedGenres, shows.page + 1)}
+          loadMovies={() => loadMoreShowGenreResults(selectedGenres, (shows.page || 1) + 1)}
           page={shows.page}
         />
       );

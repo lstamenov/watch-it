@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
 import CarouselMovie from '../../components/carousel/carouselMovie/CarouselMovie';
-import Loader from '../../components/loader/Loader';
 import { useAppSelector } from '../../store/hooks';
 import { loadMoviesPageData } from '../../store/movies/thunk';
 import {
@@ -11,7 +10,6 @@ import {
   selectUpcomingMovies,
   selectWeeklyTrendingMovies,
 } from '../../store/movies/selectors';
-import { selectLoader } from '../../store/loader/selectors';
 import styles from './Movies.module.css';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
@@ -24,7 +22,6 @@ const Movies: React.FC = () => {
   const weeklyTrendingMovies = useAppSelector(selectWeeklyTrendingMovies);
   const popularMovies = useAppSelector(selectPopularMovies);
   const upcomingMovies = useAppSelector(selectUpcomingMovies);
-  const isLoading = useAppSelector(selectLoader);
 
   useEffect(() => {
     dispatch(loadMoviesPageData());
@@ -41,9 +38,7 @@ const Movies: React.FC = () => {
 
   return (
     <div className={styles.home}>
-      {isLoading ? (
-        <Loader />
-      ) : isMobile ? (
+      {isMobile ? (
         renderMobile()
       ) : (
         <>

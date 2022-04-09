@@ -4,7 +4,7 @@ import { TrendingAction, TrendingActionTypes, TrendingState } from './types';
 
 const initialState: TrendingState = {
   trending: [],
-  page: 0,
+  page: 1,
 };
 
 export default (state: TrendingState = initialState, action: TrendingAction): TrendingState => {

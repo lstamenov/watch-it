@@ -2,7 +2,6 @@ import { Dispatch } from 'redux';
 import * as service from '../../services/showService';
 import * as trendingService from '../../services/trendingService';
 import { TvShow } from '../../types/types';
-import { loaded, loading } from '../loader/actions';
 import { popularShowsLoaded, topRatedShowsLoaded, trendingShowsLoaded } from './actions';
 
 const fetchShowById = async (id: number) => {
@@ -61,10 +60,8 @@ export const loadTrendingShows = () => async (dispatch: Dispatch) => {
 };
 
 export const loadShowsPageData = () => async (dispatch: Dispatch) => {
-  dispatch(loading());
   await loadPopularShows()(dispatch);
   await loadTopRatedShows()(dispatch);
   await loadTrendingShows()(dispatch);
-  dispatch(loaded());
 };
 

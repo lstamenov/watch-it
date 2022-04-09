@@ -10,8 +10,6 @@ import {
   loadMoreWeeklyTrending,
   loadWeeklyTrending,
 } from '../../store/trending/thunk';
-import { selectLoader } from '../../store/loader/selectors';
-import Loader from '../../components/loader/Loader';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
 import styles from './Home.module.css';
 
@@ -19,16 +17,13 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   const trending = useAppSelector(selectTrending);
-  const isLoading = useAppSelector(selectLoader);
   const trendingPage = useAppSelector(selectTrendingPage);
 
   useEffect(() => {
     dispatch(loadWeeklyTrending());
   }, []);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  return (
     <Container className={styles.home}>
       <Typography className={styles.title} variant="h4">
         find something to watch

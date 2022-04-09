@@ -4,7 +4,6 @@ import * as showService from '../../services/showService';
 import * as movieService from '../../services/movieService';
 import { Genre, TrendingMovie, TrendingShow } from '../../types/types';
 import { getMoreWeeklyTrending, getWeeklyTrending } from './actions';
-import { loaded, loading } from '../loader/actions';
 
 const fetchMovieGenresById = async (id: number) => {
   const fullMovieResponse = await movieService.fetchFullMovieDetailsById(id);
@@ -19,8 +18,10 @@ const fetchShowGenresById = async (id: number) => {
 };
 
 export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
-  dispatch(loading());
   const response = await service.fetchWeeklyTrending();
+  console.log(`first - ${response}`);
+  console.log(response);
+  
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
   const trendingWithGenresResponse = trending.map(async trend => {
     if (trend.media_type === 'tv') {
@@ -32,11 +33,13 @@ export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
   });
   const trendingWithGenres = await Promise.all(trendingWithGenresResponse);
   dispatch(getWeeklyTrending(trendingWithGenres, 1));
-  dispatch(loaded());
 };
 
 export const loadMoreWeeklyTrending = (page: number) => async (dispatch: Dispatch) => {
   const response = await service.fetchMoreWeeklyTrending(page);
+  console.log(`second - ${page} page`);
+  console.log(response);
+  
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
   const trendingWithGenresResponse = trending.map(async trend => {
     if (trend.media_type === 'tv') {

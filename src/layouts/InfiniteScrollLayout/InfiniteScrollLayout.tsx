@@ -11,6 +11,8 @@ interface Props {
   page: number,
 }
 
+//bug is somewhere here
+
 const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page }) => {
   const dispatch = useDispatch();
 
