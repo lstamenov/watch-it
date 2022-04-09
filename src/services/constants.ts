@@ -1,7 +1,7 @@
 export const API_KEY: string = '9467dada6c562150e0606a619c9ba8ff';
 export const API_URL_PROD = 'https://watch-it-server.herokuapp.com';
 export const API_URL_DEV = 'http://localhost:8080';
-export const API_URL = API_URL_PROD;
+export const API_URL = API_URL_DEV;
 
 export const LOGIN_URL = `${API_URL}/login`;
 export const LOGOUT_URL = `${API_URL}/logout`;
