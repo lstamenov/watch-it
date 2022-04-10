@@ -19,8 +19,6 @@ const fetchShowGenresById = async (id: number) => {
 
 export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
   const response = await service.fetchWeeklyTrending();
-  console.log(`first - ${response}`);
-  console.log(response);
   
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
   const trendingWithGenresResponse = trending.map(async trend => {
@@ -37,8 +35,6 @@ export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
 
 export const loadMoreWeeklyTrending = (page: number) => async (dispatch: Dispatch) => {
   const response = await service.fetchMoreWeeklyTrending(page);
-  console.log(`second - ${page} page`);
-  console.log(response);
   
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
   const trendingWithGenresResponse = trending.map(async trend => {

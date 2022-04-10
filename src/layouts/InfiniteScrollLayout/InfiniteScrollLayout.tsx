@@ -11,8 +11,6 @@ interface Props {
   page: number,
 }
 
-//bug is somewhere here
-
 const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page }) => {
   const dispatch = useDispatch();
 
@@ -25,7 +23,7 @@ const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page }) => 
   return (
     <>
       <ResultsLayout>
-        {movies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        {movies && movies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
         <div style={{ height: '10px' }} ref={observe}></div>
       </ResultsLayout>
     </>

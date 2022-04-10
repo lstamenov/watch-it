@@ -32,15 +32,13 @@ export const register = (credentials: RegisterCredentials) => async (dispatch: D
 };
 
 export const auth = () => async (dispatch: Dispatch) => {
-  dispatch(loading());
   try {
     const response = await service.authenticateUser();
     const user: User = await response.data;
 
-    dispatch(loaded());
     dispatch(userAuth(user));
   } catch (e) {
-    dispatch(loaded());
+    localStorage.removeItem('user');
     dispatch(userAuthFailed(''));
   }
 };

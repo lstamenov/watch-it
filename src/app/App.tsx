@@ -1,5 +1,5 @@
 import { StyledEngineProvider } from '@mui/material';
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Register from '../pages/Register/Register';
 import Genres from '../pages/genres/Genres';
@@ -13,7 +13,15 @@ import ShowPlayer from '../pages/Watch/Show/ShowPlayer';
 import './App.css';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import AuthRoute from '../routes/AuthRoute';
+import { useDispatch } from 'react-redux';
+import { auth } from '../store/user/thunk';
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(auth());
+  }, []);
+
   return (
     <StyledEngineProvider injectFirst>
       <div className="App">
