@@ -6,6 +6,6 @@ export const login = (credentials: LoginCredentials) => axios.post(LOGIN_URL, cr
 
 export const register = (credentials: RegisterCredentials) => axios.post(REGISTER_URL, credentials, { withCredentials: true });
 
-export const logout = () => axios.post(LOGOUT_URL);
+export const logout = () => axios.post(LOGOUT_URL, {}, { withCredentials: true });
 
 export const authenticateUser = () => axios.get(AUTH_URL, { withCredentials: true });

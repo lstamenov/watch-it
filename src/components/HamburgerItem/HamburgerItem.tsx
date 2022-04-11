@@ -7,15 +7,13 @@ interface Props {
   title: string;
   path: string;
   isClicked: boolean;
-  onClick: Function;
 }
 
-const HamburgerItem: React.FC<Props> = ({ title, path, isClicked, onClick }) => {
+const HamburgerItem: React.FC<Props> = ({ title, path, isClicked }) => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
     navigate(path);
-    onClick();
   };
 
   return (

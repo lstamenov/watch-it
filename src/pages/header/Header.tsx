@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Logo from '../../components/logo/Logo';
 import NavButton from '../../components/navButton/NavButton';
 import SearchBar from './searchBar/SearchBar';
-import { AppBar, Menu, StyledEngineProvider } from '@mui/material';
+import { AppBar, StyledEngineProvider } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import styles from './Header.module.css';
-import HamburgerItem from '../../components/HamburgerItem/HamburgerItem';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import styles from './Header.module.css';
 
 enum UrlParams {
   HOME = '/',
@@ -18,69 +16,81 @@ enum UrlParams {
   GENRES = 'genres',
   SIGN_IN = 'login',
   SIGN_UP = 'register',
+  PROFILE = 'profile',
+}
+
+interface URLState {
+  '/': boolean;
+  movies: boolean;
+  shows: boolean;
+  genres: boolean;
+  login: boolean;
+  register: boolean;
+  profile: boolean;
+}
+
+interface Action {
+  type: UrlParams;
 }
 
 const Header: React.FC = () => {
   const path = useLocation().pathname;
-  const user: string | null = localStorage.getItem('user');
-  const reduxUser = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser);
+  const localUser = localStorage.getItem('user');
 
-
-  const [isHomeClicked, setIsHomeClicked] = useState(false);
-  const [isMoviesClicked, setIsMoviesClicked] = useState(false);
-  const [isShowsClicked, setIsShowsClicked] = useState(false);
-  const [isGenresClicked, setIsGenresClicked] = useState(false);
-  const [isSignInClicked, setIsSignInClicked] = useState(false);
-  const [isSignUpClicked, setIsSignUpClicked] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<Element>();
-
-  const clearPressedButtons = () => {
-    setIsMoviesClicked(false);
-    setIsShowsClicked(false);
-    setIsGenresClicked(false);
-    setIsHomeClicked(false);
-    setIsSignInClicked(false);
-    setIsSignUpClicked(false);
+  const initialURLState: URLState = {
+    '/': false,
+    movies: false,
+    shows: false,
+    genres: false,
+    login: false,
+    register: false,
+    profile: false,
   };
 
-  useEffect(() => {
-    clearPressedButtons();
-
-    if (path.includes(UrlParams.MOVIES)) {
-      setIsMoviesClicked(true);
-    } else if (path.includes(UrlParams.SHOWS)) {
-      setIsShowsClicked(true);
-    } else if (path.includes(UrlParams.GENRES)) {
-      setIsGenresClicked(true);
-    } else if (path.includes(UrlParams.SIGN_IN)) {
-      setIsSignInClicked(true);
-    } else if (path.includes(UrlParams.SIGN_UP)) {
-      setIsSignUpClicked(true);
-    } else {
-      setIsHomeClicked(true);
+  const urlReducer = (state: URLState, action: Action) => {
+    switch (action.type) {
+      case UrlParams.HOME:
+        return { ...initialURLState, '/': true };
+      case UrlParams.MOVIES:
+        return { ...initialURLState, movies: true };
+      case UrlParams.SHOWS:
+        return { ...initialURLState, shows: true };
+      case UrlParams.GENRES:
+        return { ...initialURLState, genres: true };
+      case UrlParams.SIGN_IN:
+        return { ...initialURLState, login: true };
+      case UrlParams.SIGN_UP:
+        return { ...initialURLState, register: true };
+      case UrlParams.PROFILE:
+        return { ...initialURLState, profile: true };
+      default:
+        return state;
     }
-  }, [path]);
+  };
+
+  const [urlState, dispatch] = useReducer(urlReducer, initialURLState);
 
   const items = [
     {
       title: 'Home',
       path: '/',
-      isClicked: isHomeClicked,
     },
     {
       title: 'Movies',
       path: '/movies',
-      isClicked: isMoviesClicked,
     },
     {
       title: 'Shows',
       path: '/shows',
-      isClicked: isShowsClicked,
     },
     {
       title: 'Genres',
       path: '/genres',
-      isClicked: isGenresClicked,
+    },
+    {
+      title: 'Profile',
+      path: '/profile',
     },
   ];
 
@@ -88,30 +98,60 @@ const Header: React.FC = () => {
     {
       title: 'Sign In',
       path: '/login',
-      isClicked: isSignInClicked,
     },
     {
       title: 'Sign Up',
       path: '/register',
-      isClicked: isSignUpClicked,
     },
   ];
 
-  const hanburgerOnClick = () => setAnchorEl(undefined);
+  type Items = typeof guestItems | typeof items;
+
+  const generateItems = (navItems: Items) => {
+    return navItems.map(item => {
+      const url = item.path;
+
+      if (url.includes(UrlParams.MOVIES)) {
+        return { ...item, isClicked: urlState[UrlParams.MOVIES] };
+      } else if (url.includes(UrlParams.SHOWS)) {
+        return { ...item, isClicked: urlState[UrlParams.SHOWS] };
+      } else if (url.includes(UrlParams.GENRES)) {
+        return { ...item, isClicked: urlState[UrlParams.GENRES] };
+      } else if (url.includes(UrlParams.PROFILE)) {
+        return { ...item, isClicked: urlState[UrlParams.PROFILE] };
+      } else if (url.includes(UrlParams.SIGN_IN)) {
+        return { ...item, isClicked: urlState[UrlParams.SIGN_IN] };
+      } else if (url.includes(UrlParams.SIGN_UP)) {
+        return { ...item, isClicked: urlState[UrlParams.SIGN_UP] };
+      } else {
+        return { ...item, isClicked: urlState[UrlParams.HOME] };
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (path.includes(UrlParams.MOVIES)) {
+      dispatch({ type: UrlParams.MOVIES });
+    } else if (path.includes(UrlParams.SHOWS)) {
+      dispatch({ type: UrlParams.SHOWS });
+    } else if (path.includes(UrlParams.GENRES)) {
+      dispatch({ type: UrlParams.GENRES });
+    } else if (path.includes(UrlParams.PROFILE)) {
+      dispatch({ type: UrlParams.PROFILE });
+    } else if (path.includes(UrlParams.SIGN_IN)) {
+      dispatch({ type: UrlParams.SIGN_IN });
+    } else if (path.includes(UrlParams.SIGN_UP)) {
+      dispatch({ type: UrlParams.SIGN_UP });
+    } else {
+      dispatch({ type: UrlParams.HOME });
+    }
+  }, [path]);
 
   const renderAuthenticatedHeader = () => (
     <>
       <div className={styles.main}>
         <Logo />
-        <FontAwesomeIcon
-          onClick={(e) => setAnchorEl(e.currentTarget)}
-          className={styles.menu}
-          icon={faBars}
-          aria-controls="basic-menu"
-          aria-haspopup="true"
-          aria-expanded="false"
-        />
-        {items.map((item) => (
+        {generateItems(items).map((item) => (
           <NavButton
             key={item.title}
             text={item.title}
@@ -119,33 +159,7 @@ const Header: React.FC = () => {
             isClicked={item.isClicked}
           />
         ))}
-        <Menu
-          PaperProps={{
-            style: {
-              backgroundColor: '#4F4F4F',
-              marginLeft: '-16px',
-              boxShadow: 'none',
-              width: '150px',
-              display: 'flex',
-              justifyContent: 'center',
-            },
-          }}
-          className={styles.dropdown}
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={!!anchorEl}
-          onClose={() => setAnchorEl(undefined)}
-        >
-          {items.map((item) => (
-            <HamburgerItem
-              key={item.title}
-              path={item.path}
-              title={item.title}
-              isClicked={item.isClicked}
-              onClick={hanburgerOnClick}
-            />
-          ))}
-        </Menu>
+        <Sidebar items={generateItems(items)} />
       </div>
       <SearchBar />
     </>
@@ -153,57 +167,23 @@ const Header: React.FC = () => {
 
   const renderGuestHeader = () => (
     <div className={styles.main}>
-        <Logo />
-        <FontAwesomeIcon
-          onClick={(e) => setAnchorEl(e.currentTarget)}
-          className={styles.menu}
-          icon={faBars}
-          aria-controls="basic-menu"
-          aria-haspopup="true"
-          aria-expanded="false"
+      <Logo />
+      {generateItems(guestItems).map((item) => (
+        <NavButton
+          key={item.title}
+          text={item.title}
+          path={item.path}
+          isClicked={item.isClicked}
         />
-        {guestItems.map((item) => (
-          <NavButton
-            key={item.title}
-            text={item.title}
-            path={item.path}
-            isClicked={item.isClicked}
-          />
-        ))}
-        <Menu
-          PaperProps={{
-            style: {
-              backgroundColor: '#4F4F4F',
-              marginLeft: '-16px',
-              boxShadow: 'none',
-              width: '150px',
-              display: 'flex',
-              justifyContent: 'center',
-            },
-          }}
-          className={styles.dropdown}
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={!!anchorEl}
-          onClose={() => setAnchorEl(undefined)}
-        >
-          {guestItems.map((item) => (
-            <HamburgerItem
-              key={item.title}
-              path={item.path}
-              title={item.title}
-              isClicked={item.isClicked}
-              onClick={hanburgerOnClick}
-            />
-          ))}
-        </Menu>
-      </div>
+      ))}
+      <Sidebar items={generateItems(guestItems)} />
+    </div>
   );
 
   return (
     <StyledEngineProvider injectFirst>
       <AppBar className={styles.header}>
-        {(user || reduxUser) ? renderAuthenticatedHeader() : renderGuestHeader()}
+        {user || localUser ? renderAuthenticatedHeader() : renderGuestHeader()}
       </AppBar>
     </StyledEngineProvider>
   );

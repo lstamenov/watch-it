@@ -35,6 +35,7 @@ export const auth = () => async (dispatch: Dispatch) => {
   try {
     const response = await service.authenticateUser();
     const user: User = await response.data;
+    localStorage.setItem('user', JSON.stringify(user));
 
     dispatch(userAuth(user));
   } catch (e) {
@@ -44,6 +45,7 @@ export const auth = () => async (dispatch: Dispatch) => {
 };
 
 export const logout = () => async (dispatch: Dispatch) => {
+  localStorage.removeItem('user');
   await service.logout();
   dispatch(userLoggedOut());
 };

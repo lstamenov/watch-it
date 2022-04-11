@@ -1,0 +1,12 @@
+.menu {
+  color: #AA7489;
+  font-size: 40px;
+  padding: 6px 0;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .menu {
+    display: block;
+  }
+}

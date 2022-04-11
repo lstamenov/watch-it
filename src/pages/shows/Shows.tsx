@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
+import Loader from '../../components/loader/Loader';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
 import { useAppSelector } from '../../store/hooks';
+import { selectLoader } from '../../store/loader/selectors';
 import {
   selectPopularShows,
   selectTopRatedShows,
@@ -18,6 +20,7 @@ const Shows: React.FC = () => {
   const dispatch = useDispatch();
 
   const isMobile = useMobile();
+  const isLoading = useAppSelector(selectLoader);
 
   useEffect(() => {
     dispatch(loadShowsPageData());
@@ -36,7 +39,7 @@ const Shows: React.FC = () => {
   );
 
   return (
-    <div className={styles.shows}>
+    isLoading ? <Loader /> : <div className={styles.shows}>
       {
         isMobile ? renderMobile() :
         <>

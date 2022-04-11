@@ -12,9 +12,12 @@ import {
 } from '../../store/trending/thunk';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
 import styles from './Home.module.css';
+import { selectLoader } from '../../store/loader/selectors';
+import Loader from '../../components/loader/Loader';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+  const isLoading = useAppSelector(selectLoader);
 
   const trending = useAppSelector(selectTrending);
   const trendingPage = useAppSelector(selectTrendingPage);
@@ -24,7 +27,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Container className={styles.home}>
+    isLoading ? <Loader /> : <Container className={styles.home}>
       <Typography className={styles.title} variant="h4">
         find something to watch
       </Typography>
