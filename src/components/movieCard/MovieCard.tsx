@@ -9,11 +9,10 @@ import {
 import { TrendingMovie, TrendingShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import CarouselGenres from '../carouselGenres/CarouselGenres';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import styles from './MovieCard.module.css';
 import PlayButton from '../PlayButton/PlayButton';
 import useMobile from '../../hooks/useMobile';
+import ListButton from '../ListButton/ListButton';
 
 interface Props {
   movie: TrendingMovie | TrendingShow;
@@ -48,7 +47,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
   };
 
   const getWatchUrl = () => {
-    return isShow() ? `/shows/play/${movie.id}` : `/movies/play/${movie.id}`;
+    return isShow() ? '/shows/' : '/movies/';
   };
 
   const renderCardContent = () => (
@@ -60,13 +59,8 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
           </Typography>
           <CarouselGenres genres={movie.genres} />
           <div className={styles.details}>
-            <FontAwesomeIcon
-              className={styles.icon}
-              size={'2x'}
-              color="white"
-              icon={faCircleInfo}
-            />
-            <PlayButton url={getWatchUrl()} />
+            <ListButton url={`${getWatchUrl()}${movie.id}`} />
+            <PlayButton url={`${getWatchUrl()}play/${movie.id}`} />
           </div>
         </div>
       )}

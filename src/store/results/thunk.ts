@@ -4,7 +4,7 @@ import * as service from '../../services/resultService';
 import * as showService from '../../services/showService';
 import * as movieService from '../../services/movieService';
 import { loading, loaded } from '../loader/actions';
-import { getGenreMovieResults, getGenreShowResults, getMoreGenreMovieResults, getMoreGenreShowResults } from './actions';
+import { getGenreMovieResults, getGenreShowResults, getMoreGenreMovieResults, getMoreGenreShowResults, getMoreSearchResults, getSearchResults } from './actions';
 
 const fetchMovieGenresById = async (id: number) => {
   const fullMovieResponse = await movieService.fetchFullMovieDetailsById(id);
@@ -87,5 +87,31 @@ export const loadMoreShowGenreResults = (genres: Genre[], page: number) => async
   const detailedResults = await Promise.all(detailedResultsResponse);
   
   dispatch(getMoreGenreShowResults(detailedResults, response.data.page));
+  dispatch(loaded());
+};
+
+export const loadSearchResults = (query: string, page: number = 1) => async (dispatch: Dispatch) => {
+  dispatch(loading());
+  const response = await service.fetchSearchResults(query, page);
+  const results: (TrendingMovie | TrendingShow)[] = await response.data.results;
+
+  const detailedResponse = results.filter(res => res.media_type !== 'person').map(async movie => {
+    if (movie.media_type === 'movie' ) {
+      const movieGenres: Genre[] = await fetchMovieGenresById(movie.id);
+      return { ...movie, genres: movieGenres };
+    }
+    const showGenres: Genre[] = await fetchShowGenresById(movie.id);
+    return { ...movie, genres: showGenres };
+  });
+
+  const detailedResults = await Promise.all(detailedResponse);
+
+  if (page === 1) {
+    dispatch(getSearchResults(detailedResults, response.data.page));
+  } else {
+    if (detailedResults.length !== 0) {
+      dispatch(getMoreSearchResults(detailedResults, page));
+    }
+  }
   dispatch(loaded());
 };

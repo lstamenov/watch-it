@@ -16,6 +16,7 @@ import AuthRoute from '../routes/AuthRoute';
 import { useDispatch } from 'react-redux';
 import { auth } from '../store/user/thunk';
 import Profile from '../pages/Profile/Profile';
+import SearchResults from '../pages/SearchResults/SearchResults';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const App: React.FC = () => {
       <div className="App">
         <Header />
         <Routes>
+        <Route path='/results' element={<ProtectedRoute><SearchResults /></ProtectedRoute>} />
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
           <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />

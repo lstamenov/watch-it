@@ -14,9 +14,16 @@ const initialState: ResultsState = {
       results: [],
     },
   },
+  searchResults: {
+    results: [],
+    page: 1,
+  },
 };
 
-export default (state: ResultsState = initialState, action: ResultAction): ResultsState => {
+export default (
+  state: ResultsState = initialState,
+  action: ResultAction,
+): ResultsState => {
   switch (action.type) {
     case ResultActionTypes.MOVIE_GENRES_RESULT_LOADED:
       const results = action.payload.results as TrendingMovie[];
@@ -28,7 +35,7 @@ export default (state: ResultsState = initialState, action: ResultAction): Resul
           page,
           results,
         },
-      };     
+      };
 
       return { ...state, genresResult: newMovieResults };
     case ResultActionTypes.SHOW_GENRES_RESULT_LOADED:
@@ -57,7 +64,7 @@ export default (state: ResultsState = initialState, action: ResultAction): Resul
           results: [...oldMovieResults, ...moreMovieResults],
         },
       };
-      
+
       return { ...state, genresResult: newMoreMovieResults };
     case ResultActionTypes.MORE_SHOW_GENRES_RESULT_LOADED:
       const moreTvResults = action.payload.results as TrendingShow[];
@@ -72,8 +79,28 @@ export default (state: ResultsState = initialState, action: ResultAction): Resul
           results: [...oldTvResults, ...moreTvResults],
         },
       };
-      
+
       return { ...state, genresResult: newMoreTvResults };
+    case ResultActionTypes.SEARCH_RESULTS_LOADED:
+      const searchResults = action.payload.results;
+      const searchPage = action.payload.page;
+
+      return {
+        ...state,
+        searchResults: { results: searchResults, page: searchPage },
+      };
+    case ResultActionTypes.MORE_SEARCH_RESULTS_LOADED:
+      const moreSearchResults = action.payload.results;
+      const newSearchResultsPage = action.payload.page;
+      const oldSearchResults = state.searchResults.results;
+      
+      return {
+        ...state,
+        searchResults: {
+          page: newSearchResultsPage,
+          results: [...oldSearchResults, ...moreSearchResults],
+        },
+      };
     default:
       return state;
   }

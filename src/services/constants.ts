@@ -33,6 +33,7 @@ export const GENRE_RESULTS_URL = `https://api.themoviedb.org/3/discover/movie?ap
 export const SHOW_GENRE_RESULTS_URL = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&with_genres=`; 
 export const LOAD_MORE_MOVIE_GENRE_RESULTS = (page: number) => `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=${page}&with_genres=`;
 export const LOAD_MORE_SHOW_GENRE_RESULTS = (page: number) => `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=${page}&with_genres=`;
+export const LOAD_SEARCH_RESULTS = (query: string, page: number) => ` https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
 
 export const LOAD_SHOW_EXTERNAL_LINKS = (id: number) => `https://api.themoviedb.org/3/tv/${id}/external_ids?api_key=${API_KEY}&language=en-US`;
 export const LOAD_SIMILAR_MOVIES = (id: number) => ` https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
