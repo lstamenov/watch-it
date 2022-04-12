@@ -14,6 +14,7 @@ export interface ResultsState {
   searchResults: {
     results: (TrendingMovie | TrendingShow)[];
     page: number;
+    query: string;
   };
 }
 
@@ -25,11 +26,58 @@ export enum ResultActionTypes {
   SEARCH_RESULTS_LOADED,
   MORE_SEARCH_RESULTS_LOADED,
 }
-
-export interface ResultAction {
-  type: ResultActionTypes,
+export interface MovieGenresLoadedDispatchType {
+  type: ResultActionTypes.MOVIE_GENRES_RESULT_LOADED;
   payload: {
-    results: TrendingMovie[] | TrendingShow[],
-    page: number,
-  },
+    results: TrendingMovie[] | TrendingShow[];
+    page: number;
+  };
 }
+
+export interface ShowGenresLoadedDispatchType {
+  type: ResultActionTypes.SHOW_GENRES_RESULT_LOADED;
+  payload: {
+    results: TrendingMovie[] | TrendingShow[];
+    page: number;
+  };
+}
+export interface MoreMovieGenresLoadedDispatchType {
+  type: ResultActionTypes.MORE_MOVIE_GENRES_RESULT_LOADED;
+  payload: {
+    results: TrendingMovie[] | TrendingShow[];
+    page: number;
+  };
+}
+export interface MoreShowGenresLoadedDispatchType {
+  type: ResultActionTypes.MORE_SHOW_GENRES_RESULT_LOADED;
+  payload: {
+    results: TrendingMovie[] | TrendingShow[];
+    page: number;
+  };
+}
+
+export interface SearchResultsDispatchType {
+  type: ResultActionTypes.SEARCH_RESULTS_LOADED;
+  payload: {
+    results: TrendingMovie[] | TrendingShow[];
+    page: number;
+    query: string;
+  };
+}
+
+export interface MoreSearchResultsDispatchType {
+  type: ResultActionTypes.MORE_SEARCH_RESULTS_LOADED;
+  payload: {
+    results: TrendingMovie[] | TrendingShow[];
+    page: number;
+    query: string;
+  };
+}
+
+export type ResultsDispatchType =
+  | MovieGenresLoadedDispatchType
+  | ShowGenresLoadedDispatchType
+  | MoreMovieGenresLoadedDispatchType
+  | MoreShowGenresLoadedDispatchType
+  | SearchResultsDispatchType
+  | MoreSearchResultsDispatchType;

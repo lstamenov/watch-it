@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/default-param-last */
 import { TrendingMovie, TrendingShow } from '../../types/types';
-import { ResultAction, ResultActionTypes, ResultsState } from './types';
+import { ResultsDispatchType, ResultActionTypes, ResultsState } from './types';
 
 const initialState: ResultsState = {
   genresResult: {
@@ -17,12 +17,13 @@ const initialState: ResultsState = {
   searchResults: {
     results: [],
     page: 1,
+    query: '',
   },
 };
 
 export default (
   state: ResultsState = initialState,
-  action: ResultAction,
+  action: ResultsDispatchType,
 ): ResultsState => {
   switch (action.type) {
     case ResultActionTypes.MOVIE_GENRES_RESULT_LOADED:
@@ -84,23 +85,32 @@ export default (
     case ResultActionTypes.SEARCH_RESULTS_LOADED:
       const searchResults = action.payload.results;
       const searchPage = action.payload.page;
+      const searchQuery = action.payload.query;
 
       return {
         ...state,
-        searchResults: { results: searchResults, page: searchPage },
+        searchResults: {
+          results: searchResults,
+          page: searchPage,
+          query: searchQuery,
+        },
       };
     case ResultActionTypes.MORE_SEARCH_RESULTS_LOADED:
       const moreSearchResults = action.payload.results;
       const newSearchResultsPage = action.payload.page;
+      const query = action.payload.query;
       const oldSearchResults = state.searchResults.results;
-      
-      return {
+
+      return moreSearchResults ? {
         ...state,
         searchResults: {
           page: newSearchResultsPage,
-          results: [...oldSearchResults, ...moreSearchResults],
+          results: [...oldSearchResults, ...moreSearchResults].filter((movie, index, movies) => {
+            return index === movies.findIndex(m => m.id === movie.id);
+          }),
+          query,
         },
-      };
+      } : state;
     default:
       return state;
   }

@@ -9,14 +9,15 @@ interface Props {
   movies: (TrendingMovie | TrendingShow)[],
   loadMovies: Function,
   page: number,
+  query?: string;
 }
 
-const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page }) => {
+const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page, query }) => {
   const dispatch = useDispatch();
 
   const { observe } = useInView({
     onEnter: () => {
-      dispatch(loadMovies(page + 1));
+      dispatch(query !== '' ? loadMovies(query, page + 1) : loadMovies(page + 1));
     },
   });
 

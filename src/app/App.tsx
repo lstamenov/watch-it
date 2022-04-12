@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../store/user/thunk';
 import Profile from '../pages/Profile/Profile';
 import SearchResults from '../pages/SearchResults/SearchResults';
+import NotFound from '../pages/NotFound/NotFound';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const App: React.FC = () => {
       <div className="App">
         <Header />
         <Routes>
-        <Route path='/results' element={<ProtectedRoute><SearchResults /></ProtectedRoute>} />
+          <Route path='/results' element={<ProtectedRoute><SearchResults /></ProtectedRoute>} />
           <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
           <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
@@ -40,6 +41,7 @@ const App: React.FC = () => {
           <Route path="/shows" element={<ProtectedRoute><Shows /></ProtectedRoute>} />
           <Route path="/genres" element={<ProtectedRoute><Genres /></ProtectedRoute>} />
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
     </StyledEngineProvider>

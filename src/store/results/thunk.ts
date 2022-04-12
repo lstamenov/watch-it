@@ -91,11 +91,13 @@ export const loadMoreShowGenreResults = (genres: Genre[], page: number) => async
 };
 
 export const loadSearchResults = (query: string, page: number = 1) => async (dispatch: Dispatch) => {
+  if (query === '') return;
+  
   dispatch(loading());
   const response = await service.fetchSearchResults(query, page);
   const results: (TrendingMovie | TrendingShow)[] = await response.data.results;
 
-  const detailedResponse = results.filter(res => res.media_type !== 'person').map(async movie => {
+  const detailedResponse = results.filter((res, index, self) => res.media_type !== 'person' && index !== self.length - 1).map(async movie => {
     if (movie.media_type === 'movie' ) {
       const movieGenres: Genre[] = await fetchMovieGenresById(movie.id);
       return { ...movie, genres: movieGenres };
@@ -107,10 +109,10 @@ export const loadSearchResults = (query: string, page: number = 1) => async (dis
   const detailedResults = await Promise.all(detailedResponse);
 
   if (page === 1) {
-    dispatch(getSearchResults(detailedResults, response.data.page));
+    dispatch(getSearchResults(detailedResults, response.data.page, query));
   } else {
     if (detailedResults.length !== 0) {
-      dispatch(getMoreSearchResults(detailedResults, page));
+      dispatch(getMoreSearchResults(detailedResults, page, query));
     }
   }
   dispatch(loaded());

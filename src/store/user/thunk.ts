@@ -36,9 +36,11 @@ export const auth = () => async (dispatch: Dispatch) => {
     const response = await service.authenticateUser();
     const user: User = await response.data;
     localStorage.setItem('user', JSON.stringify(user));
-
+    
     dispatch(userAuth(user));
   } catch (e) {
+    console.log(e);
+    
     localStorage.removeItem('user');
     dispatch(userAuthFailed(''));
   }

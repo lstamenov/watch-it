@@ -33,18 +33,20 @@ export const getMoreGenreShowResults = (results: TrendingShow[], page: number) =
   },
 });
 
-export const getSearchResults = (results: (TrendingMovie | TrendingShow)[], page: number) => ({
+export const getSearchResults = (results: (TrendingMovie | TrendingShow)[], page: number, query: string) => ({
   type: ResultActionTypes.SEARCH_RESULTS_LOADED,
   payload: {
     results,
     page,
+    query,
   },
 });
 
-export const getMoreSearchResults = (results: (TrendingMovie | TrendingShow)[], page: number) => ({
+export const getMoreSearchResults = (results: (TrendingMovie | TrendingShow)[], page: number, query: string) => ({
   type: ResultActionTypes.MORE_SEARCH_RESULTS_LOADED,
   payload: {
     results,
     page,
+    query,
   },
 });

@@ -1,3 +1,9 @@
 .wrapper{
   padding-top: 80px;
 }
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
