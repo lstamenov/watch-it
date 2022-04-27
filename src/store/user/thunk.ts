@@ -24,6 +24,7 @@ export const register = (credentials: RegisterCredentials) => async (dispatch: D
   dispatch(loading());
   try {
     await service.register(credentials);
+    dispatch(userLoggedInFailed('success'));
   } catch (e: any) {
     const message = e.response.data.message;
     dispatch(userLoggedInFailed(message));
@@ -39,8 +40,6 @@ export const auth = () => async (dispatch: Dispatch) => {
     
     dispatch(userAuth(user));
   } catch (e) {
-    console.log(e);
-    
     localStorage.removeItem('user');
     dispatch(userAuthFailed(''));
   }

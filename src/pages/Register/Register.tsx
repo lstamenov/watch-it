@@ -10,34 +10,36 @@ import TransparentLoader from '../../components/TransparentLoader/TransparentLoa
 import { useDispatch } from 'react-redux';
 import { register } from '../../store/user/thunk';
 import { useNavigate } from 'react-router-dom';
+import useRegisterValidations from '../../hooks/useRegisterValidations';
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [hasError, setHasError] = useState(false);
   const [numberOfTries, setNumberOfTries] = useState(0);
+  const { errorMessages, isValid } = useRegisterValidations(username, email, password, confirmPassword);
 
   const isLoading = useAppSelector(selectLoader);
   const message = useAppSelector(selectMessage);
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    setHasError(message !== '' && numberOfTries !== 0 ? true : false);
-  }, [message, numberOfTries]);
-
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-
-  useEffect(() => {
-    setHasError(message !== '' && numberOfTries !== 0 ? true : false);
-  }, [message, numberOfTries]);
-
-  useEffect(() => {
+    if (message !== 'succes' && numberOfTries !== 0) {
+      setHasError(true);
+    }
     
+    if (message === 'success') {
+      setHasError(false);
+      navigate('/login');
+    }
+  }, [message, numberOfTries]);
+
+  useEffect(() => {
     if (user) {
       navigate('/');
     }
@@ -68,9 +70,11 @@ const Register: React.FC = () => {
     },
   ];
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     setNumberOfTries(numberOfTries + 1);
-    dispatch(register({ username, email, password, confirmPassword }));
+    if (isValid) {
+      dispatch(register({ username, email, password, confirmPassword }));
+    }
   };
 
   return (
@@ -79,6 +83,7 @@ const Register: React.FC = () => {
       <Link text={'Already have an account?'} url='/login' />
       {isLoading && <TransparentLoader />}
       {hasError && <ErrorMessage message={message} />}
+      {(!isValid && numberOfTries !== 0) && errorMessages.map(mess => <ErrorMessage key={mess} message={mess} />)}
     </FormLayout>
   );
 };

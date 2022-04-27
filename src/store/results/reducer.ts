@@ -83,6 +83,9 @@ export default (
 
       return { ...state, genresResult: newMoreTvResults };
     case ResultActionTypes.SEARCH_RESULTS_LOADED:
+      if (!action.payload) {
+        return state;
+      }
       const searchResults = action.payload.results;
       const searchPage = action.payload.page;
       const searchQuery = action.payload.query;

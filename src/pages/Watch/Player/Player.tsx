@@ -90,7 +90,6 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
         src={showURL}
         frameBorder="0"
         allowFullScreen
-        sandbox="allow-scripts allow-forms allow-same-origin"
       ></iframe>
     </>
   ) : (
@@ -99,7 +98,6 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
       src={movieURL}
       frameBorder="0"
       allowFullScreen
-      sandbox="allow-scripts allow-forms allow-same-origin"
     ></iframe>
   );
 };

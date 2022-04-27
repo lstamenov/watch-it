@@ -10,7 +10,9 @@ const Profile: React.FC = () => {
   
   const onClick = () => {
     dispatch(logout());
-    navigate('/');    
+    setTimeout(() => {
+      navigate('/login');   
+    }, 500);
   };
 
   return (

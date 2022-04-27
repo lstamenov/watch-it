@@ -10,7 +10,6 @@ import Movies from '../pages/movies/Movies';
 import Shows from '../pages/shows/Shows';
 import MoviePlayer from '../pages/Watch/Movie/MoviePlayer';
 import ShowPlayer from '../pages/Watch/Show/ShowPlayer';
-import './App.css';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import AuthRoute from '../routes/AuthRoute';
 import { useDispatch } from 'react-redux';
@@ -18,6 +17,8 @@ import { auth } from '../store/user/thunk';
 import Profile from '../pages/Profile/Profile';
 import SearchResults from '../pages/SearchResults/SearchResults';
 import NotFound from '../pages/NotFound/NotFound';
+import Movie from '../pages/Movie/Movie';
+import './App.css';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -31,17 +32,95 @@ const App: React.FC = () => {
       <div className="App">
         <Header />
         <Routes>
-          <Route path='/results' element={<ProtectedRoute><SearchResults /></ProtectedRoute>} />
-          <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
-          <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
-          <Route path='/shows/play/:id' element={<ProtectedRoute><ShowPlayer /></ProtectedRoute>} />
-          <Route path="/movies/play/:id" element={<ProtectedRoute><MoviePlayer /></ProtectedRoute>} />
-          <Route path="/movies" element={<ProtectedRoute><Movies /></ProtectedRoute>} />
-          <Route path="/shows" element={<ProtectedRoute><Shows /></ProtectedRoute>} />
-          <Route path="/genres" element={<ProtectedRoute><Genres /></ProtectedRoute>} />
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path='*' element={<NotFound />} />
+          <Route
+            path="/results"
+            element={
+              <ProtectedRoute>
+                <SearchResults />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <AuthRoute>
+                <Register />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <AuthRoute>
+                <Login />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/shows/play/:id"
+            element={
+              <ProtectedRoute>
+                <ShowPlayer />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/movies/play/:id"
+            element={
+              <ProtectedRoute>
+                <MoviePlayer />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/movies/:id"
+            element={
+              <ProtectedRoute>
+                <Movie />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute>
+                <Movies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/shows"
+            element={
+              <ProtectedRoute>
+                <Shows />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/genres"
+            element={
+              <ProtectedRoute>
+                <Genres />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </StyledEngineProvider>
