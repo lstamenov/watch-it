@@ -3,14 +3,14 @@ import { Typography } from '@mui/material';
 import styles from './OverviewDetail.module.css';
 
 interface Props {
-  key: string;
+  field: string;
   value: string;
 }
 
-const OverviewDetaill: React.FC<Props> = ({ key, value }) => (
+const OverviewDetaill: React.FC<Props> = ({ field, value }) => (
   <div className={styles.container}>
-    <Typography variant='body1'>{key}:</Typography>
-    <Typography variant='body1'>{value}</Typography>
+    <Typography className={styles.field} variant='subtitle1'>{field}:</Typography>
+    <Typography className={styles.field} variant='subtitle1'>{value}</Typography>
   </div>
 );
 

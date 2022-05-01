@@ -14,6 +14,8 @@ export const POPULAR_MOVIES_URL: string = `https://api.themoviedb.org/3/movie/po
 export const LATEST_MOVIES_URL: string = `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US&page=`;
 export const UPCOMING_MOVIES_URL: string = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=`;
 export const MOVIE_URL = (id: number) => `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
+export const MOVIE_TRAILER_URL = (id: number) => `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`;
+export const MOVIE_CAST_URL = (id: number) => `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`;
 
 export const POPULAR_SHOWS_URL: string = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
 export const TOP_RATED_SHOWS_URL: string = `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=1`;

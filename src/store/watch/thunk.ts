@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import * as service from '../../services/watchService';
 import * as showService from '../../services/showService';
 import * as movieService from '../../services/movieService';
-import { Movie, TvShow } from '../../types/types';
+import { Actor, Movie, TvShow, Video } from '../../types/types';
 import { loaded, loading } from '../loader/actions';
 import { RootState } from '../store';
 import { currentMovieLoaded, currentShowLoaded, movieRecommendationsLoaded, showRecommendationsLoaded, similarMoviesLoaded, similarShowsLoaded } from './actions';
@@ -24,7 +24,16 @@ export const loadCurrentMovie = (id: number) => async (dispatch: Dispatch) => {
   
   const response = await service.fetchMovieById(id);
   const movie: Movie = await response.data;
-  
+
+  const trailersResponse = await movieService.fetchMovieTrailers(id);
+  const trailers: Video[] = await trailersResponse.data.results;
+  const trailer = trailers.find(t => t.site === 'YouTube' && t.type === 'Trailer');
+  movie.trailer = trailer;
+
+  const creditsResponse = await movieService.fetchMovieCast(id);
+  const cast: Actor[] = await creditsResponse.data.cast; 
+  movie.cast = cast;
+
   dispatch(currentMovieLoaded(movie));
   dispatch(loaded());
 };

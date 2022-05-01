@@ -1,0 +1,21 @@
+.card{
+  display: flex;
+  background-color:#4F4F4F;
+  padding: 2px 10px;
+  width: 400px;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.card:hover{
+  background-color:#4f4f4fb4;
+}
+
+.wrapper{
+  margin-left: 15px;
+}
+
+.img{
+  height: 100px;
+  width: 100px;
+}

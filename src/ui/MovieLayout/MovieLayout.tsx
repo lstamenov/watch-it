@@ -4,6 +4,7 @@ import ContentOverviewLayout from '../../layouts/ContentOverviewLayout/ContentOv
 import PosterLayout from '../../layouts/PosterLayout/PosterLayout';
 import { Movie } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
+import OverviewLayout from '../OverviewLayout/OverviewLayout';
 import styles from './MovieLayout.module.css';
 
 interface Props {
@@ -15,27 +16,23 @@ interface Props {
 const MovieLayout: React.FC<Props> = ({ movie }) => {
   const fields = [
     {
-      key: 'Title',
-      value: movie.title,
-    },
-    {
-      key: 'Runtime',
+      field: 'Runtime',
       value: `${movie.runtime} minutes`,
     },
     {
-      key: 'Rating',
+      field: 'Rating',
       value: String(movie.vote_average),
     },
     {
-      key: 'Release date',
+      field: 'Release date',
       value: movie.release_date,
     },
     {
-      key: 'Budget',
+      field: 'Budget',
       value: `${movie.budget}$`,
     },
     {
-      key: 'Revenue',
+      field: 'Revenue',
       value: `${movie.revenue}$`,
     },
   ];
@@ -45,11 +42,15 @@ const MovieLayout: React.FC<Props> = ({ movie }) => {
   return (
     <BackgroundLayout path={movie.backdrop_path}>
       <div className={styles.container}>
-        <PosterLayout
-          image={getMoviePosterPath(movie?.poster_path)}
-        >
-          <ContentOverviewLayout fields={fields} />
+        <PosterLayout image={getMoviePosterPath(movie?.poster_path)}>
+          <ContentOverviewLayout
+            genres={movie.genres}
+            overview={movie.overview}
+            title={movie.title}
+            fields={fields}
+          />
         </PosterLayout>
+       <OverviewLayout cast={movie.cast} trailer={movie.trailer?.key} />
       </div>
     </BackgroundLayout>
   );
