@@ -13,7 +13,7 @@ interface Props {
   query?: string;
 }
 
-const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page, query }) => {
+const InfiniteScrollLayout: React.FC<Props> = ({ movies = [], loadMovies, page, query }) => {
   const dispatch = useDispatch();
 
   const { observe } = useInView({
@@ -24,7 +24,7 @@ const InfiniteScrollLayout: React.FC<Props> = ({ movies, loadMovies, page, query
 
   return (
     <>
-      {movies.length === 0 && <NoResults />}
+      {movies?.length === 0 && <NoResults />}
       <ResultsLayout>
         {movies && movies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
         <div style={{ height: '10px' }} ref={observe}></div>
