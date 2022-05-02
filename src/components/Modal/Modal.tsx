@@ -1,6 +1,6 @@
 import { Typography, Divider, Container } from '@mui/material';
 import React from 'react';
-import { Movie, TvShow } from '../../types/types';
+import { Genre } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import CarouselGenres from '../carouselGenres/CarouselGenres';
 import Dialog from '../Dialog/Dialog';
@@ -9,16 +9,22 @@ import PlayButton from '../PlayButton/PlayButton';
 import styles from './Modal.module.css';
 
 interface Props {
+  id: number;
   title: string;
-  content: Movie | TvShow;
+  overview: string;
+  genres: Genre[];
+  backdrop_path: string;
   isClicked: boolean;
   setIsClicked: Function;
   isShow?: boolean;
 }
 
 const Modal: React.FC<Props> = ({
+  id,
   title,
-  content,
+  overview,
+  genres,
+  backdrop_path,
   isClicked,
   setIsClicked,
   children,
@@ -31,7 +37,7 @@ const Modal: React.FC<Props> = ({
   >
     <img
       className={styles.modalPicture}
-      src={getMoviePosterPath(content.backdrop_path)}
+      src={getMoviePosterPath(backdrop_path)}
       alt="backdrop"
     />
     <Typography className={styles.title} id="modal-modal-title" variant="h5">
@@ -40,22 +46,22 @@ const Modal: React.FC<Props> = ({
     <Divider />
     <Container>
       <Typography variant="body1" className={styles.overview}>
-        {content.overview.length > 500
-          ? content.overview.substring(0, 500) + '...'
-          : content.overview}
+        {overview.length > 500
+          ? overview.substring(0, 500) + '...'
+          : overview}
       </Typography>
       <Divider />
-      <CarouselGenres genres={content.genres} numberToShow={3} />
+      <CarouselGenres genres={genres} numberToShow={3} />
       <Divider />
       <div className={styles.wrapper}>{children}</div>
       <div className={styles.container}>
         <PlayButton
           url={
-            isShow ? `/shows/play/${content.id}` : `/movies/play/${content.id}`
+            isShow ? `/shows/play/${id}` : `/movies/play/${id}`
           }
         />
         <ListButton
-          url={isShow ? `/shows/${content.id}` : `/movies/${content.id}`}
+          url={isShow ? `/shows/${id}` : `/movies/${id}`}
         />
       </div>
     </Container>

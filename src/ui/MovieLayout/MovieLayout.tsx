@@ -37,20 +37,19 @@ const MovieLayout: React.FC<Props> = ({ movie }) => {
     },
   ];
 
-  console.log(movie);
-
   return (
     <BackgroundLayout path={movie.backdrop_path}>
       <div className={styles.container}>
         <PosterLayout image={getMoviePosterPath(movie?.poster_path)}>
           <ContentOverviewLayout
+            id={movie.id}
             genres={movie.genres}
             overview={movie.overview}
             title={movie.title}
             fields={fields}
           />
         </PosterLayout>
-       <OverviewLayout cast={movie.cast} trailer={movie.trailer?.key} />
+       <OverviewLayout companies={movie.production_companies} cast={movie.cast} trailer={movie.trailer?.key} />
       </div>
     </BackgroundLayout>
   );

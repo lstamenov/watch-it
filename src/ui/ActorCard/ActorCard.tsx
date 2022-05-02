@@ -21,7 +21,7 @@ export const ActorCard: React.FC<Props> = ({ actor }) => {
         />
         <div className={styles.wrapper}>
           <Typography color='white' variant='h5'>{actor.name}</Typography>
-          <Typography color='white' variant='h5'>as {actor.character}</Typography>
+          <Typography color='white' variant='h6'>as {actor.character}</Typography>
         </div>
       </Card>
     </Grid>

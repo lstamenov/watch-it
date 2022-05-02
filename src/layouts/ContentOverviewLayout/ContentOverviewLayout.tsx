@@ -1,13 +1,17 @@
-import { Divider, Typography } from '@mui/material';
 import React from 'react';
+import { Divider, Typography } from '@mui/material';
 import CarouselGenres from '../../components/carouselGenres/CarouselGenres';
 import OverviewDetaill from '../../components/OverviewDetaill';
+import PlayButton from '../../components/PlayButton/PlayButton';
 import { Genre } from '../../types/types';
-import Video from '../../ui/Video/Video';
+import { AddToListButton } from '../../components/AddToListButton/AddToListButton';
+import { default as AddToListButtonUI } from '../../ui/AddToListButton/AddToListButton';
+import MovieActions from '../../ui/MovieActions/MovieActions';
 import { formatMoney } from '../../utils/movieUtils';
 import styles from './ContentOverviewLayout.module.css';
 
 interface Props {
+  id: number;
   title: string;
   overview: string;
   genres: Genre[];
@@ -15,15 +19,14 @@ interface Props {
     field: string;
     value: string;
   }[];
-  trailer?: string;
 }
 
 const ContentOverviewLayout: React.FC<Props> = ({
+  id,
   title,
   overview,
   genres,
   fields,
-  trailer,
 }) => (
   <div className={styles.container}>
     <div>
@@ -32,6 +35,12 @@ const ContentOverviewLayout: React.FC<Props> = ({
     </Typography>
     <Divider />
     <CarouselGenres genres={genres} numberToShow={4} />
+    <MovieActions>
+      <PlayButton url={`/movies/play/${id}`} />
+      <AddToListButton>
+        {(props) => <AddToListButtonUI {...props} movieTitle={title} />}
+      </AddToListButton>
+    </MovieActions>
     </div>
     <Divider />
     <div>
@@ -60,7 +69,6 @@ const ContentOverviewLayout: React.FC<Props> = ({
       <Typography textAlign="center" className={styles.overview}>
         {overview}
       </Typography>
-      {trailer && <Video src={trailer} />}
     </div>
   </div>
 );

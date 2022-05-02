@@ -13,6 +13,8 @@ import styles from './MovieCard.module.css';
 import PlayButton from '../PlayButton/PlayButton';
 import useMobile from '../../hooks/useMobile';
 import ListButton from '../ListButton/ListButton';
+import Modal from '../Modal/Modal';
+import CarouselDetail from '../carouselDetail/CarouselDetail';
 
 interface Props {
   movie: TrendingMovie | TrendingShow;
@@ -71,17 +73,16 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     <StyledEngineProvider injectFirst>
       <Grid item md={3} xs={6} sm={4}>
         {isMobile ? (
-          <Card
-            onClick={onClick}
-            className={styles.card}
-            elevation={3}
-          >
+          <Card onClick={onClick} className={styles.card} elevation={3}>
             <CardMedia
               onClick={onClick}
               image={getMoviePosterPath(movie.poster_path)}
-              className={isHovered ? styles.smallPoster : styles.bigPoster}
+              className={styles.bigPoster}
             />
-            {renderCardContent()}
+            <Modal title={getTitle()} {...movie} isClicked={isHovered} setIsClicked={setIsHovered}>
+              <CarouselDetail value={movie.original_language.toUpperCase()} />
+              <CarouselDetail value={`${movie.vote_average}`} />
+            </Modal>
           </Card>
         ) : (
           <Card

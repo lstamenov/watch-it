@@ -4,6 +4,7 @@ import { default as MovieLayoutUI } from '../../ui/MovieLayout/MovieLayout';
 import Loader from '../../components/loader/Loader';
 import NotFound from '../NotFound/NotFound';
 import { Movie as MovieType } from '../../types/types';
+import Page from '../../ui/Page/Page';
 
 const Movie: React.FC = () => {
   const renderContent = (
@@ -25,19 +26,21 @@ const Movie: React.FC = () => {
   };
 
   return (
-    <MovieLayout>
-      {(props) => {
-        return props.isLoading ? (
-          <Loader />
-        ) : (
-          renderContent(
-            props.movie,
-            props.similarMovies,
-            props.recommendedMovies,
-          )
-        );
-      }}
-    </MovieLayout>
+    <Page>
+      <MovieLayout>
+        {(props) => {
+          return props.isLoading ? (
+            <Loader />
+          ) : (
+            renderContent(
+              props.movie,
+              props.similarMovies,
+              props.recommendedMovies,
+            )
+          );
+        }}
+      </MovieLayout>
+    </Page>
   );
 };
 

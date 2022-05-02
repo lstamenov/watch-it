@@ -18,7 +18,7 @@ const MobileShowCard: React.FC<Props> = ({ show }) => {
       <Modal
         title={show.name}
         isShow
-        content={show}
+        {...show}
         isClicked={isClicked}
         setIsClicked={setIsClicked}
       >

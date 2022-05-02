@@ -24,7 +24,6 @@ const MovieLayout: React.FC<Props> = ({ children }) => {
   const similarMovies: Movie[] = useAppSelector(selectSimilarMovies);
   const recommendedMovies: Movie[] = useAppSelector(selectMovieRecommendations);
 
-  
   useEffect(() => {
     dispatch(loadCurrentMovie(id));
   }, [id]);
