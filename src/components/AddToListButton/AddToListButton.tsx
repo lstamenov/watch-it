@@ -8,7 +8,7 @@ interface Props {
   }) => JSX.Element;
 }
 
-export const AddToListButton: React.FC<Props> = ({ children }) => {
+const AddToListButton: React.FC<Props> = ({ children }) => {
   const [shouldShowMessage, setShouldShowMessage] = useState(false);
 
   const handleClick = () => setShouldShowMessage(true);
@@ -21,3 +21,5 @@ export const AddToListButton: React.FC<Props> = ({ children }) => {
     onMessageClosed: handleCloseMessage,
   });
 };
+
+export default AddToListButton;

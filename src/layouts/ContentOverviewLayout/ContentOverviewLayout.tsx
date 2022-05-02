@@ -4,7 +4,7 @@ import CarouselGenres from '../../components/carouselGenres/CarouselGenres';
 import OverviewDetaill from '../../components/OverviewDetaill';
 import PlayButton from '../../components/PlayButton/PlayButton';
 import { Genre } from '../../types/types';
-import { AddToListButton } from '../../components/AddToListButton/AddToListButton';
+import AddToListButton from '../../components/AddToListButton/AddToListButton';
 import { default as AddToListButtonUI } from '../../ui/AddToListButton/AddToListButton';
 import MovieActions from '../../ui/MovieActions/MovieActions';
 import { formatMoney } from '../../utils/movieUtils';

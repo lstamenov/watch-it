@@ -2,6 +2,8 @@ import { Typography, Divider, Container } from '@mui/material';
 import React from 'react';
 import { Genre } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
+import AddToListButton from '../AddToListButton/AddToListButton';
+import { default as AddToListButtonUI } from '../../ui/AddToListButton/AddToListButton';
 import CarouselGenres from '../carouselGenres/CarouselGenres';
 import Dialog from '../Dialog/Dialog';
 import ListButton from '../ListButton/ListButton';
@@ -63,6 +65,9 @@ const Modal: React.FC<Props> = ({
         <ListButton
           url={isShow ? `/shows/${id}` : `/movies/${id}`}
         />
+        <AddToListButton>
+          {(props) => <AddToListButtonUI {...props} movieTitle={title} />}
+        </AddToListButton>
       </div>
     </Container>
   </Dialog>
