@@ -9,11 +9,11 @@ interface Props {
 }
 
 export const ProductionCompany: React.FC<Props> = ({ company }) => {
-  return (
+  return company.logo_path ? (
     <Card elevation={4} className={styles.card}>
       <img className={styles.img} src={getMoviePosterPath(company.logo_path)} />
     </Card>
-  );
+  ) : null;
 };
 
 export default ProductionCompany;

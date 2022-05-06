@@ -11,18 +11,24 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../store/user/thunk';
 import { useNavigate } from 'react-router-dom';
 import useRegisterValidations from '../../hooks/useRegisterValidations';
+import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hasError, setHasError] = useState(false);
   const [numberOfTries, setNumberOfTries] = useState(0);
-  const { errorMessages, isValid } = useRegisterValidations(username, email, password, confirmPassword);
+  const { errorMessages, isValid } = useRegisterValidations(
+    username,
+    email,
+    password,
+    confirmPassword,
+  );
 
   const isLoading = useAppSelector(selectLoader);
   const message = useAppSelector(selectMessage);
@@ -32,7 +38,7 @@ const Register: React.FC = () => {
     if (message !== 'succes' && numberOfTries !== 0) {
       setHasError(true);
     }
-    
+
     if (message === 'success') {
       setHasError(false);
       navigate('/login');
@@ -78,13 +84,19 @@ const Register: React.FC = () => {
   };
 
   return (
-    <FormLayout title='sign up'>
-      <Form btnText='sign up' inputs={items} onSubmit={onSubmit}/>
-      <Link text={'Already have an account?'} url='/login' />
-      {isLoading && <TransparentLoader />}
-      {hasError && <ErrorMessage message={message} />}
-      {(!isValid && numberOfTries !== 0) && errorMessages.map(mess => <ErrorMessage key={mess} message={mess} />)}
-    </FormLayout>
+    <AnimatedPage>
+      <FormLayout title="sign up">
+        <Form btnText="sign up" inputs={items} onSubmit={onSubmit} />
+        <Link text={'Already have an account?'} url="/login" />
+        {isLoading && <TransparentLoader />}
+        {hasError && <ErrorMessage message={message} />}
+        {!isValid &&
+          numberOfTries !== 0 &&
+          errorMessages.map((mess) => (
+            <ErrorMessage key={mess} message={mess} />
+          ))}
+      </FormLayout>
+    </AnimatedPage>
   );
 };
 

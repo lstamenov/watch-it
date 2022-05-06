@@ -1,4 +1,8 @@
 import React from 'react';
+import Carousel from '../../components/carousel/Carousel';
+import CarouselMovie from '../../components/carousel/carouselMovie/CarouselMovie';
+import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
+import useMobile from '../../hooks/useMobile';
 import BackgroundLayout from '../../layouts/BackgroundLayout';
 import ContentOverviewLayout from '../../layouts/ContentOverviewLayout/ContentOverviewLayout';
 import PosterLayout from '../../layouts/PosterLayout/PosterLayout';
@@ -13,7 +17,9 @@ interface Props {
   recommendedMovies: Movie[];
 }
 
-const MovieLayout: React.FC<Props> = ({ movie }) => {
+const MovieLayout: React.FC<Props> = ({ movie, similarMovies, recommendedMovies }) => {
+  const isMobile = useMobile();
+
   const fields = [
     {
       field: 'Runtime',
@@ -37,6 +43,36 @@ const MovieLayout: React.FC<Props> = ({ movie }) => {
     },
   ];
 
+  const renderSuggestedDesktop = () => (
+    <>
+      {similarMovies.length > 0 && (
+        <Carousel title="Similar Movies" isTransparent>
+          {similarMovies.map((m) => (
+            <CarouselMovie movie={m} key={m.id} />
+          ))}
+        </Carousel>
+      )}
+      {recommendedMovies.length > 0 && (
+        <Carousel title="Recommended Movies" isTransparent>
+          {recommendedMovies.map((m) => (
+            <CarouselMovie movie={m} key={m.id} />
+          ))}
+        </Carousel>
+      )}
+    </>
+  );
+
+  const renderSuggestedMobile = () => (
+    <>
+      {similarMovies.length > 0 && (
+        <MobileCarousel isMovieCarousel title="similar" items={similarMovies} />
+      )}
+      {recommendedMovies.length > 0 && (
+        <MobileCarousel isMovieCarousel title="recommended" items={recommendedMovies} />
+      )}
+    </>
+  );
+
   return (
     <BackgroundLayout path={movie.backdrop_path}>
       <div className={styles.container}>
@@ -51,6 +87,7 @@ const MovieLayout: React.FC<Props> = ({ movie }) => {
         </PosterLayout>
        <OverviewLayout companies={movie.production_companies} cast={movie.cast} trailer={movie.trailer?.key} />
       </div>
+      {isMobile ? renderSuggestedMobile() : renderSuggestedDesktop()}
     </BackgroundLayout>
   );
 };

@@ -46,6 +46,15 @@ export const loadCurrentShow = (id: number) => async (dispatch: Dispatch) => {
   const showImdbIdResponse = await service.fetchShowExternalLinks(id);
   const imdbId = await showImdbIdResponse.data.imdb_id;
 
+  const trailersResponse = await showService.fetchShowTrailers(id);
+  const trailers: Video[] = await trailersResponse.data.results;
+  const trailer = trailers.find(t => t.site === 'YouTube' && t.type === 'Trailer');
+  show.trailer = trailer;
+
+  const creditsResponse = await showService.fetchShowCast(id);
+  const cast: Actor[] = await creditsResponse.data.cast;
+  show.cast = cast;
+
   dispatch(currentShowLoaded({ ...show, imdb_id: imdbId }));
   dispatch(loaded());
 };

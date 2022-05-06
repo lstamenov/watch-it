@@ -15,6 +15,7 @@ import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
 import { selectLoader } from '../../store/loader/selectors';
 import Loader from '../../components/loader/Loader';
+import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,42 +33,56 @@ const Movies: React.FC = () => {
 
   const renderMobile = () => (
     <>
-      <MobileCarousel isMovieCarousel items={dailyTrendingMovies} title="daily trending" />
+      <MobileCarousel
+        isMovieCarousel
+        items={dailyTrendingMovies}
+        title="daily trending"
+      />
       <MobileCarousel isMovieCarousel items={popularMovies} title="popular" />
       <MobileCarousel isMovieCarousel items={upcomingMovies} title="upcoming" />
-      <MobileCarousel isMovieCarousel items={weeklyTrendingMovies} title="weekly trending" />
+      <MobileCarousel
+        isMovieCarousel
+        items={weeklyTrendingMovies}
+        title="weekly trending"
+      />
     </>
   );
 
   return (
-    isLoading ? <Loader /> : <div className={styles.home}>
-      {isMobile ? (
-        renderMobile()
+    <AnimatedPage>
+      {isLoading ? (
+        <Loader />
       ) : (
-        <>
-          <Carousel title="Daily trending movies">
-            {dailyTrendingMovies.map((movie) => (
-              <CarouselMovie key={movie.id} movie={movie} />
-            ))}
-          </Carousel>
-          <Carousel title="Popular movies">
-            {popularMovies.map((movie) => (
-              <CarouselMovie key={movie.id} movie={movie} />
-            ))}
-          </Carousel>
-          <Carousel title="Upcoming Movies">
-            {upcomingMovies.map((movie) => (
-              <CarouselMovie key={movie.id} movie={movie} />
-            ))}
-          </Carousel>
-          <Carousel title="Weekly Trending Movies">
-            {weeklyTrendingMovies.map((movie) => (
-              <CarouselMovie key={movie.id} movie={movie} />
-            ))}
-          </Carousel>
-        </>
+        <div className={styles.home}>
+          {isMobile ? (
+            renderMobile()
+          ) : (
+            <>
+              <Carousel title="Daily trending movies">
+                {dailyTrendingMovies.map((movie) => (
+                  <CarouselMovie key={movie.id} movie={movie} />
+                ))}
+              </Carousel>
+              <Carousel title="Popular movies">
+                {popularMovies.map((movie) => (
+                  <CarouselMovie key={movie.id} movie={movie} />
+                ))}
+              </Carousel>
+              <Carousel title="Upcoming Movies">
+                {upcomingMovies.map((movie) => (
+                  <CarouselMovie key={movie.id} movie={movie} />
+                ))}
+              </Carousel>
+              <Carousel title="Weekly Trending Movies">
+                {weeklyTrendingMovies.map((movie) => (
+                  <CarouselMovie key={movie.id} movie={movie} />
+                ))}
+              </Carousel>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </AnimatedPage>
   );
 };
 

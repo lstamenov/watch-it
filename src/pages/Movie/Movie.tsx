@@ -5,6 +5,7 @@ import Loader from '../../components/loader/Loader';
 import NotFound from '../NotFound/NotFound';
 import { Movie as MovieType } from '../../types/types';
 import Page from '../../ui/Page/Page';
+import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 
 const Movie: React.FC = () => {
   const renderContent = (
@@ -26,21 +27,23 @@ const Movie: React.FC = () => {
   };
 
   return (
-    <Page>
-      <MovieLayout>
-        {(props) => {
-          return props.isLoading ? (
-            <Loader />
-          ) : (
-            renderContent(
-              props.movie,
-              props.similarMovies,
-              props.recommendedMovies,
-            )
-          );
-        }}
-      </MovieLayout>
-    </Page>
+    <AnimatedPage>
+      <Page>
+        <MovieLayout>
+          {(props) => {
+            return props.isLoading ? (
+              <Loader />
+            ) : (
+              renderContent(
+                props.movie,
+                props.similarMovies,
+                props.recommendedMovies,
+              )
+            );
+          }}
+        </MovieLayout>
+      </Page>
+    </AnimatedPage>
   );
 };
 

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { selectLoader } from '../../store/loader/selectors';
 import { selectCurrentMovie, selectMovieRecommendations, selectSimilarMovies } from '../../store/watch/selectors';
-import { loadCurrentMovie } from '../../store/watch/thunk';
+import { loadCurrentMovie, loadSuggestedMovies } from '../../store/watch/thunk';
 import { Movie } from '../../types/types';
 
 interface Props {
@@ -27,6 +27,10 @@ const MovieLayout: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     dispatch(loadCurrentMovie(id));
   }, [id]);
+
+  useEffect(() => {
+    dispatch(loadSuggestedMovies());
+  }, [movie]);
 
   return children({
     isLoading,

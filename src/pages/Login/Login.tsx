@@ -10,6 +10,7 @@ import { useAppSelector } from '../../store/hooks';
 import { selectLoader } from '../../store/loader/selectors';
 import { selectMessage, selectUser } from '../../store/user/selectors';
 import { login } from '../../store/user/thunk';
+import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -55,12 +56,14 @@ const Login: React.FC = () => {
   };
 
   return (
-    <FormLayout title='sign in'>
-      <Form btnText='sign in' inputs={items} onSubmit={onSubmit} />
-      <Link text={'Don\'t have an account?'} url='/register' />
-      {isLoading && <TransparentLoader />}
-      {hasError && <ErrorMessage message={message} />}
-    </FormLayout>
+    <AnimatedPage>
+      <FormLayout title='sign in'>
+        <Form btnText='sign in' inputs={items} onSubmit={onSubmit} />
+        <Link text={'Don\'t have an account?'} url='/register' />
+        {isLoading && <TransparentLoader />}
+        {hasError && <ErrorMessage message={message} />}
+      </FormLayout>
+    </AnimatedPage>
   );
 };
 

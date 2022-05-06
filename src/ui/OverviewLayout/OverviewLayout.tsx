@@ -23,7 +23,7 @@ const OverviewLayout: React.FC<Props> = ({ trailer, cast, companies }) => {
       )}
       <OverviewDetailLayout title="cast">
         <CastLayout>
-          {cast.map((actor, index) => (
+          {cast.filter((_, index) => index <= 9).map((actor, index) => (
             <ActorCard key={index} actor={actor} />
           ))}
         </CastLayout>

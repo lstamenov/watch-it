@@ -108,6 +108,8 @@ export interface TvShow {
   seasons: Season[],
   media_type?: string,
   vote_average: number;
+  trailer: Video | undefined,
+  cast: Actor[];
 }
 
 export interface TrendingShow {

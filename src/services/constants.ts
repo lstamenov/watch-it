@@ -42,3 +42,5 @@ export const LOAD_SIMILAR_MOVIES = (id: number) => ` https://api.themoviedb.org/
 export const LOAD_MOVIE_RECOMMENDATIONS = (id: number) => ` https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
 export const LOAD_SIMILAR_SHOWS = (id: number) => ` https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
 export const LOAD_SHOW_RECOMMENDATIONS = (id: number) => ` https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
+export const SHOW_TRAILER_URL = (id: number) => `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=en-US`;
+export const SHOW_CAST_URL = (id: number) => `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}&language=en-US`;

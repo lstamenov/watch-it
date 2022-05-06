@@ -14,6 +14,7 @@ import {
 } from '../../store/shows/selectors';
 import { loadShowsPageData } from '../../store/shows/thunk';
 import { TvShow } from '../../types/types';
+import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import styles from './Shows.module.css';
 
 const Shows: React.FC = () => {
@@ -32,35 +33,42 @@ const Shows: React.FC = () => {
 
   const renderMobile = () => (
     <>
-      <MobileCarousel items={popularShows} title='popular'/>
-      <MobileCarousel items={topRatedShows} title='top rated'/>
-      <MobileCarousel items={trendingShows} title='trending'/>
+      <MobileCarousel items={popularShows} title="popular" />
+      <MobileCarousel items={topRatedShows} title="top rated" />
+      <MobileCarousel items={trendingShows} title="trending" />
     </>
   );
 
   return (
-    isLoading ? <Loader /> : <div className={styles.shows}>
-      {
-        isMobile ? renderMobile() :
-        <>
-          <Carousel title="Popular">
-            {popularShows.map((show, index) => (
-              <CarouselShow show={show} key={index} />
-            ))}
-          </Carousel>
-          <Carousel title="Top rated">
-            {topRatedShows.map((show, index) => (
-              <CarouselShow key={index} show={show} />
-            ))}
-          </Carousel>
-          <Carousel title="Trending">
-            {trendingShows.map((show, index) => (
-              <CarouselShow key={index} show={show} />
-            ))}
-          </Carousel>
-        </>
-      }
-    </div>
+    <AnimatedPage>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.shows}>
+          {isMobile ? (
+            renderMobile()
+          ) : (
+            <>
+              <Carousel title="Popular">
+                {popularShows.map((show, index) => (
+                  <CarouselShow show={show} key={index} />
+                ))}
+              </Carousel>
+              <Carousel title="Top rated">
+                {topRatedShows.map((show, index) => (
+                  <CarouselShow key={index} show={show} />
+                ))}
+              </Carousel>
+              <Carousel title="Trending">
+                {trendingShows.map((show, index) => (
+                  <CarouselShow key={index} show={show} />
+                ))}
+              </Carousel>
+            </>
+          )}
+        </div>
+      )}
+    </AnimatedPage>
   );
 };
 

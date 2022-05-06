@@ -11,7 +11,7 @@ export default (state: LoaderState = initialState, action: LoadingAction) => {
     case LoadingActionTypes.LOADED:
       return { isLoading: false };
     case LoadingActionTypes.LOADING:
-      return { isLoading: true };
+      return { isLoading: false };
     default:
       return state;
   }

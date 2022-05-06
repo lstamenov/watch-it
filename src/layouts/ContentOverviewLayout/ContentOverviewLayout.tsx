@@ -19,6 +19,7 @@ interface Props {
     field: string;
     value: string;
   }[];
+  isShow?: boolean;
 }
 
 const ContentOverviewLayout: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const ContentOverviewLayout: React.FC<Props> = ({
   overview,
   genres,
   fields,
+  isShow = false,
 }) => (
   <div className={styles.container}>
     <div>
@@ -36,7 +38,7 @@ const ContentOverviewLayout: React.FC<Props> = ({
     <Divider />
     <CarouselGenres genres={genres} numberToShow={4} />
     <MovieActions>
-      <PlayButton url={`/movies/play/${id}`} />
+      <PlayButton url={isShow ? `/shows/play/${id}` : `/movies/play/${id}`} />
       <AddToListButton>
         {(props) => <AddToListButtonUI {...props} movieTitle={title} />}
       </AddToListButton>

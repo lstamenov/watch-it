@@ -13,6 +13,7 @@ import {
   loadCurrentShow,
   loadSuggestedShows,
 } from '../../../store/watch/thunk';
+import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
 import { getMoviePosterPath } from '../../../utils/movieUtils';
 import Player from '../Player/Player';
 
@@ -41,20 +42,30 @@ const ShowPlayer: React.FC = () => {
     dispatch(loadSuggestedShows());
   }, [show]);
 
-  return isCorrectId && show ? (
-    <StyledEngineProvider injectFirst>
-      <WatchLayout
-        similar={similar}
-        recommended={recommended}
-        overview={show.overview}
-        posterUrl={getMoviePosterPath(show.backdrop_path)}
-        title={show.name}
-        isShow
-      >
-        <Player isShow={true} id={show.imdb_id} seasons={show.seasons.filter(season => season.name.toLowerCase() !== 'specials')} />
-      </WatchLayout>
-    </StyledEngineProvider>
-  ) : null;
+  return (
+    <AnimatedPage>
+      {isCorrectId && show ? (
+        <StyledEngineProvider injectFirst>
+          <WatchLayout
+            similar={similar}
+            recommended={recommended}
+            overview={show.overview}
+            posterUrl={getMoviePosterPath(show.backdrop_path)}
+            title={show.name}
+            isShow
+          >
+            <Player
+              isShow={true}
+              id={show.imdb_id}
+              seasons={show.seasons.filter(
+                (season) => season.name.toLowerCase() !== 'specials',
+              )}
+            />
+          </WatchLayout>
+        </StyledEngineProvider>
+      ) : null}
+    </AnimatedPage>
+  );
 };
 
 export default ShowPlayer;

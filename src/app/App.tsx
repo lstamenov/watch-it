@@ -1,6 +1,6 @@
 import { StyledEngineProvider } from '@mui/material';
 import React, { useLayoutEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Register from '../pages/Register/Register';
 import Genres from '../pages/genres/Genres';
 import Header from '../pages/header/Header';
@@ -18,10 +18,13 @@ import Profile from '../pages/Profile/Profile';
 import SearchResults from '../pages/SearchResults/SearchResults';
 import NotFound from '../pages/NotFound/NotFound';
 import Movie from '../pages/Movie/Movie';
+import Show from '../pages/Show/Show';
+import { AnimatePresence } from 'framer-motion';
 import './App.css';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useLayoutEffect(() => {
     dispatch(auth());
@@ -31,97 +34,107 @@ const App: React.FC = () => {
     <StyledEngineProvider injectFirst>
       <div className="App">
         <Header />
-        <Routes>
-          <Route
-            path="/results"
-            element={
-              <ProtectedRoute>
-                <SearchResults />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <AuthRoute>
-                <Register />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <AuthRoute>
-                <Login />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="/shows/play/:id"
-            element={
-              <ProtectedRoute>
-                <ShowPlayer />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/movies/play/:id"
-            element={
-              <ProtectedRoute>
-                <MoviePlayer />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/movies/:id"
-            element={
-              <ProtectedRoute>
-                <Movie />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRoute>
-                <Movies />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/shows"
-            element={
-              <ProtectedRoute>
-                <Shows />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/genres"
-            element={
-              <ProtectedRoute>
-                <Genres />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatePresence>
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/results"
+              element={
+                <ProtectedRoute>
+                  <SearchResults />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <AuthRoute>
+                  <Register />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <AuthRoute>
+                  <Login />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/shows/play/:id"
+              element={
+                <ProtectedRoute>
+                  <ShowPlayer />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/movies/play/:id"
+              element={
+                <ProtectedRoute>
+                  <MoviePlayer />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/movies/:id"
+              element={
+                <ProtectedRoute>
+                  <Movie />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/movies"
+              element={
+                <ProtectedRoute>
+                  <Movies />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/shows/:id"
+              element={
+                <ProtectedRoute>
+                  <Show />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/shows"
+              element={
+                <ProtectedRoute>
+                  <Shows />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/genres"
+              element={
+                <ProtectedRoute>
+                  <Genres />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AnimatePresence>
       </div>
     </StyledEngineProvider>
   );

@@ -11,9 +11,10 @@ import {
   loadWeeklyTrending,
 } from '../../store/trending/thunk';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
-import styles from './Home.module.css';
 import { selectLoader } from '../../store/loader/selectors';
 import Loader from '../../components/loader/Loader';
+import styles from './Home.module.css';
+import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    isLoading ? <Loader /> : <Container className={styles.home}>
+    <AnimatedPage>
+    {isLoading ? <Loader /> : <Container className={styles.home}>
       <Typography className={styles.title} variant="h4">
         find something to watch
       </Typography>
@@ -36,7 +38,8 @@ const Home: React.FC = () => {
         page={trendingPage}
         loadMovies={loadMoreWeeklyTrending}
       />
-    </Container>
+    </Container>}
+    </AnimatedPage>
   );
 };
 
