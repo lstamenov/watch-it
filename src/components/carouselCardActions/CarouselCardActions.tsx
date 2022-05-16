@@ -6,11 +6,12 @@ import AddToListButton from '../AddToListButton/AddToListButton';
 import { default as AddToListButtonUI } from '../../ui/AddToListButton/AddToListButton';
 
 interface Props {
-  id: number,
+  id: number;
+  title: string;
   isMovie?: boolean;
 }
 
-const CarouselCardActions: React.FC<Props> = ({ id, isMovie = false }) => {
+const CarouselCardActions: React.FC<Props> = ({ id, title, isMovie = false }) => {
 
   const getWatchLink = () => isMovie ? `/movies/play/${id}` : `/shows/play/${id}`; 
 
@@ -20,8 +21,8 @@ const CarouselCardActions: React.FC<Props> = ({ id, isMovie = false }) => {
     <CardActions>
       <PlayButton url={getWatchLink()} />
       <ListButton url={getInfoLink()} />
-      <AddToListButton>
-        {(props) => <AddToListButtonUI {...props} movieTitle='' />}
+      <AddToListButton movieName={title} movieId={id} isMovie={isMovie}>
+        {(props) => <AddToListButtonUI {...props} />}
       </AddToListButton>
     </CardActions>
   );

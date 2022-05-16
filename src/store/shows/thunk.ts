@@ -3,6 +3,7 @@ import * as service from '../../services/showService';
 import * as trendingService from '../../services/trendingService';
 import { TvShow } from '../../types/types';
 import { loaded, loading } from '../loader/actions';
+import { RootState } from '../store';
 import { popularShowsLoaded, topRatedShowsLoaded, trendingShowsLoaded } from './actions';
 
 const fetchShowById = async (id: number) => {
@@ -21,7 +22,10 @@ const fetchShowWithSeasons = async (show: TvShow) => {
   return { ...show, seasons };
 } ;
 
-export const loadPopularShows = () => async (dispatch: Dispatch) => {
+export const loadPopularShows = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  const currentShows = getState().shows.popular;
+  if (currentShows.length > 1) return;
+
   const response = await service.fetchPopularShows();
   const shows: TvShow[] = response.data.results;
   
@@ -34,7 +38,10 @@ export const loadPopularShows = () => async (dispatch: Dispatch) => {
   dispatch(popularShowsLoaded(showsWithSeasons));
 };
 
-export const loadTopRatedShows = () => async (dispatch: Dispatch) => {
+export const loadTopRatedShows = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  const currentShows = getState().shows.topRated;
+  if (currentShows.length > 1) return;
+
   const response = await service.fetchTopRatedShows();
   const shows: TvShow[] = response.data.results;
   
@@ -47,7 +54,10 @@ export const loadTopRatedShows = () => async (dispatch: Dispatch) => {
   dispatch(topRatedShowsLoaded(showsWithSeasons));
 };
 
-export const loadTrendingShows = () => async (dispatch: Dispatch) => {
+export const loadTrendingShows = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  const currentShows = getState().shows.trending;
+  if (currentShows.length > 1) return;
+
   const response = await trendingService.fetchWeeklyTrendingTv();
   const shows: TvShow[] = response.data.results;
   
@@ -60,11 +70,11 @@ export const loadTrendingShows = () => async (dispatch: Dispatch) => {
   dispatch(trendingShowsLoaded(showsWithSeasons));
 };
 
-export const loadShowsPageData = () => async (dispatch: Dispatch) => {
+export const loadShowsPageData = () => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(loading());
-  await loadPopularShows()(dispatch);
-  await loadTopRatedShows()(dispatch);
-  await loadTrendingShows()(dispatch);
+  await loadPopularShows()(dispatch, getState);
+  await loadTopRatedShows()(dispatch, getState);
+  await loadTrendingShows()(dispatch, getState);
   dispatch(loaded());
 };
 

@@ -39,8 +39,8 @@ const ContentOverviewLayout: React.FC<Props> = ({
     <CarouselGenres genres={genres} numberToShow={4} />
     <MovieActions>
       <PlayButton url={isShow ? `/shows/play/${id}` : `/movies/play/${id}`} />
-      <AddToListButton>
-        {(props) => <AddToListButtonUI {...props} movieTitle={title} />}
+      <AddToListButton movieId={id} movieName={title} isMovie={!isShow}>
+        {(props) => <AddToListButtonUI {...props} />}
       </AddToListButton>
     </MovieActions>
     </div>

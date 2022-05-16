@@ -37,7 +37,7 @@ const CarouselShow: React.FC<Props> = ({ show }) => {
                   <CarouselDetail value={show.original_language.toUpperCase()} />
                 </Grid>
               </Grid>
-              <CarouselCardActions id={show.id} />
+              <CarouselCardActions title={show.name} id={show.id} />
             </CardContent>}
           </Card>
         </Grid>

@@ -45,3 +45,17 @@ export const userAuthFailed = (message: string) => ({
 export const userLoggedOut = () => ({
   type: UserActionTypes.LOGOUT,
 });
+
+export const movieAddedToList = (id: number) => ({
+  type: UserActionTypes.ADD_MOVIE,
+  payload: {
+    id,
+  },
+});
+
+export const showAddedToList = (id: number) => ({
+  type: UserActionTypes.ADD_SHOW,
+  payload: {
+    id,
+  },
+});

@@ -40,10 +40,6 @@ const ShowLayout: React.FC<Props> = ({
       value: `${show.number_of_seasons}`,
     },
     {
-      field: 'Episodes',
-      value: `${show.episode_run_time}`,
-    },
-    {
       field: 'Country',
       value: `${show.origin_country}`,
     },

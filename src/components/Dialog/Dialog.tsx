@@ -6,14 +6,14 @@ import styles from './Dialog.module.css';
 
 interface Props {
   isClicked: boolean;
-  setIsClicked: Function;
-  className: string;
+  onClose: () => void;
+  className?: string;
 }
 
-const Dialog: React.FC<Props> = ({ isClicked, setIsClicked, className, children }) => (
+const Dialog: React.FC<Props> = ({ isClicked, onClose, className, children }) => (
   <Modal
     open={isClicked}
-    onClose={() => setIsClicked(false)}
+    onClose={onClose}
     aria-labelledby="modal-modal-title"
     aria-describedby="modal-modal-description"
     closeAfterTransition
@@ -25,7 +25,7 @@ const Dialog: React.FC<Props> = ({ isClicked, setIsClicked, className, children 
     <Fade in={isClicked}>
       <Box className={className}>
         <FontAwesomeIcon
-          onClick={() => setIsClicked(false)}
+          onClick={onClose}
           className={styles.xIcon}
           color="#b45177"
           size={'3x'}

@@ -45,7 +45,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie }) => {
                 <CarouselDetail value={movie.original_language.toUpperCase()} />
               </Grid>
             </Grid>
-            <CarouselCardActions isMovie={true} id={movie.id} />
+            <CarouselCardActions title={movie.original_title} isMovie={true} id={movie.id} />
           </CardContent>
         )}
       </Card>

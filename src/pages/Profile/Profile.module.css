@@ -1,0 +1,17 @@
+.btn{
+  background-color: transparent;
+  color: #AA7489;
+  font-weight: 600;
+}
+  
+.btn:hover{
+  background-color: transparent;
+  color: #b45177;
+}
+
+@media screen and (max-width: 768px) {
+  .btn{
+    width: 60%;
+    margin: 10px 20%;
+  } 
+}

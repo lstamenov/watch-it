@@ -9,6 +9,7 @@ import trendingReducer from './trending/reducer';
 import resultsReducer from './results/reducer';
 import watchReducer from './watch/reducer';
 import userReducer from './user/reducer';
+import toastsReducer from './toasts/reducer';
 
 const rootReducer = combineReducers({
   movies: movieReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   results: resultsReducer,
   watch: watchReducer,
   user: userReducer,
+  toastMessages: toastsReducer,
 });
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));

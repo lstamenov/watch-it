@@ -34,7 +34,7 @@ const Modal: React.FC<Props> = ({
 }) => (
   <Dialog
     isClicked={isClicked}
-    setIsClicked={setIsClicked}
+    onClose={() => setIsClicked(false)}
     className={styles.modal}
   >
     <img
@@ -65,8 +65,8 @@ const Modal: React.FC<Props> = ({
         <ListButton
           url={isShow ? `/shows/${id}` : `/movies/${id}`}
         />
-        <AddToListButton>
-          {(props) => <AddToListButtonUI {...props} movieTitle={title} />}
+        <AddToListButton movieName={title} movieId={id} isMovie={!isShow}>
+          {(props) => <AddToListButtonUI {...props} />}
         </AddToListButton>
       </div>
     </Container>
