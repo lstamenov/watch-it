@@ -1,5 +1,4 @@
-import React, { useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import ProfileLayout from '../../components/ProfileLayout/ProfileLayout';
 import { default as ProfileLayoutUI } from '../../ui/ProfileLayout/ProfileLayout';
 import Carousel from '../../components/carousel/Carousel';
@@ -9,18 +8,12 @@ import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
-import { auth } from '../../store/user/thunk';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import Page from '../../ui/Page/Page';
 
 const Profile: React.FC = () => {
   const user = useAppSelector(selectUser);
-  const dispatch = useDispatch();
   const isMobile = useMobile();
-
-  useLayoutEffect(() => {
-    dispatch(auth());
-  }, []);
 
   const renderMobileCarousel = () => {
     return (

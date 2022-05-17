@@ -36,7 +36,7 @@ export const ProfileLayout: React.FC<Props> = ({
       </div>
       <Dialog className={styles.modal} isClicked={shouldOpenAvatarsModal} onClose={onAvatarsModalClose}>
         <div className={styles.avatarsContainer}>
-          {avatars.map(a => <Avatar src={a} onClick={() => onPickAvatarClick(a)} />)}
+          {avatars.map(a => <Avatar key={a} src={a} onClick={() => onPickAvatarClick(a)} />)}
         </div>
       </Dialog>
     </div>
