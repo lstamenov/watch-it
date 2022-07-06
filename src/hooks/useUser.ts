@@ -11,12 +11,13 @@ const useUser = () => {
   useEffect(() => {
     (async () => {
       const localStorageUserItem = localStorage.getItem('user');
-      const localStorageUser: User = JSON.parse(localStorageUserItem || '');
+      const localStorageUser: User | null = localStorageUserItem ? JSON.parse(localStorageUserItem) : null;
       
-      if (localStorageUser.username) {
+      if (localStorageUser) {
         setUser(localStorageUser);
       } else {
         try {
+          console.log('here');
           const authResponse = await authenticateUser();
           setUser(authResponse.data);
         } catch (e) {}

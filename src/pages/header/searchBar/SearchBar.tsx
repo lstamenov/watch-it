@@ -35,6 +35,11 @@ const SearchBar: React.FC = () => {
         placeholder='search...'
         onChange={(e) => setQuery(e.currentTarget.value)}
         value={query}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            onSearchIconClick();
+          }
+        }}
       />
       <FontAwesomeIcon 
         className={styles.icon}
