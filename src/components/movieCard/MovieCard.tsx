@@ -36,20 +36,21 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     setIsHovered(!isHovered);
   };
 
-  const isShow = () => {
-    const firstAirDate = (movie as TrendingShow).first_air_date;
-    return !!firstAirDate;
-  };
+  const isShow = movie.media_type === 'tv';  
 
   const getTitle = () => {
-    if (isShow()) {
+    if (isShow) {
       return (movie as TrendingShow).name;
     }
     return (movie as TrendingMovie).title;
   };
 
-  const getWatchUrl = () => {
-    return isShow() ? '/shows/' : '/movies/';
+  const getUrl = (urlType: 'explore' | 'watch') => {
+    if (isShow) {
+      return urlType === 'explore' ? `/shows/${movie.id}` : `/shows/play/${movie.id}`;
+    }
+
+    return urlType === 'explore' ? `/movies/${movie.id}` : `/movies/play/${movie.id}`;
   };
 
   const renderCardContent = () => (
@@ -61,8 +62,8 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
           </Typography>
           <CarouselGenres genres={movie.genres} />
           <div className={styles.details}>
-            <ListButton url={`${getWatchUrl()}${movie.id}`} />
-            <PlayButton url={`${getWatchUrl()}play/${movie.id}`} />
+            <ListButton url={getUrl('explore')} />
+            <PlayButton url={getUrl('watch')} />
           </div>
         </div>
       )}
@@ -79,7 +80,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
               image={getMoviePosterPath(movie.poster_path)}
               className={styles.bigPoster}
             />
-            <Modal title={getTitle()} {...movie} isClicked={isHovered} setIsClicked={setIsHovered}>
+            <Modal isShow={isShow} title={getTitle()} {...movie} isClicked={isHovered} setIsClicked={setIsHovered}>
               <CarouselDetail value={movie.original_language.toUpperCase()} />
               <CarouselDetail value={`${movie.vote_average}`} />
             </Modal>
