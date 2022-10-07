@@ -3,6 +3,7 @@ import { ToastsAction, ToastsActionTypes, ToastsState } from './types';
 
 const initialState: ToastsState = {
   message: null,
+  type: 'success',
 };
 
 const toastsReducer = (
@@ -11,9 +12,7 @@ const toastsReducer = (
 ) => {
   switch (action.type) {
     case ToastsActionTypes.SET_MESSAGE:
-      console.log(action);
-      
-      return { ...state,  message: action.payload.message };
+      return { ...state,  message: action.payload.message, type: action.payload.type };
     default:
       return state;
   }

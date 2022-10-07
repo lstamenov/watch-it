@@ -4,8 +4,9 @@ import * as movieService from '../../services/movieService';
 import * as showService from '../../services/showService';
 import { LoginCredentials, RegisterCredentials } from '../../types/types';
 import { loaded, loading } from '../loader/actions';
-import { userAuth, userAuthFailed, userLoggedIn, userLoggedInFailed, userLoggedOut } from './actions';
+import { userAuth, userAuthFailed, userLoggedIn, userLoggedInFailed } from './actions';
 import { User } from './types';
+import { enqueMessage } from '../toasts/actions';
 
 const fetchMovieById = async (id: number) => {
   const fullMovieDetails = await movieService.fetchFullMovieDetailsById(id);
@@ -21,8 +22,9 @@ export const login = (credentials: LoginCredentials) => async (dispatch: Dispatc
   dispatch(loading());
   try {
     const result = await service.login(credentials);
-    const user: User = await result.data;
-    localStorage.setItem('user', JSON.stringify(user));
+    const { user, jwt }: { user: User, jwt: string } = await result.data;
+
+    localStorage.setItem('jwt', jwt);
 
     const userMoviesResponse = Promise.all(user.moviesList.map(movieId => fetchMovieById(movieId)));
     const userMovies = await userMoviesResponse;
@@ -55,14 +57,13 @@ export const register = (credentials: RegisterCredentials) => async (dispatch: D
   dispatch(loaded());
 };
 
-export const auth = () => async (dispatch: Dispatch) => {
+export const auth = () => async (dispatch: Dispatch) => {  
   try {
-    const response = await service.authenticateUser();
+    const response = await service.authenticateUser();    
     const user: User = await response.data;
-    localStorage.setItem('user', JSON.stringify(user));
-
     const userMoviesResponse = Promise.all(user.moviesList.map(movieId => fetchMovieById(movieId)));
     const userMovies = await userMoviesResponse;
+
 
     const userShowsResponse = Promise.all(user.showsList.map(showId => fetchShowById(showId)));
     const userShows = await userShowsResponse;
@@ -74,25 +75,26 @@ export const auth = () => async (dispatch: Dispatch) => {
     
     dispatch(userAuth(user));
   } catch (e) {
-    localStorage.removeItem('user');
     dispatch(userAuthFailed(''));
   }
 };
 
 export const logout = () => async (dispatch: Dispatch) => {
+  localStorage.removeItem('jwt');
   localStorage.removeItem('user');
-  await service.logout();
-  dispatch(userLoggedOut());
-};
-
-export const addMovie = (id: number) => async (dispatch: Dispatch) => {
-  await service.addMovieToList(id);
   auth()(dispatch);
 };
 
-export const addShow = (id: number) => async (dispatch: Dispatch) => {
+export const addMovie = (id: number, movieName: string) => async (dispatch: Dispatch) => {
+  try {
+    await service.addMovieToList(id);
+    dispatch(enqueMessage(`Successfully added ${movieName} to your list`, 'success'));
+  } catch (e) {
+  }
+};
+
+export const addShow = (id: number) => async () => {
   await service.addShowToList(id);
-  auth()(dispatch);
 };
 
 export const changeAvatar = (avatar: string) => async (dispatch: Dispatch) => {

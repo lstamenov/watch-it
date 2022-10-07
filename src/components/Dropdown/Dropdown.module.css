@@ -7,9 +7,9 @@
   font-weight: 600;
   padding: 7px 0;
   box-shadow: 3px 3px 5px black;
-  width: 250px;
   text-align: center;
   cursor: pointer;
+  width: 150px;
 }
 
 .option {
@@ -17,10 +17,12 @@
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+  width: 250px;
+  padding: 7px 0;
 }
 
 @media screen and (max-width: 768px) {
   .select{
-    width: 200px;
+    width: 150px;
   }
 }

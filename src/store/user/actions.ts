@@ -28,7 +28,7 @@ export const userRegisterFailed = (message: string) => ({
   },
 });
 
-export const userAuth = (user: User) => ({
+export const userAuth = (user: User | null) => ({
   type: UserActionTypes.AUTH,
   payload: {
     user,

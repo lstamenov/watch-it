@@ -19,8 +19,6 @@ export default (state: UserState = initialState, action: UserDispatchTypes) => {
     case UserActionTypes.REGISTER_FAILED:
       return { ...initialState, message: action.payload.message };
     case UserActionTypes.AUTH:
-      console.log(action.payload.user);
-      
       return { ...initialState, user: action.payload.user };
     case UserActionTypes.AUTH_FAILED:
       return { ...initialState, message: action.payload.message };

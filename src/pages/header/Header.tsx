@@ -4,10 +4,10 @@ import NavButton from '../../components/navButton/NavButton';
 import SearchBar from './searchBar/SearchBar';
 import { AppBar, StyledEngineProvider } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/user/selectors';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import styles from './Header.module.css';
+import { useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/user/selectors';
 
 enum UrlParams {
   HOME = '/',
@@ -36,7 +36,6 @@ interface Action {
 const Header: React.FC = () => {
   const path = useLocation().pathname;
   const user = useAppSelector(selectUser);
-  const localUser = localStorage.getItem('user');
 
   const initialURLState: URLState = {
     '/': false,
@@ -183,7 +182,7 @@ const Header: React.FC = () => {
   return (
     <StyledEngineProvider injectFirst>
       <AppBar className={styles.header}>
-        {user || localUser ? renderAuthenticatedHeader() : renderGuestHeader()}
+        {user ? renderAuthenticatedHeader() : renderGuestHeader()}
       </AppBar>
     </StyledEngineProvider>
   );

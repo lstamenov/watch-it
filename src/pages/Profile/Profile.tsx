@@ -6,10 +6,10 @@ import CarouselMovie from '../../components/carousel/carouselMovie/CarouselMovie
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
-import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/user/selectors';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import Page from '../../ui/Page/Page';
+import { useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/user/selectors';
 
 const Profile: React.FC = () => {
   const user = useAppSelector(selectUser);

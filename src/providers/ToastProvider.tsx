@@ -4,7 +4,7 @@ import { useAppSelector } from '../store/hooks';
 import { selectToastMessage } from '../store/toasts/selectors';
 
 const ToastProvider: React.FC = ({ children }) => {
-  const message = useAppSelector(selectToastMessage);
+  const { message, type } = useAppSelector(selectToastMessage);
   const [ shouldShowMessage, setShouldShowMessage ] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const ToastProvider: React.FC = ({ children }) => {
         autoHideDuration={6000}
         onClose={onMessageClosed}
       >
-        <Alert onClose={onMessageClosed}>{message}</Alert>
+        <Alert severity={type} onClose={onMessageClosed}>{message}</Alert>
       </Snackbar>
     </>
   );

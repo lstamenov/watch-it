@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { enqueMessage } from '../../store/toasts/actions';
 import { addMovie, addShow } from '../../store/user/thunk';
 
 interface Props {
@@ -16,9 +15,8 @@ const AddToListButton: React.FC<Props> = ({ movieId, movieName, isMovie = true, 
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(enqueMessage(`Successfully added ${movieName} to your list`));
     if (isMovie) {
-      dispatch(addMovie(movieId));
+      dispatch(addMovie(movieId, movieName));
     } else {
       dispatch(addShow(movieId));
     }

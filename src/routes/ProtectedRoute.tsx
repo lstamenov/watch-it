@@ -1,10 +1,11 @@
 import React from 'react';
-import useUser from '../hooks/useUser';
 import Login from '../pages/Login/Login';
+import { useAppSelector } from '../store/hooks';
+import { selectUser } from '../store/user/selectors';
 
 const ProtectedRoute: React.FC = ({ children }) => {
-  const user = useUser();
- 
+  const user = useAppSelector(selectUser);
+
   return user ? <>{children}</> : <Login />;
 };
 

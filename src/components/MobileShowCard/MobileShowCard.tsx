@@ -37,7 +37,7 @@ const MobileShowCard: React.FC<Props> = ({ show }) => {
           />
         )}
         <CarouselDetail value={show.original_language.toUpperCase()} />
-        <CarouselDetail value={`${show.vote_average}`} />
+        <CarouselDetail value={`${show.vote_average.toFixed(1)}`} />
       </Modal>
       <Card onClick={() => setIsClicked(true)}>
         <CardMedia

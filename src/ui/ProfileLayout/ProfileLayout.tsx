@@ -28,7 +28,7 @@ export const ProfileLayout: React.FC<Props> = ({
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.info}>
-          <Avatar src={avatar} />
+          <Avatar src={avatar || ''} />
           <Typography color='#AA7489' variant='h5'>@{username}</Typography>
         </div>
         <Button className={styles.btn} variant='contained' onClick={onAvatarClick}>Change avatar</Button>

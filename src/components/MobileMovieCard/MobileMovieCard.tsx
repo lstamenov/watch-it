@@ -21,7 +21,7 @@ const MobileMovieCard: React.FC<Props> = ({ movie }) => {
       <Modal {...movie} isClicked={isClicked} setIsClicked={setIsClicked}>
         <CarouselDetail value={convertMinutesToHours(movie.runtime)} />
         <CarouselDetail value={movie.original_language.toUpperCase()} />
-        <CarouselDetail value={`${movie.vote_average}`} />
+        <CarouselDetail value={String(movie.vote_average.toFixed(1))} />
       </Modal>
       <Card onClick={() => setIsClicked(true)}>
         <CardMedia

@@ -1,14 +1,14 @@
 export const API_KEY: string = '9467dada6c562150e0606a619c9ba8ff';
-export const API_URL_PROD = 'https://watch-it-server.herokuapp.com';
-export const API_URL_DEV = 'http://localhost:8080';
+export const API_URL_PROD = 'https://be-watchit.herokuapp.com';
+export const API_URL_DEV = 'http://localhost:3001';
 export const API_URL = API_URL_PROD;
 
 export const LOGIN_URL = `${API_URL}/login`;
 export const LOGOUT_URL = `${API_URL}/logout`;
 export const REGISTER_URL = `${API_URL}/register`;
 export const AUTH_URL = `${API_URL}/user`;
-export const ADD_MOVIE_TO_LIST_URL = `${API_URL}/lists/movie`;
-export const ADD_SHOW_TO_LIST_URL = `${API_URL}/lists/show`;
+export const ADD_MOVIE_TO_LIST_URL = `${API_URL}/movies`;
+export const ADD_SHOW_TO_LIST_URL = `${API_URL}/shows`;
 export const CHANGE_AVATAR = `${API_URL}/avatar`;
 
 export const TRENDING_DAILY_MOVIES_URL: string = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&language=en-US&page=`;

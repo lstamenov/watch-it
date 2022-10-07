@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { changeAvatar, logout } from '../../store/user/thunk';
+import { auth, changeAvatar } from '../../store/user/thunk';
 
 interface Props {
   avatar: string;
@@ -34,7 +34,8 @@ export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) =
   const handleAvatarsModalClosed = () => setShouldOpenAvatarsModel(false);
 
   const handleLogout = () => {
-    dispatch(logout());
+    localStorage.removeItem('jwt');
+    dispatch(auth());
     setTimeout(() => {
       navigate('/login');
     }, 500);
