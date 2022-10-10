@@ -8,10 +8,11 @@ import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import styles from '../carouselMovie/CarouselMovie.module.css';
 
 interface Props {
-  show: TvShow,
+  show: TvShow;
+  isOnProfile?: boolean;
 }
 
-const CarouselShow: React.FC<Props> = ({ show }) => {
+const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
   
   const onMouseLeave = () => {
@@ -37,7 +38,7 @@ const CarouselShow: React.FC<Props> = ({ show }) => {
                   <CarouselDetail value={show.original_language.toUpperCase()} />
                 </Grid>
               </Grid>
-              <CarouselCardActions title={show.name} id={show.id} />
+              <CarouselCardActions isOnProfile={isOnProfile} title={show.name} id={show.id} />
             </CardContent>}
           </Card>
         </Grid>

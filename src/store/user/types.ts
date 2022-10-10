@@ -1,13 +1,13 @@
 import { Movie, TvShow } from '../../types/types';
 
 export enum UserActionTypes {
-  LOGIN_FAILED,
-  REGISTER,
-  REGISTER_FAILED,
-  LOGOUT,
-  AUTH_FAILED,
-  ADD_MOVIE,
-  ADD_SHOW,
+  LOGIN_FAILED = 'LOGIN_FAILED',
+  REGISTER = 'REGISTER',
+  REGISTER_FAILED = 'REGISTER_FAILED',
+  LOGOUT = 'LOGOUT',
+  AUTH_FAILED = 'AUTH_FAILED',
+  ADD_MOVIE = 'ADD_MOVIE',
+  ADD_SHOW = 'ADD_SHOW',
   LOGIN = 'LOGIN',
   AUTH = 'AUTH',
 }

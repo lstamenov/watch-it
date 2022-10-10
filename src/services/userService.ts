@@ -15,4 +15,8 @@ export const addMovieToList = (id: number) => axios.post(ADD_MOVIE_TO_LIST_URL, 
 
 export const addShowToList = (id: number) => axios.post(ADD_SHOW_TO_LIST_URL, { id }, { headers: getAuthHeaders() });
 
+export const removeMovieFromList = (id: number) => axios.delete(ADD_MOVIE_TO_LIST_URL, { headers: getAuthHeaders(), data: { id } });
+
+export const removeShowfromList = (id: number) => axios.delete(ADD_SHOW_TO_LIST_URL, { headers: getAuthHeaders(), data: { id } });
+
 export const changeAvatar = (avatar: string) => axios.put(CHANGE_AVATAR, { avatar }, { headers: getAuthHeaders() });

@@ -89,12 +89,32 @@ export const addMovie = (id: number, movieName: string) => async (dispatch: Disp
   try {
     await service.addMovieToList(id);
     dispatch(enqueMessage(`Successfully added ${movieName} to your list`, 'success'));
+    auth()(dispatch);
   } catch (e) {
+    dispatch(enqueMessage(`${movieName} has already been added to your list`, 'info'));
   }
 };
 
-export const addShow = (id: number) => async () => {
-  await service.addShowToList(id);
+export const addShow = (id: number, showName: string) => async (dispatch: Dispatch) => {
+  try {
+    await service.addShowToList(id);
+    dispatch(enqueMessage(`Successfully added ${showName} to your list`, 'success'));
+    auth()(dispatch);
+  } catch (e) {
+    dispatch(enqueMessage(`${showName} has already been added to your list`, 'info'));
+  }
+};
+
+export const removeMovie = (id: number, movieName: string) => async (dispatch: Dispatch) => {
+  await service.removeMovieFromList(id);
+  dispatch(enqueMessage(`Successfully removed ${movieName} from your list`, 'success'));
+  auth()(dispatch);
+};
+
+export const removeShow = (id: number, showName: string) => async (dispatch: Dispatch) => {
+  await service.removeShowfromList(id);
+  dispatch(enqueMessage(`Successfully removed ${showName} from your list`, 'success'));
+  auth()(dispatch);
 };
 
 export const changeAvatar = (avatar: string) => async (dispatch: Dispatch) => {

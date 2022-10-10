@@ -38,14 +38,14 @@ const Profile: React.FC = () => {
         {
           user.list.movies.length > 0 && <Carousel title="your movie list">
             {user.list.movies.map((movie) => (
-              <CarouselMovie key={movie.id} movie={movie} />
+              <CarouselMovie isOnProfile key={movie.id} movie={movie} />
             ))}
           </Carousel>
         }
         {
           user.list.shows.length > 0 && <Carousel title="your show list">
             {user.list.shows.map((show) => (
-              <CarouselShow key={show.id} show={show} />
+              <CarouselShow isOnProfile key={show.id} show={show} />
             ))}
           </Carousel>
         }

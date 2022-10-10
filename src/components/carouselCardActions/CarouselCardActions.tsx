@@ -9,19 +9,18 @@ interface Props {
   id: number;
   title: string;
   isMovie?: boolean;
+  isOnProfile?: boolean;
 }
 
-const CarouselCardActions: React.FC<Props> = ({ id, title, isMovie = false }) => {
-
+const CarouselCardActions: React.FC<Props> = ({ id, title, isMovie = false, isOnProfile = false }) => {
   const getWatchLink = () => isMovie ? `/movies/play/${id}` : `/shows/play/${id}`; 
-
   const getInfoLink = () => isMovie ? `/movies/${id}` : `/shows/${id}`;
 
   return (
     <CardActions>
       <PlayButton url={getWatchLink()} />
       <ListButton url={getInfoLink()} />
-      <AddToListButton movieName={title} movieId={id} isMovie={isMovie}>
+      <AddToListButton isOnProfile={isOnProfile} movieName={title} movieId={id} isMovie={isMovie}>
         {(props) => <AddToListButtonUI {...props} />}
       </AddToListButton>
     </CardActions>
