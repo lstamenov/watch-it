@@ -18,7 +18,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
   const ulrEpisode = searchParams.get('episode') || 1;
 
   const [currentSeason, setCurrentSeason] = useState(
-    seasons[Number(ulrSeason) - 1],
+    seasons.length > 1 ? seasons[Number(ulrSeason) - 1] : null,
   );
   const isMobile = useMobile();
 
@@ -40,7 +40,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
       .filter((season) => season !== 0);
 
   const episodes = Array.from(
-    { length: currentSeason.episode_count },
+    { length: currentSeason ? currentSeason.episode_count : 1 },
     (_, i) => i + 1,
   );
 
