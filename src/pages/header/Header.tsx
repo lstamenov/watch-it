@@ -3,11 +3,12 @@ import Logo from '../../components/logo/Logo';
 import NavButton from '../../components/navButton/NavButton';
 import SearchBar from './searchBar/SearchBar';
 import { AppBar, StyledEngineProvider } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import styles from './Header.module.css';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
+import Avatar from '../../ui/Avatar/Avatar';
 
 enum UrlParams {
   HOME = '/',
@@ -36,6 +37,7 @@ interface Action {
 const Header: React.FC = () => {
   const path = useLocation().pathname;
   const user = useAppSelector(selectUser);
+  const navigate = useNavigate();
 
   const initialURLState: URLState = {
     '/': false,
@@ -160,7 +162,10 @@ const Header: React.FC = () => {
         ))}
         <Sidebar items={generateItems(items)} />
       </div>
-      <SearchBar />
+      <div className={styles.main}>
+        <SearchBar />
+        {user && <Avatar onClick={() => navigate('/profile')} isOnHeader src={user?.avatarURL} />}
+      </div>
     </>
   );
 

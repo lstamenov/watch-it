@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Dropdown from '../../../components/Dropdown/DropDown';
 import useMobile from '../../../hooks/useMobile';
 import { Season } from '../../../types/types';
 import styles from './Player.module.css';
+
 interface Props {
   isShow: boolean;
   id: string;
@@ -10,31 +12,37 @@ interface Props {
 }
 
 const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
-  const [currentSeason, setCurrentSeason] = useState(seasons[0]);
-  const [currentEpisode, setCurrentEpisode] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const ulrSeason = searchParams.get('season') || 1;
+  const ulrEpisode = searchParams.get('episode') || 1;
+
+  const [currentSeason, setCurrentSeason] = useState(
+    seasons[Number(ulrSeason) - 1],
+  );
   const isMobile = useMobile();
 
   const movieURL = `https://imdbembed.xyz/movie/imdb/${id}?server=2`;
-  const showURL = `https://imdbembed.xyz/tv/imdb/${id}-${currentSeason?.season_number}-${currentEpisode}?server=2`;
+  const showURL = `https://imdbembed.xyz/tv/imdb/${id}-${ulrSeason}-${ulrEpisode}?server=2`;
 
   const handleSeasonChange = (value: string) => {
+    setSearchParams({ season: value, episode: '1' });
     setCurrentSeason(
       seasons.filter((season) => season.season_number === Number(value))[0],
     );
-    setCurrentEpisode(1);
   };
 
-  const handleEpisodeChange = (value: string) => {
-    setCurrentEpisode(Number(value));
-  };
+  const handleEpisodeChange = (value: string) => setSearchParams({ episode: value, season: String(ulrSeason) });
 
   const getSeasons = () =>
     seasons
       .map((season) => season.season_number)
       .filter((season) => season !== 0);
 
-  const getEpisodes = () =>
-    Array.from({ length: currentSeason.episode_count }, (_, i) => i + 1);
+  const episodes = Array.from(
+    { length: currentSeason.episode_count },
+    (_, i) => i + 1,
+  );
 
   const renderMobile = () =>
     isShow && seasons ? (
@@ -46,9 +54,9 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
             onChange={handleSeasonChange}
           />
           <Dropdown
-            current={currentEpisode}
+            current={Number(ulrEpisode)}
             prefix="episode"
-            items={getEpisodes()}
+            items={episodes}
             onChange={handleEpisodeChange}
           />
         </div>
@@ -79,9 +87,9 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
           onChange={handleSeasonChange}
         />
         <Dropdown
-          current={currentEpisode}
+          current={Number(ulrEpisode)}
           prefix="episode"
-          items={getEpisodes()}
+          items={episodes}
           onChange={handleEpisodeChange}
         />
       </div>

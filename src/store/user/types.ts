@@ -22,7 +22,7 @@ export interface User {
     shows: TvShow[];
     movies: Movie[];
   }
-  avatar: string;
+  avatarURL: string;
 }
 
 export interface UserState {

@@ -60,7 +60,7 @@ const Profile: React.FC = () => {
     <AnimatedPage>
       <Page>
         {user && (
-          <ProfileLayout username={user.username} avatar={user.avatar}>
+          <ProfileLayout username={user.username} avatar={user.avatarURL}>
             {(props) => <ProfileLayoutUI {...props} />}
           </ProfileLayout>
         )}

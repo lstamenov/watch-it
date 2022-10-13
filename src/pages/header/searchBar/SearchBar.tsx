@@ -1,49 +1,56 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from './SearchBar.module.css';
-import { useDispatch } from 'react-redux';
-import { loadSearchResults } from '../../../store/results/thunk';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar: React.FC = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [inputClass, setInputClass] = useState(styles.defaultInput);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
 
+  const showInput = () => {
+    setInputClass(styles.shownInput);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+    setQuery('');
+  };
+
   const onSearchIconClick = () => {
-    if (inputClass === styles.defaultInput) {
-      setInputClass(styles.shownInput);
-    } else if (inputClass === styles.shownInput) {
-      setInputClass(styles.input);
+    if (inputClass === styles.shownInput) {
       if (query !== '') {
-        dispatch(loadSearchResults(query));
+        navigate(`/results?query=${query}`);
         setQuery('');
-        navigate('/results');
       }
     } else {
-      setInputClass(styles.shownInput);
+      showInput();
     }
   };
 
   return (
     <div className={styles.searchBar}>
       <input
+        ref={inputRef}
         className={inputClass}
-        placeholder='search...'
+        placeholder="search..."
         onChange={(e) => setQuery(e.currentTarget.value)}
         value={query}
+        onBlur={() => {
+          setTimeout(() => {
+            setInputClass(styles.input);
+          }, 100);
+        }}
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
             onSearchIconClick();
           }
         }}
       />
-      <FontAwesomeIcon 
+      <FontAwesomeIcon
         className={styles.icon}
-        color='#AA7489'
+        color="#AA7489"
         icon={faMagnifyingGlass}
         onClick={onSearchIconClick}
       />

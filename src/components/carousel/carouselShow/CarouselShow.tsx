@@ -6,6 +6,8 @@ import CarouselCardActions from '../../carouselCardActions/CarouselCardActions';
 import CarouselDetail from '../../carouselDetail/CarouselDetail';
 import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import styles from '../carouselMovie/CarouselMovie.module.css';
+import { useAppSelector } from '../../../store/hooks';
+import { selectUser } from '../../../store/user/selectors';
 
 interface Props {
   show: TvShow;
@@ -14,13 +16,20 @@ interface Props {
 
 const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
-  
+  const user = useAppSelector(selectUser);
+
   const onMouseLeave = () => {
     setIsWrapperHovered(false);
   };
 
   const onHover = () => {
     setIsWrapperHovered(true);
+  };
+
+  const isMovieAddedToList = (): boolean => {
+    if (!user) return false;
+
+    return !!user.showsList.find((id) => id === show.id);
   };
 
   return (
@@ -38,7 +47,7 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
                   <CarouselDetail value={show.original_language.toUpperCase()} />
                 </Grid>
               </Grid>
-              <CarouselCardActions isOnProfile={isOnProfile} title={show.name} id={show.id} />
+              <CarouselCardActions isMovieAddedToList={isMovieAddedToList()} isOnProfile={isOnProfile} title={show.name} id={show.id} />
             </CardContent>}
           </Card>
         </Grid>

@@ -18,6 +18,7 @@ interface Props {
   backdrop_path: string;
   isClicked: boolean;
   setIsClicked: Function;
+  isDesktop?: boolean;
   isShow?: boolean;
 }
 
@@ -29,16 +30,17 @@ const Modal: React.FC<Props> = ({
   backdrop_path,
   isClicked,
   setIsClicked,
+  isDesktop,
   children,
   isShow = false,
 }) => (
   <Dialog
     isClicked={isClicked}
     onClose={() => setIsClicked(false)}
-    className={styles.modal}
+    className={isDesktop ? styles.desktopModal : styles.mobileModal}
   >
     <img
-      className={styles.modalPicture}
+      className={isDesktop ? styles.desktopModalPicture : styles.mobileModalPicture}
       src={getMoviePosterPath(backdrop_path)}
       alt="backdrop"
     />

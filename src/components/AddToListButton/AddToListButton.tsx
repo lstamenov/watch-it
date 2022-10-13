@@ -7,9 +7,11 @@ interface Props {
   movieName: string;
   isMovie?: boolean;
   isOnProfile?: boolean;
+  isMovieAddedToList?: boolean;
   children: (props: {
     onClick: () => void;
     isOnProfile?: boolean;
+    isMovieAddedToList?: boolean;
   }) => JSX.Element;
 }
 
@@ -18,6 +20,7 @@ const AddToListButton: React.FC<Props> = ({
   movieName,
   isMovie = true,
   isOnProfile = false,
+  isMovieAddedToList,
   children,
 }) => {
   const dispatch = useDispatch();
@@ -41,6 +44,7 @@ const AddToListButton: React.FC<Props> = ({
   return children({
     onClick: isOnProfile ? handleRemove : handleAdd,
     isOnProfile,
+    isMovieAddedToList,
   });
 };
 

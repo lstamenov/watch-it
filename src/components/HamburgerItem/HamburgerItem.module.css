@@ -2,7 +2,7 @@
   text-transform: uppercase;
   font-weight: 600;
   color: #AA7489;
-  padding: 0 30px;
+  padding: 0 10px;
 }
 
 .clickedItem{
@@ -10,5 +10,5 @@
   background-color: rgba(25, 118, 210, 0.04);
   color: #b45177;
   font-weight: 600;
-  padding: 0 30px;
+  padding: 0 10px;
 }

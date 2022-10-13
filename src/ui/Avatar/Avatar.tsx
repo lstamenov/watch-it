@@ -5,20 +5,15 @@ import styles from './Avatar.module.css';
 interface Props {
   src: string;
   onClick?: () => void;
+  isOnHeader?: boolean;
 }
 
-export const Avatar: React.FC<Props> = ({ src, onClick }) => {
-  if (src?.length > 1 && onClick) {
-    return <div onClick={onClick}>
-      <AvatarUI className={styles.avatar} src={src} />
-    </div>;
-  }
-
-  if (src.length > 1) {
-    return <AvatarUI className={styles.avatar} src={src} />;
-  }
-
-  return <AvatarUI className={styles.avatar}>{src}</AvatarUI>;
+export const Avatar: React.FC<Props> = ({ src, onClick, isOnHeader =  false }) => {
+  return (
+    <div onClick={onClick}>
+      <AvatarUI className={isOnHeader ? styles.headerAvatar : styles.avatar} src={src} />
+    </div>
+  );
 };
 
 export default Avatar;

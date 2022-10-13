@@ -8,3 +8,9 @@
 .icon:hover{
   color: #b45177;
 }
+
+.added{
+  color: #b45177;
+  font-size: 40px;
+  cursor: pointer;
+}

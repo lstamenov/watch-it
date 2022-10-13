@@ -36,7 +36,7 @@ const Sidebar: React.FC<Props> = ({ items }) => {
       onClick={toggleDrawer()}
       onKeyDown={toggleDrawer()}
     >
-      <List>
+      <List className={styles.drawer}>
         {items.map(item => <HamburgerItem key={item.title} {...item} />)}
       </List>
     </Box>
