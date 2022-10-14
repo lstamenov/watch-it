@@ -20,6 +20,9 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
   const [currentSeason, setCurrentSeason] = useState(
     seasons.length > 1 ? seasons[Number(ulrSeason) - 1] : null,
   );
+
+  console.log(seasons[Number(ulrSeason) - 1]);
+
   const isMobile = useMobile();
 
   const movieURL = `https://imdbembed.xyz/movie/imdb/${id}?server=2`;
@@ -39,7 +42,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
       .map((season) => season.season_number)
       .filter((season) => season !== 0);
 
-  const episodes = Array.from(
+  const getEpisodes = () => Array.from(
     { length: currentSeason ? currentSeason.episode_count : 1 },
     (_, i) => i + 1,
   );
@@ -56,7 +59,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
           <Dropdown
             current={Number(ulrEpisode)}
             prefix="episode"
-            items={episodes}
+            items={getEpisodes()}
             onChange={handleEpisodeChange}
           />
         </div>
@@ -89,7 +92,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
         <Dropdown
           current={Number(ulrEpisode)}
           prefix="episode"
-          items={episodes}
+          items={getEpisodes()}
           onChange={handleEpisodeChange}
         />
       </div>
