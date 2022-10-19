@@ -18,10 +18,8 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
   const ulrEpisode = searchParams.get('episode') || 1;
 
   const [currentSeason, setCurrentSeason] = useState(
-    seasons.length > 1 ? seasons[Number(ulrSeason) - 1] : null,
+    seasons.length > 0 ? seasons[Number(ulrSeason) - 1] : null,
   );
-
-  console.log(seasons[Number(ulrSeason) - 1]);
 
   const isMobile = useMobile();
 
@@ -85,6 +83,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
     <>
       <div className={styles.episodeSelector}>
         <Dropdown
+          current={currentSeason?.season_number || 1}
           prefix="season"
           items={getSeasons()}
           onChange={handleSeasonChange}

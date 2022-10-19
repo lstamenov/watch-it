@@ -22,6 +22,7 @@ import Show from '../pages/Show/Show';
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import ToastProvider from '../providers/ToastProvider';
+import ScrollTopButton from '../components/ScrollTopButton';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,105 +38,107 @@ const App: React.FC = () => {
         <Header />
         <ToastProvider>
           <AnimatePresence>
-            <Routes location={location} key={location.pathname}>
-              <Route
-                path="/results"
-                element={
-                  <ProtectedRoute>
-                    <SearchResults />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/register"
-                element={
-                  <AuthRoute>
-                    <Register />
-                  </AuthRoute>
-                }
-              />
-              <Route
-                path="/login"
-                element={
-                  <AuthRoute>
-                    <Login />
-                  </AuthRoute>
-                }
-              />
-              <Route
-                path="/shows/play/:id"
-                element={
-                  <ProtectedRoute>
-                    <ShowPlayer />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/movies/play/:id"
-                element={
-                  <ProtectedRoute>
-                    <MoviePlayer />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/movies/:id"
-                element={
-                  <ProtectedRoute>
-                    <Movie />
-                  </ProtectedRoute>
-                }
-              ></Route>
-              <Route
-                path="/movies"
-                element={
-                  <ProtectedRoute>
-                    <Movies />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/shows/:id"
-                element={
-                  <ProtectedRoute>
-                    <Show />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/shows"
-                element={
-                  <ProtectedRoute>
-                    <Shows />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/genres"
-                element={
-                  <ProtectedRoute>
-                    <Genres />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <ScrollTopButton>
+              <Routes location={location} key={location.pathname}>
+                <Route
+                  path="/results"
+                  element={
+                    <ProtectedRoute>
+                      <SearchResults />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/register"
+                  element={
+                    <AuthRoute>
+                      <Register />
+                    </AuthRoute>
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <AuthRoute>
+                      <Login />
+                    </AuthRoute>
+                  }
+                />
+                <Route
+                  path="/shows/play/:id"
+                  element={
+                    <ProtectedRoute>
+                      <ShowPlayer />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/movies/play/:id"
+                  element={
+                    <ProtectedRoute>
+                      <MoviePlayer />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/movies/:id"
+                  element={
+                    <ProtectedRoute>
+                      <Movie />
+                    </ProtectedRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/movies"
+                  element={
+                    <ProtectedRoute>
+                      <Movies />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/shows/:id"
+                  element={
+                    <ProtectedRoute>
+                      <Show />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/shows"
+                  element={
+                    <ProtectedRoute>
+                      <Shows />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/genres"
+                  element={
+                    <ProtectedRoute>
+                      <Genres />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Home />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </ScrollTopButton>
           </AnimatePresence>
         </ToastProvider>
       </div>
