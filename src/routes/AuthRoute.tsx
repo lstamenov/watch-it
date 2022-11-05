@@ -5,7 +5,7 @@ import { selectUser } from '../store/user/selectors';
 
 const AuthRoute: React.FC = ({ children }) => {
   const user = useAppSelector(selectUser);
-
+  
   const renderContent = () => !user ? <>{children}</> : <Navigate to='/' />;
   
   return (

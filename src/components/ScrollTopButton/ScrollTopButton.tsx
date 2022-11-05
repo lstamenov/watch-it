@@ -5,7 +5,6 @@ import styles from './ScrollTopButton.module.css';
 
 const ScrollTopButton: React.FC = ({ children }) => {
   const [visible, setVisible] = useState(false);
-  console.log(visible);
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;

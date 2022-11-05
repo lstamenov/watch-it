@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface Movie {
   release_date: string,
   adult: boolean,
@@ -164,4 +166,10 @@ export interface Actor {
   character: string;
   credit_id: string;
   order: number;
+}
+
+export interface RouteData {
+  type: 'AUTH_ROUTE' | 'PRIVATE_ROUTE' | 'PUBLIC_ROUTE';
+  Page: React.FC;
+  path: string;
 }

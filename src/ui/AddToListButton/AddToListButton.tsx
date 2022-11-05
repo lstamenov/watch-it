@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from '@mui/material';
 import styles from './AddToListButton.module.css';
-// import { Link } from 'react-router-dom';
 
 interface Props {
   onClick: () => void;
@@ -11,6 +10,7 @@ interface Props {
   isOnProfile?: boolean;
   isMovieAddedToList?: boolean;
   hasMargin?: boolean;
+  isEnabled?: boolean
 }
 
 const AddToListButton: React.FC<Props> = ({
@@ -19,8 +19,9 @@ const AddToListButton: React.FC<Props> = ({
   hasMargin = false,
   isOnProfile = false,
   isMovieAddedToList = false,
+  isEnabled = false,
 }) => (
-  <>
+  isEnabled ? <>
     <Tooltip
       title={isOnProfile ? 'Remove from list' : 'Add to list'}
     >
@@ -33,7 +34,7 @@ const AddToListButton: React.FC<Props> = ({
         />
       </div>
     </Tooltip>
-  </>
+  </> : null
 );
 
 export default AddToListButton;

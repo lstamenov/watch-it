@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../store/hooks';
+import { selectUser } from '../../store/user/selectors';
 import { addMovie, addShow, removeMovie, removeShow } from '../../store/user/thunk';
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
     onClick: () => void;
     isOnProfile?: boolean;
     isMovieAddedToList?: boolean;
+    isEnabled?: boolean;
   }) => JSX.Element;
 }
 
@@ -24,6 +27,7 @@ const AddToListButton: React.FC<Props> = ({
   children,
 }) => {
   const dispatch = useDispatch();
+  const user = useAppSelector(selectUser);
 
   const handleAdd = () => {
     if (isMovie) {
@@ -45,6 +49,7 @@ const AddToListButton: React.FC<Props> = ({
     onClick: isOnProfile ? handleRemove : handleAdd,
     isOnProfile,
     isMovieAddedToList,
+    isEnabled: !!user,
   });
 };
 

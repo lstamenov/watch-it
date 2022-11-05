@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -57,6 +58,13 @@ const Login: React.FC = () => {
 
   return (
     <AnimatedPage>
+      <Helmet>
+        <title>watch-it - Login</title>
+        <meta
+          name="description"
+          content="Log in to your account and start watching everything you like"
+        />
+      </Helmet>
       <FormLayout title='sign in'>
         <Form btnText='sign in' inputs={items} onSubmit={onSubmit} />
         <Link text={'Don\'t have an account?'} url='/register' />

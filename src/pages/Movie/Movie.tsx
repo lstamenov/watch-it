@@ -6,8 +6,13 @@ import NotFound from '../NotFound/NotFound';
 import { Movie as MovieType } from '../../types/types';
 import Page from '../../ui/Page/Page';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
+import { useAppSelector } from '../../store/hooks';
+import { selectCurrentMovie } from '../../store/watch/selectors';
+import { Helmet } from 'react-helmet';
 
 const Movie: React.FC = () => {
+  const currentMovie = useAppSelector(selectCurrentMovie);
+
   const renderContent = (
     movie: MovieType | null,
     similarMovies: MovieType[],
@@ -29,6 +34,10 @@ const Movie: React.FC = () => {
   return (
     <AnimatedPage>
       <Page>
+        <Helmet>
+          <title>{'asdaasd'}</title>
+          <meta name="description" content={currentMovie?.overview} />
+        </Helmet>
         <MovieLayout>
           {(props) => {
             return props.isLoading ? (

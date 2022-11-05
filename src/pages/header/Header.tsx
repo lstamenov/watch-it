@@ -89,27 +89,21 @@ const Header: React.FC = () => {
       title: 'Genres',
       path: '/genres',
     },
-    {
-      title: 'Profile',
-      path: '/profile',
-    },
+    user
+      ? {
+        title: 'Profile',
+        path: '/profile',
+      }
+      : {
+        title: 'Sign In',
+        path: '/login',
+      },
   ];
 
-  const guestItems = [
-    {
-      title: 'Sign In',
-      path: '/login',
-    },
-    {
-      title: 'Sign Up',
-      path: '/register',
-    },
-  ];
-
-  type Items = typeof guestItems | typeof items;
+  type Items = typeof items;
 
   const generateItems = (navItems: Items) => {
-    return navItems.map(item => {
+    return navItems.map((item) => {
       const url = item.path;
 
       if (url.includes(UrlParams.MOVIES)) {
@@ -164,31 +158,20 @@ const Header: React.FC = () => {
       </div>
       <div className={styles.main}>
         <SearchBar />
-        {user && <Avatar onClick={() => navigate('/profile')} isOnHeader src={user?.avatarURL} />}
+        {user && (
+          <Avatar
+            onClick={() => navigate('/profile')}
+            isOnHeader
+            src={user?.avatarURL}
+          />
+        )}
       </div>
     </>
   );
 
-  const renderGuestHeader = () => (
-    <div className={styles.main}>
-      <Logo />
-      {generateItems(guestItems).map((item) => (
-        <NavButton
-          key={item.title}
-          text={item.title}
-          path={item.path}
-          isClicked={item.isClicked}
-        />
-      ))}
-      <Sidebar items={generateItems(guestItems)} />
-    </div>
-  );
-
   return (
     <StyledEngineProvider injectFirst>
-      <AppBar className={styles.header}>
-        {user ? renderAuthenticatedHeader() : renderGuestHeader()}
-      </AppBar>
+      <AppBar className={styles.header}>{renderAuthenticatedHeader()}</AppBar>
     </StyledEngineProvider>
   );
 };

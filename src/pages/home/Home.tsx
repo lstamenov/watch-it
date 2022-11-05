@@ -15,6 +15,7 @@ import { selectLoader } from '../../store/loader/selectors';
 import Loader from '../../components/loader/Loader';
 import styles from './Home.module.css';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
+import { Helmet } from 'react-helmet';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,16 +30,27 @@ const Home: React.FC = () => {
 
   return (
     <AnimatedPage>
-    {isLoading ? <Loader /> : <Container className={styles.home}>
-      <Typography className={styles.title} variant="h4">
-        find something to watch
-      </Typography>
-      <InfiniteScrollLayout
-        movies={trending}
-        page={trendingPage}
-        loadMovies={loadMoreWeeklyTrending}
-      />
-    </Container>}
+      <Helmet>
+        <title>watch-it - The free streaming platform</title>
+        <meta
+          name="description"
+          content="Browse through various movies and shows and find the best match for you"
+        />
+      </Helmet>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Container className={styles.home}>
+          <Typography className={styles.title} variant="h4">
+            find something to watch
+          </Typography>
+          <InfiniteScrollLayout
+            movies={trending}
+            page={trendingPage}
+            loadMovies={loadMoreWeeklyTrending}
+          />
+        </Container>
+      )}
     </AnimatedPage>
   );
 };

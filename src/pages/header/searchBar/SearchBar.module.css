@@ -1,7 +1,5 @@
 .searchBar{
-  margin: 0 30px;
-  display: flex;
-  gap: 15px;
+  margin: 17px 30px;
 }
 
 @keyframes hide {
@@ -75,6 +73,6 @@
 
 @media screen and (max-width: 768px) {
   .searchBar {
-    margin: 0 5px;
+    margin: 15px 5px;
   } 
 }

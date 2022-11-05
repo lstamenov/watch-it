@@ -30,6 +30,7 @@ import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScr
 import InfoText from '../../components/InfoText/InfoText';
 import { useLocation } from 'react-router-dom';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
+import { Helmet } from 'react-helmet';
 
 const Genres: React.FC = () => {
   const passedState: any = useLocation().state;
@@ -177,6 +178,13 @@ const Genres: React.FC = () => {
   return (
     <AnimatedPage>
       <StyledEngineProvider injectFirst>
+      <Helmet>
+        <title>watch-it - Search movies and shows by genre</title>
+        <meta
+          name="description"
+          content="Browse through genres to find the best match for you"
+        />
+      </Helmet>
         <Container className={styles.container}>
           <GenresLayout>{renderGenres()}</GenresLayout>
           <ButtonGroup variant="contained" className={styles.btnGroup}>

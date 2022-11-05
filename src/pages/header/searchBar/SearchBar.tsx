@@ -51,6 +51,7 @@ const SearchBar: React.FC = () => {
       <FontAwesomeIcon
         className={styles.icon}
         color="#AA7489"
+        fontSize={24}
         icon={faMagnifyingGlass}
         onClick={onSearchIconClick}
       />
