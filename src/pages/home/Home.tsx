@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       ) : (
         <Container className={styles.home}>
           <Typography className={styles.title} variant="h4">
-            find something to watch
+            find something to watchhhh
           </Typography>
           <InfiniteScrollLayout
             movies={trending}
