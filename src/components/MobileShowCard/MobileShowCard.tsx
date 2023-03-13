@@ -8,9 +8,10 @@ import Modal from '../Modal/Modal';
 
 interface Props {
   show: TvShow;
+  isOnProfile?: boolean;
 }
 
-const MobileShowCard: React.FC<Props> = ({ show }) => {
+const MobileShowCard: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isClicked, setIsClicked] = useState(false);
   
   return (
@@ -21,6 +22,7 @@ const MobileShowCard: React.FC<Props> = ({ show }) => {
         {...show}
         isClicked={isClicked}
         setIsClicked={setIsClicked}
+        isOnProfile={isOnProfile}
       >
         <CarouselDetail
           value={

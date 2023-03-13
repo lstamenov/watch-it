@@ -23,8 +23,8 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
 
   const isMobile = useMobile();
 
-  const movieURL = `https://imdbembed.xyz/movie/imdb/${id}?server=2`;
-  const showURL = `https://imdbembed.xyz/tv/imdb/${id}-${ulrSeason}-${ulrEpisode}?server=2`;
+  const movieURL = `https://autoembed.to/movie/imdb/${id}`;
+  const showURL = ` https://autoembed.to/tv/imdb/${id}-${ulrSeason}-${ulrEpisode}`;
 
   const handleSeasonChange = (value: string) => {
     setSearchParams({ season: value, episode: '1' });

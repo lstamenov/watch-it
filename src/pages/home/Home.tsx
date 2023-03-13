@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import { useAppSelector } from '../../store/hooks';
 import { useDispatch } from 'react-redux';
 import {
@@ -41,9 +41,6 @@ const Home: React.FC = () => {
         <Loader />
       ) : (
         <Container className={styles.home}>
-          <Typography className={styles.title} variant="h4">
-            find something to watchhhh
-          </Typography>
           <InfiniteScrollLayout
             movies={trending}
             page={trendingPage}

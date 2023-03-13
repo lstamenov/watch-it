@@ -20,6 +20,7 @@ interface Props {
   setIsClicked: Function;
   isDesktop?: boolean;
   isShow?: boolean;
+  isOnProfile?: boolean;
 }
 
 const Modal: React.FC<Props> = ({
@@ -33,6 +34,7 @@ const Modal: React.FC<Props> = ({
   isDesktop,
   children,
   isShow = false,
+  isOnProfile = false,
 }) => (
   <Dialog
     isClicked={isClicked}
@@ -67,7 +69,7 @@ const Modal: React.FC<Props> = ({
         <ListButton
           url={isShow ? `/shows/${id}` : `/movies/${id}`}
         />
-        <AddToListButton movieName={title} movieId={id} isMovie={!isShow}>
+        <AddToListButton isOnProfile={isOnProfile} movieName={title} movieId={id} isMovie={!isShow}>
           {(props) => <AddToListButtonUI {...props} />}
         </AddToListButton>
       </div>

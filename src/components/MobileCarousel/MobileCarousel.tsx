@@ -13,12 +13,14 @@ interface Props {
   title: string;
   items: Movie[] | TvShow[];
   isMovieCarousel?: boolean;
+  isOnProfile?: boolean;
 }
 
 const MobileCarousel: React.FC<Props> = ({
   items,
   title,
   isMovieCarousel = false,
+  isOnProfile = false,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -37,9 +39,9 @@ const MobileCarousel: React.FC<Props> = ({
         {items.map((item) => (
           <SwiperSlide>
             {isMovieCarousel ? (
-              <MobileMovieCard movie={item as Movie} />
+              <MobileMovieCard isOnProfile={isOnProfile} movie={item as Movie} />
             ) : (
-              <MobileShowCard show={item as TvShow} />
+              <MobileShowCard isOnProfile={isOnProfile} show={item as TvShow} />
             )}
           </SwiperSlide>
         ))}

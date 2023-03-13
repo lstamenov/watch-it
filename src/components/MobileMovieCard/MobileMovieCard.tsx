@@ -11,14 +11,15 @@ import CarouselDetail from '../carouselDetail/CarouselDetail';
 
 interface Props {
   movie: Movie;
+  isOnProfile?: boolean; 
 }
 
-const MobileMovieCard: React.FC<Props> = ({ movie }) => {
+const MobileMovieCard: React.FC<Props> = ({ movie, isOnProfile = false }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
     <>
-      <Modal {...movie} isClicked={isClicked} setIsClicked={setIsClicked}>
+      <Modal {...movie} isOnProfile={isOnProfile} isClicked={isClicked} setIsClicked={setIsClicked}>
         <CarouselDetail value={convertMinutesToHours(movie.runtime)} />
         <CarouselDetail value={movie.original_language.toUpperCase()} />
         <CarouselDetail value={String(movie.vote_average.toFixed(1))} />
