@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -17,6 +18,7 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const path = useLocation().pathname;
+  const { t } = useTranslation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +30,7 @@ const Login: React.FC = () => {
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    setHasError(message !== '' && numberOfTries !== 0 ? true : false);
+    setHasError(message !== '' && numberOfTries !== 0);
   }, [message, numberOfTries]);
 
   useEffect(() => {
@@ -39,12 +41,12 @@ const Login: React.FC = () => {
 
   const items = [
     {
-      placeholder: 'username',
+      placeholder: t('USERNAME'),
       onChange: setUsername,
       value: username,
     },
     {
-      placeholder: 'password',
+      placeholder: t('PASSWORD'),
       onChange: setPassword,
       value: password,
       isPassword: true,
@@ -65,9 +67,9 @@ const Login: React.FC = () => {
           content="Log in to your account and start watching everything you like"
         />
       </Helmet>
-      <FormLayout title='sign in'>
-        <Form btnText='sign in' inputs={items} onSubmit={onSubmit} />
-        <Link text={'Don\'t have an account?'} url='/register' />
+      <FormLayout title={t('SIGN_IN')}>
+        <Form btnText={t('SIGN_IN')} inputs={items} onSubmit={onSubmit} />
+        <Link text={t('NO_ACCOUNT')} url='/register' />
         {isLoading && <TransparentLoader />}
         {hasError && <ErrorMessage message={message} />}
       </FormLayout>

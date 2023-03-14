@@ -12,10 +12,12 @@ import { register } from '../../store/user/thunk';
 import { useNavigate } from 'react-router-dom';
 import useRegisterValidations from '../../hooks/useRegisterValidations';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
+import { useTranslation } from 'react-i18next';
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -53,23 +55,23 @@ const Register: React.FC = () => {
 
   const items = [
     {
-      placeholder: 'username',
+      placeholder: t('USERNAME'),
       onChange: setUsername,
       value: username,
     },
     {
-      placeholder: 'email',
+      placeholder: t('EMAIL'),
       onChange: setEmail,
       value: email,
     },
     {
-      placeholder: 'password',
+      placeholder: t('PASSWORD'),
       onChange: setPassword,
       value: password,
       isPassword: true,
     },
     {
-      placeholder: 'confirm password',
+      placeholder: t('CONFIRM_PASSWORD'),
       onChange: setConfirmPassword,
       value: confirmPassword,
       isPassword: true,
@@ -85,9 +87,9 @@ const Register: React.FC = () => {
 
   return (
     <AnimatedPage>
-      <FormLayout title="sign up">
-        <Form btnText="sign up" inputs={items} onSubmit={onSubmit} />
-        <Link text={'Already have an account?'} url="/login" />
+      <FormLayout title={t('SIGN_UP')}>
+        <Form btnText={t('SIGN_UP')} inputs={items} onSubmit={onSubmit} />
+        <Link text={t('HAS_ACCOUNT')} url="/login" />
         {isLoading && <TransparentLoader />}
         {hasError && <ErrorMessage message={message} />}
         {!isValid &&

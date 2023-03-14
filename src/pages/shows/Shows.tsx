@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
@@ -19,13 +20,14 @@ import styles from './Shows.module.css';
 
 const Shows: React.FC = () => {
   const dispatch = useDispatch();
+  const { i18n, t } = useTranslation();
 
   const isMobile = useMobile();
   const isLoading = useAppSelector(selectLoader);
 
   useEffect(() => {
     dispatch(loadShowsPageData());
-  }, []);
+  }, [i18n.language]);
 
   const popularShows: TvShow[] = useAppSelector(selectPopularShows);
   const topRatedShows: TvShow[] = useAppSelector(selectTopRatedShows);
@@ -33,9 +35,9 @@ const Shows: React.FC = () => {
 
   const renderMobile = () => (
     <>
-      <MobileCarousel items={popularShows} title="popular" />
-      <MobileCarousel items={topRatedShows} title="top rated" />
-      <MobileCarousel items={trendingShows} title="trending" />
+      <MobileCarousel items={popularShows} title={t('POPULAR_SHOWS')} />
+      <MobileCarousel items={topRatedShows} title={t('TOP_RATED_SHOWS')} />
+      <MobileCarousel items={trendingShows} title={t('TRENDING_SHOWS')} />
     </>
   );
 
@@ -49,17 +51,17 @@ const Shows: React.FC = () => {
             renderMobile()
           ) : (
             <>
-              <Carousel title="Popular">
+              <Carousel title={t('POPULAR_SHOWS')}>
                 {popularShows.map((show, index) => (
                   <CarouselShow show={show} key={index} />
                 ))}
               </Carousel>
-              <Carousel title="Top rated">
+              <Carousel title={t('TOP_RATED_SHOWS')}>
                 {topRatedShows.map((show, index) => (
                   <CarouselShow key={index} show={show} />
                 ))}
               </Carousel>
-              <Carousel title="Trending">
+              <Carousel title={t('TRENDING_SHOWS')}>
                 {trendingShows.map((show, index) => (
                   <CarouselShow key={index} show={show} />
                 ))}

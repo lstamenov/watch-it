@@ -1,0 +1,7 @@
+.selector {
+  display: flex;
+  width: 60px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}

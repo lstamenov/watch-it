@@ -10,10 +10,12 @@ import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import Page from '../../ui/Page/Page';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
+import { useTranslation } from 'react-i18next';
 
 const Profile: React.FC = () => {
   const user = useAppSelector(selectUser);
   const isMobile = useMobile();
+  const { t } = useTranslation();
 
   const renderMobileCarousel = () => {
     return (
@@ -21,12 +23,12 @@ const Profile: React.FC = () => {
         {user && user.list.movies.length > 1 && (
           <MobileCarousel
             isMovieCarousel
-            title="your movie list"
+            title={t('YOUR_MOVIES_LIST')}
             items={user?.list.movies}
           />
         )}
         {user && user.list.shows.length > 1 && (
-          <MobileCarousel title="your show list" items={user?.list.shows} />
+          <MobileCarousel title={t('YOUR_SHOWS_LIST')} items={user?.list.shows} />
         )}
       </>
     );
@@ -36,14 +38,14 @@ const Profile: React.FC = () => {
     return user ? (
       <>
         {
-          user.list.movies.length > 0 && <Carousel title="your movie list">
+          user.list.movies.length > 0 && <Carousel title={t('YOUR_MOVIES_LIST')}>
             {user.list.movies.map((movie) => (
               <CarouselMovie isOnProfile key={movie.id} movie={movie} />
             ))}
           </Carousel>
         }
         {
-          user.list.shows.length > 0 && <Carousel title="your show list">
+          user.list.shows.length > 0 && <Carousel title={t('YOUR_SHOWS_LIST')}>
             {user.list.shows.map((show) => (
               <CarouselShow isOnProfile key={show.id} show={show} />
             ))}

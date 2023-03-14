@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import { useTranslation } from 'react-i18next';
 import Logo from '../../components/logo/Logo';
 import NavButton from '../../components/navButton/NavButton';
 import SearchBar from './searchBar/SearchBar';
@@ -9,6 +10,8 @@ import styles from './Header.module.css';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
 import Avatar from '../../ui/Avatar/Avatar';
+import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
+import { default as LanguageSelectorUI } from '../../ui/LanguageSelector/LanguageSelector';
 
 enum UrlParams {
   HOME = '/',
@@ -38,6 +41,7 @@ const Header: React.FC = () => {
   const path = useLocation().pathname;
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const initialURLState: URLState = {
     '/': false,
@@ -74,28 +78,28 @@ const Header: React.FC = () => {
 
   const items = [
     {
-      title: 'Home',
+      title: t('HOME'),
       path: '/',
     },
     {
-      title: 'Movies',
+      title: t('MOVIES'),
       path: '/movies',
     },
     {
-      title: 'Shows',
+      title: t('SHOWS'),
       path: '/shows',
     },
     {
-      title: 'Genres',
+      title: t('GENRES'),
       path: '/genres',
     },
     user
       ? {
-        title: 'Profile',
+        title: t('PROFILE'),
         path: '/profile',
       }
       : {
-        title: 'Sign In',
+        title: t('SIGN_IN'),
         path: '/login',
       },
   ];
@@ -142,6 +146,12 @@ const Header: React.FC = () => {
     }
   }, [path]);
 
+  const renderLanguageSelector = () => (
+    <LanguageSelector>
+      {(props) => <LanguageSelectorUI {...props} />}
+    </LanguageSelector>
+  );
+
   const renderAuthenticatedHeader = () => (
     <>
       <div className={styles.main}>
@@ -165,6 +175,7 @@ const Header: React.FC = () => {
             src={user?.avatarURL}
           />
         )}
+        {renderLanguageSelector()}
       </div>
     </>
   );

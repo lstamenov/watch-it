@@ -5,6 +5,7 @@ import { store } from './store/store';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
+import './i18n/i18n';
 
 ReactDOM.render(
   <React.StrictMode>

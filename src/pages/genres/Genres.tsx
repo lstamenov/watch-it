@@ -1,10 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Container,
-  StyledEngineProvider,
-} from '@mui/material';
+import { Container, StyledEngineProvider } from '@mui/material';
 import styles from './Genres.module.css';
 import GenresLayout from '../../layouts/GenresLayout/GenresLayout';
 import { useDispatch } from 'react-redux';
@@ -31,12 +26,17 @@ import InfoText from '../../components/InfoText/InfoText';
 import { useLocation } from 'react-router-dom';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
+import GenresTab from '../../ui/GenresTab/GenresTab';
 
 const Genres: React.FC = () => {
   const passedState: any = useLocation().state;
   const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
   const [hasResults, setHasResults] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('movies');
+  const [selectedCategory, setSelectedCategory] = useState<'movies' | 'shows'>(
+    'movies',
+  );
+  const { i18n, t } = useTranslation();
 
   const moviesButtonRef = useRef<HTMLButtonElement>(null);
   const showsButtonRef = useRef<HTMLButtonElement>(null);
@@ -71,11 +71,11 @@ const Genres: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadGenres());
-  }, []);
+  }, [i18n.language]);
 
   const renderResults = () => {
     if (selectMovieGenres.length === 0)
-      return <InfoText text="Select genre to start exploring..." />;
+      return <InfoText text={t('GENRES_PAGE_INFO')} />;
 
     if (selectedCategory === 'movies') {
       return (
@@ -178,35 +178,26 @@ const Genres: React.FC = () => {
   return (
     <AnimatedPage>
       <StyledEngineProvider injectFirst>
-      <Helmet>
-        <title>watch-it - Search movies and shows by genre</title>
-        <meta
-          name="description"
-          content="Browse through genres to find the best match for you"
-        />
-      </Helmet>
+        <Helmet>
+          <title>watch-it - Search movies and shows by genre</title>
+          <meta
+            name="description"
+            content="Browse through genres to find the best match for you"
+          />
+        </Helmet>
         <Container className={styles.container}>
           <GenresLayout>{renderGenres()}</GenresLayout>
-          <ButtonGroup variant="contained" className={styles.btnGroup}>
-            <Button
-              ref={moviesButtonRef}
-              onClick={onMoviesButtonClick}
-              className={`${styles.btn} ${styles.selectedBtn}`}
-            >
-              Movies
-            </Button>
-            <Button
-              ref={showsButtonRef}
-              onClick={onShowsButtonClick}
-              className={styles.btn}
-            >
-              Shows
-            </Button>
-          </ButtonGroup>
+          <GenresTab
+            setCurrentTab={(tab) => {
+              setSelectedCategory(tab);
+              setSelectedGenres([]);
+            }}
+            currentTab={selectedCategory}
+          />
           {hasResults ? (
             renderResults()
           ) : (
-            <InfoText text="Select genre and category to start exploring..." />
+            <InfoText text={t('GENRES_PAGE_INFO')} />
           )}
         </Container>
       </StyledEngineProvider>

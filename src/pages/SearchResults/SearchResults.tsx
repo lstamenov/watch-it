@@ -1,5 +1,6 @@
 import { Container, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import Loader from '../../components/loader/Loader';
@@ -19,13 +20,14 @@ const SearchResults: React.FC = () => {
   const query = searchParams.get('query');
   const isLoading = useAppSelector(selectLoader);
   const [isFirstView, setIsFirstView] = useState(true);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     dispatch(loadSearchResults(query || ''));
     setTimeout(() => {
       setIsFirstView(false);
     }, 50);
-  }, [searchParams]);
+  }, [searchParams, i18n.language]);
 
   const renderResults = () =>
     isLoading && isFirstView ? (
