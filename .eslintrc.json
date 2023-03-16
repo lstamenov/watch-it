@@ -16,8 +16,10 @@
     "plugins": [
         "import",
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
     "rules": {
+        "prettier/prettier": "warn"
     }
 }
