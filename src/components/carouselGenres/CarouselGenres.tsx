@@ -5,10 +5,10 @@ import { Genre } from '../../types/types';
 import styles from './CarouselGenres.module.css';
 
 interface Props {
-  genres: (Genre | undefined)[]
+  genres: (Genre | undefined)[];
   numberToShow?: number;
 }
- 
+
 const CarouselGenres: React.FC<Props> = ({ genres, numberToShow = 1 }) => {
   return (
     <StyledEngineProvider injectFirst>
@@ -16,7 +16,7 @@ const CarouselGenres: React.FC<Props> = ({ genres, numberToShow = 1 }) => {
         {genres
           .map((genre) => (
             <Link
-              to='/genres'
+              to="/genres"
               state={genre && { selectedGenre: genre }}
               key={genre?.id}
               className={styles.genre}

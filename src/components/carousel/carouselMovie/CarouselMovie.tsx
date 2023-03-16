@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { CarouselMovieProps } from './types';
-import {
-  getMoviePosterPath,
-  convertMinutesToHours,
-} from '../../../utils/movieUtils';
+import { getMoviePosterPath, convertMinutesToHours } from '../../../utils/movieUtils';
 import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import CarouselDetail from '../../carouselDetail/CarouselDetail';
 import styles from './CarouselMovie.module.css';
@@ -38,10 +35,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
         className={styles.wrapper}
         elevation={6}
       >
-        <CardMedia
-          className={styles.poster}
-          image={getMoviePosterPath(movie.poster_path)}
-        />
+        <CardMedia className={styles.poster} image={getMoviePosterPath(movie.poster_path)} />
         {isWrapperHovered && (
           <CardContent className={styles.content}>
             <CarouselGenres genres={movie.genres} />
@@ -53,7 +47,13 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
                 <CarouselDetail value={movie.original_language.toUpperCase()} />
               </Grid>
             </Grid>
-            <CarouselCardActions isMovieAddedToList={isMovieAddedToList()} isOnProfile={isOnProfile} title={movie.original_title} isMovie={true} id={movie.id} />
+            <CarouselCardActions
+              isMovieAddedToList={isMovieAddedToList()}
+              isOnProfile={isOnProfile}
+              title={movie.original_title}
+              isMovie={true}
+              id={movie.id}
+            />
           </CardContent>
         )}
       </Card>
