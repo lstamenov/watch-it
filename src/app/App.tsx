@@ -63,9 +63,7 @@ const App: React.FC = () => {
         <Header />
         <ToastProvider>
           <AnimatePresence>
-            <ScrollTopButton>
-              {renderRoutes(routes)}
-            </ScrollTopButton>
+            <ScrollTopButton>{renderRoutes(routes)}</ScrollTopButton>
           </AnimatePresence>
         </ToastProvider>
       </div>

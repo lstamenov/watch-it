@@ -33,7 +33,12 @@ const Dropdown: React.FC<Props> = ({ items, onChange, prefix, current }) => {
       {items
         .filter((item) => item !== 0)
         .map((item) => (
-          <option style={{ fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }} className={styles.option} value={item} key={item}>
+          <option
+            style={{ fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }}
+            className={styles.option}
+            value={item}
+            key={item}
+          >
             {`${prefix.toUpperCase()} ${item}`}
           </option>
         ))}

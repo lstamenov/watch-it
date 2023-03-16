@@ -10,12 +10,7 @@ interface Props {
   isPassword?: boolean;
 }
 
-const Input: React.FC<Props> = ({
-  value,
-  onChange,
-  placeholder,
-  isPassword = false,
-}) => {
+const Input: React.FC<Props> = ({ value, onChange, placeholder, isPassword = false }) => {
   const [isFocused, setIsFocused] = useState(false);
   const isMobile = useMobile();
 
@@ -33,7 +28,9 @@ const Input: React.FC<Props> = ({
     </div>
   );
 
-  return isMobile ? renderMobile() : (
+  return isMobile ? (
+    renderMobile()
+  ) : (
     <div className={isFocused || value !== '' ? styles.focused : styles.wrapper}>
       <label className={styles.label}>
         <Typography>{placeholder}</Typography>

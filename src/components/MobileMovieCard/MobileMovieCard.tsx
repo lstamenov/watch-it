@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import { Movie } from '../../types/types';
 import { Card, CardMedia } from '@mui/material';
 import styles from './MobileMovieCard.module.css';
-import {
-  convertMinutesToHours,
-  getMoviePosterPath,
-} from '../../utils/movieUtils';
+import { convertMinutesToHours, getMoviePosterPath } from '../../utils/movieUtils';
 import Modal from '../Modal/Modal';
 import CarouselDetail from '../carouselDetail/CarouselDetail';
 
 interface Props {
   movie: Movie;
-  isOnProfile?: boolean; 
+  isOnProfile?: boolean;
 }
 
 const MobileMovieCard: React.FC<Props> = ({ movie, isOnProfile = false }) => {
@@ -25,10 +22,7 @@ const MobileMovieCard: React.FC<Props> = ({ movie, isOnProfile = false }) => {
         <CarouselDetail value={String(movie.vote_average.toFixed(1))} />
       </Modal>
       <Card onClick={() => setIsClicked(true)}>
-        <CardMedia
-          className={styles.card}
-          image={getMoviePosterPath(movie.poster_path)}
-        />
+        <CardMedia className={styles.card} image={getMoviePosterPath(movie.poster_path)} />
       </Card>
     </>
   );

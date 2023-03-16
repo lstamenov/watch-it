@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ListButton: React.FC<Props> = ({ url }) => (
-  <Tooltip title='View more'>
+  <Tooltip title="View more">
     <Link to={url}>
       <FontAwesomeIcon className={styles.icon} icon={faListUl} />
     </Link>
