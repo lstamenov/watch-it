@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Dropdown from '../../../components/Dropdown/DropDown';
 import useMobile from '../../../hooks/useMobile';
@@ -18,9 +18,15 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
   const ulrEpisode = searchParams.get('episode') || 1;
 
   const [currentSeason, setCurrentSeason] = useState(
-    seasons.length > 0 ? seasons[Number(ulrSeason) - 1] : null,
+    seasons.length > 0 ? seasons[(Number(ulrSeason) - 1) || 0] : null,
   );
 
+  useEffect(() => {
+    setCurrentSeason(
+      seasons.length > 0 ? seasons[(Number(ulrSeason) - 1) || 0] : null,
+    );
+  }, [seasons]);
+  
   const isMobile = useMobile();
 
   const movieURL = `https://autoembed.to/movie/imdb/${id}`;
@@ -33,17 +39,23 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
     );
   };
 
-  const handleEpisodeChange = (value: string) => setSearchParams({ episode: value, season: String(ulrSeason) });
+  const handleEpisodeChange = (value: string) =>
+    setSearchParams({ episode: value, season: String(ulrSeason) });
 
   const getSeasons = () =>
     seasons
-      .map((season) => season.season_number)
-      .filter((season) => season !== 0);
+      .map((season) => season.season_number);
 
-  const getEpisodes = () => Array.from(
-    { length: currentSeason ? currentSeason.episode_count : 1 },
-    (_, i) => i + 1,
-  );
+  const getEpisodes = useCallback(
+    () => {
+      return Array.from(
+        { length: currentSeason ? currentSeason.episode_count : 1 },
+        (_, i) => i + 1,
+      );
+    },
+    [currentSeason],
+  )
+  ;
 
   const renderMobile = () =>
     isShow && seasons ? (

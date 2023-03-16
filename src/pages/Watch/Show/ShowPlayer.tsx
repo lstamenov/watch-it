@@ -58,7 +58,7 @@ const ShowPlayer: React.FC = () => {
               isShow={true}
               id={show.imdb_id}
               seasons={show.seasons.filter(
-                (season) => season.name.toLowerCase() !== 'specials',
+                (season) => season.season_number > 0,
               )}
             />
           </WatchLayout>
