@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Container, StyledEngineProvider } from '@mui/material';
 import styles from './Genres.module.css';
 import GenresLayout from '../../layouts/GenresLayout/GenresLayout';
@@ -24,15 +24,11 @@ import { useTranslation } from 'react-i18next';
 import GenresTab from '../../ui/GenresTab/GenresTab';
 
 const Genres: React.FC = () => {
-  const passedState: any = useLocation().state;
+  const [passedState, setPassedState] = useState<any>(useLocation().state);
   const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
   const [hasResults, setHasResults] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<'movies' | 'shows'>('movies');
   const { i18n, t } = useTranslation();
-
-  const moviesButtonRef = useRef<HTMLButtonElement>(null);
-  const showsButtonRef = useRef<HTMLButtonElement>(null);
-
   const dispatch = useDispatch();
 
   const movieGenres = useAppSelector(selectMovieGenres);
@@ -87,46 +83,41 @@ const Genres: React.FC = () => {
     }
   };
 
-  const renderGenres = () => {
+  const GenresComponent = useMemo(() => {
     if (selectedCategory === 'movies') {
       return passedState
         ? movieGenres.map((genre) =>
             passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? (
-              <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} />
+              <GenreItem isActive key={`movie-${genre.id}`} genre={genre} onClick={onGenreClick} />
             ) : (
-              <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
+              <GenreItem key={`movie-${genre.id}`} genre={genre} onClick={onGenreClick} />
             ),
           )
         : movieGenres.map((genre) => (
-            <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
-          ));
-    } else {
-      return passedState
-        ? tvGenres.map((genre) =>
-            passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? (
-              <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} />
-            ) : (
-              <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
-            ),
-          )
-        : tvGenres.map((genre) => (
-            <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
+            <GenreItem key={`movie-${genre.id}`} genre={genre} onClick={onGenreClick} />
           ));
     }
-  };
+    return passedState
+      ? tvGenres.map((genre) =>
+          passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? (
+            <GenreItem isActive key={`show-${genre.id}`} genre={genre} onClick={onGenreClick} />
+          ) : (
+            <GenreItem key={`show-${genre.id}`} genre={genre} onClick={onGenreClick} />
+          ),
+        )
+      : tvGenres.map((genre) => (
+          <GenreItem key={`show-${genre.id}`} genre={genre} onClick={onGenreClick} />
+        ));
+  }, [movieGenres, tvGenres, selectedCategory, selectedGenres, passedState]);
 
   const onMoviesButtonClick = () => {
     setSelectedCategory('movies');
     setSelectedGenres([]);
-    moviesButtonRef.current?.classList.add(styles.selectedBtn);
-    showsButtonRef.current?.classList.remove(styles.selectedBtn);
   };
 
   const onShowsButtonClick = () => {
     setSelectedCategory('shows');
     setSelectedGenres([]);
-    showsButtonRef.current?.classList.add(styles.selectedBtn);
-    moviesButtonRef.current?.classList.remove(styles.selectedBtn);
   };
 
   useEffect(() => {
@@ -156,11 +147,12 @@ const Genres: React.FC = () => {
           <meta name="description" content="Browse through genres to find the best match for you" />
         </Helmet>
         <Container className={styles.container}>
-          <GenresLayout>{renderGenres()}</GenresLayout>
+          <GenresLayout>{GenresComponent}</GenresLayout>
           <GenresTab
             setCurrentTab={(tab) => {
               setSelectedCategory(tab);
               setSelectedGenres([]);
+              setPassedState(null);
             }}
             currentTab={selectedCategory}
           />
