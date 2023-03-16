@@ -22,14 +22,16 @@ export const login = (credentials: LoginCredentials) => async (dispatch: Dispatc
   dispatch(loading());
   try {
     const result = await service.login(credentials);
-    const { user, jwt }: { user: User, jwt: string } = await result.data;
+    const { user, jwt }: { user: User; jwt: string } = await result.data;
 
     localStorage.setItem('jwt', jwt);
 
-    const userMoviesResponse = Promise.all(user.moviesList.map(movieId => fetchMovieById(movieId)));
+    const userMoviesResponse = Promise.all(
+      user.moviesList.map((movieId) => fetchMovieById(movieId)),
+    );
     const userMovies = await userMoviesResponse;
 
-    const userShowsResponse = Promise.all(user.showsList.map(showId => fetchShowById(showId)));
+    const userShowsResponse = Promise.all(user.showsList.map((showId) => fetchShowById(showId)));
     const userShows = await userShowsResponse;
 
     user.list = {
@@ -57,22 +59,23 @@ export const register = (credentials: RegisterCredentials) => async (dispatch: D
   dispatch(loaded());
 };
 
-export const auth = () => async (dispatch: Dispatch) => {  
+export const auth = () => async (dispatch: Dispatch) => {
   try {
-    const response = await service.authenticateUser();    
+    const response = await service.authenticateUser();
     const user: User = await response.data;
-    const userMoviesResponse = Promise.all(user.moviesList.map(movieId => fetchMovieById(movieId)));
+    const userMoviesResponse = Promise.all(
+      user.moviesList.map((movieId) => fetchMovieById(movieId)),
+    );
     const userMovies = await userMoviesResponse;
 
-
-    const userShowsResponse = Promise.all(user.showsList.map(showId => fetchShowById(showId)));
+    const userShowsResponse = Promise.all(user.showsList.map((showId) => fetchShowById(showId)));
     const userShows = await userShowsResponse;
 
     user.list = {
       shows: userShows,
       movies: userMovies,
     };
-    
+
     dispatch(userAuth(user));
   } catch (e) {
     dispatch(userAuthFailed(''));
