@@ -4,17 +4,11 @@ import styles from './Genres.module.css';
 import GenresLayout from '../../layouts/GenresLayout/GenresLayout';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../store/hooks';
-import {
-  selectMovieGenres,
-  selectTvGenres,
-} from '../../store/genres/selectors';
+import { selectMovieGenres, selectTvGenres } from '../../store/genres/selectors';
 import { loadGenres } from '../../store/genres/thunk';
 import GenreItem from '../../components/genreItem/GenreItem';
 import { Genre } from '../../types/types';
-import {
-  selectMovieGenreResults,
-  selectShowGenreResults,
-} from '../../store/results/selectors';
+import { selectMovieGenreResults, selectShowGenreResults } from '../../store/results/selectors';
 import {
   loadMoreMovieGenreResults,
   loadMoreShowGenreResults,
@@ -33,9 +27,7 @@ const Genres: React.FC = () => {
   const passedState: any = useLocation().state;
   const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
   const [hasResults, setHasResults] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<'movies' | 'shows'>(
-    'movies',
-  );
+  const [selectedCategory, setSelectedCategory] = useState<'movies' | 'shows'>('movies');
   const { i18n, t } = useTranslation();
 
   const moviesButtonRef = useRef<HTMLButtonElement>(null);
@@ -74,16 +66,13 @@ const Genres: React.FC = () => {
   }, [i18n.language]);
 
   const renderResults = () => {
-    if (selectMovieGenres.length === 0)
-      return <InfoText text={t('GENRES_PAGE_INFO')} />;
+    if (selectMovieGenres.length === 0) return <InfoText text={t('GENRES_PAGE_INFO')} />;
 
     if (selectedCategory === 'movies') {
       return (
         <InfiniteScrollLayout
           movies={movies.results}
-          loadMovies={() =>
-            loadMoreMovieGenreResults(selectedGenres, (movies.page || 1) + 1)
-          }
+          loadMovies={() => loadMoreMovieGenreResults(selectedGenres, (movies.page || 1) + 1)}
           page={movies.page}
         />
       );
@@ -91,9 +80,7 @@ const Genres: React.FC = () => {
       return (
         <InfiniteScrollLayout
           movies={shows.results}
-          loadMovies={() =>
-            loadMoreShowGenreResults(selectedGenres, (shows.page || 1) + 1)
-          }
+          loadMovies={() => loadMoreShowGenreResults(selectedGenres, (shows.page || 1) + 1)}
           page={shows.page}
         />
       );
@@ -104,39 +91,27 @@ const Genres: React.FC = () => {
     if (selectedCategory === 'movies') {
       return passedState
         ? movieGenres.map((genre) =>
-          passedState.selectedGenre &&
-            passedState.selectedGenre.id === genre.id ? (
-              <GenreItem
-                isActive
-                key={genre.id}
-                genre={genre}
-                onClick={onGenreClick}
-              />
+            passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? (
+              <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} />
             ) : (
               <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
             ),
-        )
+          )
         : movieGenres.map((genre) => (
             <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
-        ));
+          ));
     } else {
       return passedState
         ? tvGenres.map((genre) =>
-          passedState.selectedGenre &&
-            passedState.selectedGenre.id === genre.id ? (
-              <GenreItem
-                isActive
-                key={genre.id}
-                genre={genre}
-                onClick={onGenreClick}
-              />
+            passedState.selectedGenre && passedState.selectedGenre.id === genre.id ? (
+              <GenreItem isActive key={genre.id} genre={genre} onClick={onGenreClick} />
             ) : (
               <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
             ),
-        )
+          )
         : tvGenres.map((genre) => (
             <GenreItem key={genre.id} genre={genre} onClick={onGenreClick} />
-        ));
+          ));
     }
   };
 
@@ -156,9 +131,7 @@ const Genres: React.FC = () => {
 
   useEffect(() => {
     if (movieGenres && tvGenres && passedState) {
-      const foundTvGenre = tvGenres.find(
-        (genre) => genre.id === passedState.selectedGenre.id,
-      );
+      const foundTvGenre = tvGenres.find((genre) => genre.id === passedState.selectedGenre.id);
       const foundMovieGenre = movieGenres.find(
         (genre) => genre.id === passedState.selectedGenre.id,
       );
@@ -180,10 +153,7 @@ const Genres: React.FC = () => {
       <StyledEngineProvider injectFirst>
         <Helmet>
           <title>watch-it - Search movies and shows by genre</title>
-          <meta
-            name="description"
-            content="Browse through genres to find the best match for you"
-          />
+          <meta name="description" content="Browse through genres to find the best match for you" />
         </Helmet>
         <Container className={styles.container}>
           <GenresLayout>{renderGenres()}</GenresLayout>
@@ -194,11 +164,7 @@ const Genres: React.FC = () => {
             }}
             currentTab={selectedCategory}
           />
-          {hasResults ? (
-            renderResults()
-          ) : (
-            <InfoText text={t('GENRES_PAGE_INFO')} />
-          )}
+          {hasResults ? renderResults() : <InfoText text={t('GENRES_PAGE_INFO')} />}
         </Container>
       </StyledEngineProvider>
     </AnimatedPage>
