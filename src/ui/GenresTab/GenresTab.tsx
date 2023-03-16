@@ -26,7 +26,7 @@ const GenresTab: React.FC<Props> = ({
       value={currentTab}
       TabIndicatorProps={{ style: { backgroundColor: '#b45177' } }}
       sx={{ marginTop: '25px', marginBottom: '20px', '.Mui-selected': {
-        color: '#b45177',
+        color: '#b45177 !important',
         borderColor: '#b45177',
       } }}
     >
