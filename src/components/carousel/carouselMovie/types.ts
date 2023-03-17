@@ -1,6 +1,6 @@
 import { Movie } from '../../../types/types';
 
 export interface CarouselMovieProps {
-  movie: Movie,
+  movie: Movie;
   isOnProfile?: boolean;
 }

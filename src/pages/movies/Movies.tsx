@@ -38,11 +38,7 @@ const Movies: React.FC = () => {
         items={dailyTrendingMovies}
         title={t('DAILY_TRENDING_MOVIES')}
       />
-      <MobileCarousel
-        isMovieCarousel
-        items={popularMovies}
-        title={t('POPULAR_MOVIES')}
-      />
+      <MobileCarousel isMovieCarousel items={popularMovies} title={t('POPULAR_MOVIES')} />
       <MobileCarousel
         isMovieCarousel
         items={weeklyTrendingMovies}

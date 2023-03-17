@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Card,
-  CardMedia,
-  Grid,
-  StyledEngineProvider,
-} from '@mui/material';
+import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
 import { TrendingMovie, TrendingShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import styles from './MovieCard.module.css';
@@ -35,9 +30,9 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
 
   return movie.poster_path && movie.backdrop_path ? (
     <StyledEngineProvider injectFirst>
-      <Grid item md={3} xs={6} sm={4}>
+      <Grid item xs={6} sm={4}>
         {
-          <Card onClick={onClick} className={styles.card} elevation={3}>
+          <Card onClick={onClick} className={styles.card} elevation={6}>
             <CardMedia
               onClick={onClick}
               image={getMoviePosterPath(movie.poster_path)}

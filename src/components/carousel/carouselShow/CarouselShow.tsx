@@ -35,24 +35,40 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   return (
     <StyledEngineProvider injectFirst>
       <Grid item>
-        <Card onMouseEnter={onHover} onMouseLeave={onMouseLeave} className={styles.wrapper} elevation={6}>
-            <CardMedia className={styles.poster} image={getMoviePosterPath(show.poster_path)}/>
-            {isWrapperHovered && <CardContent className={styles.content}>
+        <Card
+          onMouseEnter={onHover}
+          onMouseLeave={onMouseLeave}
+          className={styles.wrapper}
+          elevation={6}
+        >
+          <CardMedia className={styles.poster} image={getMoviePosterPath(show.poster_path)} />
+          {isWrapperHovered && (
+            <CardContent className={styles.content}>
               <CarouselGenres genres={show.genres} />
               <Grid className={styles.details} container spacing={1}>
                 <Grid item>
-                  <CarouselDetail value={`${show.number_of_seasons} ${show.number_of_seasons === 1 ? 'Season' : 'Seasons'}`} />
+                  <CarouselDetail
+                    value={`${show.number_of_seasons} ${
+                      show.number_of_seasons === 1 ? 'Season' : 'Seasons'
+                    }`}
+                  />
                 </Grid>
                 <Grid item>
                   <CarouselDetail value={show.original_language.toUpperCase()} />
                 </Grid>
               </Grid>
-              <CarouselCardActions isMovieAddedToList={isMovieAddedToList()} isOnProfile={isOnProfile} title={show.name} id={show.id} />
-            </CardContent>}
-          </Card>
-        </Grid>
-      </StyledEngineProvider>
+              <CarouselCardActions
+                isMovieAddedToList={isMovieAddedToList()}
+                isOnProfile={isOnProfile}
+                title={show.name}
+                id={show.id}
+              />
+            </CardContent>
+          )}
+        </Card>
+      </Grid>
+    </StyledEngineProvider>
   );
 };
 
-export default CarouselShow; 
+export default CarouselShow;
