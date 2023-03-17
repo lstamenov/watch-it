@@ -11,6 +11,7 @@ import { selectUser } from '../../../store/user/selectors';
 
 const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
+  const [areActionsHovered, setAreActionsHovered] = useState(false);
   const user = useAppSelector(selectUser);
 
   const onMouseLeave = () => {
@@ -27,6 +28,8 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
     return !!user.moviesList.find((id) => id === movie.id);
   };
 
+  const onActionsHover = (areHovered: boolean) => setAreActionsHovered(areHovered);
+
   return movie.poster_path ? (
     <Grid>
       <Card
@@ -35,7 +38,22 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
         className={styles.wrapper}
         elevation={6}
       >
-        <CardMedia className={styles.poster} image={getMoviePosterPath(movie.poster_path)} />
+        <CardMedia
+          sx={areActionsHovered ? { filter: 'blur(3px)' } : {}}
+          component={'image'}
+          className={styles.poster}
+          image={getMoviePosterPath(movie.poster_path)}
+        />
+        {isWrapperHovered && (
+          <CarouselCardActions
+            isMovieAddedToList={isMovieAddedToList()}
+            isOnProfile={isOnProfile}
+            title={movie.original_title}
+            isMovie={true}
+            id={movie.id}
+            onHover={onActionsHover}
+          />
+        )}
         {isWrapperHovered && (
           <CardContent className={styles.content}>
             <CarouselGenres genres={movie.genres} />
@@ -47,13 +65,6 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
                 <CarouselDetail value={movie.original_language.toUpperCase()} />
               </Grid>
             </Grid>
-            <CarouselCardActions
-              isMovieAddedToList={isMovieAddedToList()}
-              isOnProfile={isOnProfile}
-              title={movie.original_title}
-              isMovie={true}
-              id={movie.id}
-            />
           </CardContent>
         )}
       </Card>

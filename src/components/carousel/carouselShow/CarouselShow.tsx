@@ -16,6 +16,7 @@ interface Props {
 
 const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
+  const [areActionsHovered, setAreActionsHovered] = useState(false);
   const user = useAppSelector(selectUser);
 
   const onMouseLeave = () => {
@@ -32,6 +33,8 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
     return !!user.showsList.find((id) => id === show.id);
   };
 
+  const onActionsHover = (areHovered: boolean) => setAreActionsHovered(areHovered);
+
   return (
     <StyledEngineProvider injectFirst>
       <Grid item>
@@ -41,7 +44,11 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
           className={styles.wrapper}
           elevation={6}
         >
-          <CardMedia className={styles.poster} image={getMoviePosterPath(show.poster_path)} />
+          <CardMedia
+            sx={areActionsHovered ? { filter: 'blur(3px)' } : {}}
+            className={styles.poster}
+            image={getMoviePosterPath(show.poster_path)}
+          />
           {isWrapperHovered && (
             <CardContent className={styles.content}>
               <CarouselGenres genres={show.genres} />
@@ -62,6 +69,7 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
                 isOnProfile={isOnProfile}
                 title={show.name}
                 id={show.id}
+                onHover={onActionsHover}
               />
             </CardContent>
           )}
