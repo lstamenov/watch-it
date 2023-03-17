@@ -5,11 +5,7 @@ import { CarouselProps } from './types';
 import { Grid, StyledEngineProvider, Typography } from '@mui/material';
 import styles from './Carousel.module.css';
 
-const Carousel: React.FC<CarouselProps> = ({
-  title,
-  isTransparent = false,
-  children,
-}) => {
+const Carousel: React.FC<CarouselProps> = ({ title, isTransparent = false, children }) => {
   const contentElement = useRef<HTMLDivElement>(null);
   const [scrollAmount, setScrollAmount] = useState(0);
 
@@ -66,11 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({
         <Grid container className={styles.carousel}>
           <div
             onClick={scrollLeftHandler}
-            className={
-              isTransparent
-                ? styles.transparentLeftArrow
-                : styles.leftArrowWrapper
-            }
+            className={isTransparent ? styles.transparentLeftArrow : styles.leftArrowWrapper}
           >
             <FontAwesomeIcon className={styles.arrow} icon={faAngleLeft} />
           </div>
@@ -79,11 +71,7 @@ const Carousel: React.FC<CarouselProps> = ({
           </div>
           <div
             onClick={scrollRightHandler}
-            className={
-              isTransparent
-                ? styles.transparentRightArrow
-                : styles.rightArrowWrapper
-            }
+            className={isTransparent ? styles.transparentRightArrow : styles.rightArrowWrapper}
           >
             <FontAwesomeIcon className={styles.arrow} icon={faAngleRight} />
           </div>

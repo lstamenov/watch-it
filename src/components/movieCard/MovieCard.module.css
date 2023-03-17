@@ -1,6 +1,6 @@
 .card{
   background-color: #2D2E2E;
-  height: 270px;
+  height: 500px;
 }
 
 .container {
@@ -19,7 +19,7 @@
 }
 
 .bigPoster{
-  height: 400px;
+  height: 500px;
   transition: .5s ease;
   cursor: pointer;
 }
@@ -50,4 +50,10 @@
 
 .icon:hover{
   color: #AA7489;
+}
+
+@media only screen and (max-width: 768px) {
+  .card, .bigPoster{
+    height: 380px;
+  }
 }
