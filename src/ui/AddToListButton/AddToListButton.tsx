@@ -10,7 +10,7 @@ interface Props {
   isOnProfile?: boolean;
   isMovieAddedToList?: boolean;
   hasMargin?: boolean;
-  isEnabled?: boolean
+  isEnabled?: boolean;
 }
 
 const AddToListButton: React.FC<Props> = ({
@@ -20,21 +20,20 @@ const AddToListButton: React.FC<Props> = ({
   isOnProfile = false,
   isMovieAddedToList = false,
   isEnabled = false,
-}) => (
-  isEnabled ? <>
-    <Tooltip
-      title={isOnProfile ? 'Remove from list' : 'Add to list'}
-    >
-      <div>
-        <FontAwesomeIcon
-          onClick={onClick}
-          style={{ fontSize: `${size}px`, marginLeft: hasMargin ? '5px' : '0px' }}
-          className={isMovieAddedToList ? styles.added : styles.icon}
-          icon={isOnProfile ? faMinus : faPlus}
-        />
-      </div>
-    </Tooltip>
-  </> : null
-);
+}) =>
+  isEnabled ? (
+    <>
+      <Tooltip title={isOnProfile ? 'Remove from list' : 'Add to list'}>
+        <div>
+          <FontAwesomeIcon
+            onClick={onClick}
+            style={{ fontSize: `${size}px`, marginLeft: hasMargin ? '5px' : '0px' }}
+            className={isMovieAddedToList ? styles.added : styles.icon}
+            icon={isOnProfile ? faMinus : faPlus}
+          />
+        </div>
+      </Tooltip>
+    </>
+  ) : null;
 
 export default AddToListButton;

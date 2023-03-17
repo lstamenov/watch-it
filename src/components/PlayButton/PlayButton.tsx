@@ -11,7 +11,7 @@ interface Props {
 }
 
 const PlayButton: React.FC<Props> = ({ url, size }) => (
-  <Tooltip title='Play'>
+  <Tooltip title="Play">
     <Link to={url}>
       <FontAwesomeIcon style={{ fontSize: `${size}px` }} className={styles.icon} icon={faPlay} />
     </Link>

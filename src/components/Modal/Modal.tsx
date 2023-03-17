@@ -6,7 +6,6 @@ import AddToListButton from '../AddToListButton/AddToListButton';
 import { default as AddToListButtonUI } from '../../ui/AddToListButton/AddToListButton';
 import CarouselGenres from '../carouselGenres/CarouselGenres';
 import Dialog from '../Dialog/Dialog';
-import ListButton from '../ListButton/ListButton';
 import PlayButton from '../PlayButton/PlayButton';
 import styles from './Modal.module.css';
 
@@ -52,23 +51,14 @@ const Modal: React.FC<Props> = ({
     <Divider />
     <Container>
       <Typography variant="body1" className={styles.overview}>
-        {overview.length > 500
-          ? overview.substring(0, 500) + '...'
-          : overview}
+        {overview.length > 500 ? overview.substring(0, 500) + '...' : overview}
       </Typography>
       <Divider />
       <CarouselGenres genres={genres} numberToShow={3} />
       <Divider />
       <div className={styles.wrapper}>{children}</div>
       <div className={styles.container}>
-        <PlayButton
-          url={
-            isShow ? `/shows/play/${id}` : `/movies/play/${id}`
-          }
-        />
-        <ListButton
-          url={isShow ? `/shows/${id}` : `/movies/${id}`}
-        />
+        <PlayButton url={isShow ? `/shows/play/${id}` : `/movies/play/${id}`} />
         <AddToListButton isOnProfile={isOnProfile} movieName={title} movieId={id} isMovie={!isShow}>
           {(props) => <AddToListButtonUI {...props} />}
         </AddToListButton>

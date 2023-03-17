@@ -12,7 +12,11 @@
   height: 270px;
   cursor: pointer;
   transition: .5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 .content{
   padding: 7px;
@@ -64,6 +68,6 @@
   .wrapper:hover{
     transform: scale(1.1);
     z-index: 111;
-    height: 390px;
+    height: 350px;
   }
 }

@@ -3,6 +3,7 @@
   color: white;
   cursor: pointer;
   transition: .4s;
+  z-index: 12;
 }
 
 .icon:hover{
