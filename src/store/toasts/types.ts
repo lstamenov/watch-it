@@ -8,9 +8,9 @@ export enum ToastsActionTypes {
 }
 
 export interface ToastsAction {
-  type: ToastsActionTypes,
+  type: ToastsActionTypes;
   payload: {
-    message: string,
-    type: ToastsState['type'],
-  }
+    message: string;
+    type: ToastsState['type'];
+  };
 }

@@ -1,19 +1,19 @@
-.container{
+.container {
   display: flex;
-  background-color: #4F4F4F;
+  background-color: #4f4f4f;
 }
 
-.img{
+.img {
   clip-path: polygon(26% 0, 100% 0%, 100% 100%, 0% 100%);
   width: 100%;
   height: 100vh;
 }
 
-.wrapper{
+.wrapper {
   margin: 150px 0 0 0;
 }
 
-.title{
+.title {
   font-weight: 600;
   text-transform: capitalize;
   color: white;
@@ -25,8 +25,8 @@
   .container {
     height: 100vh;
   }
-  
-  .wrapper{
+
+  .wrapper {
     width: 100%;
     margin: 50% 0;
     display: flex;

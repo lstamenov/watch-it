@@ -6,13 +6,13 @@ export enum GenresActionTypes {
 }
 
 export interface GenreAction {
-  type: GenresActionTypes,
+  type: GenresActionTypes;
   payload: {
-    genres: Genre[],
-  }
+    genres: Genre[];
+  };
 }
 
 export interface GenresState {
-  movieGenres: Genre[],
-  tvGenres: Genre[],
+  movieGenres: Genre[];
+  tvGenres: Genre[];
 }

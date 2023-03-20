@@ -14,10 +14,12 @@ const FormLayout: React.FC<Props> = ({ children, title }) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Typography className={styles.title} variant='h4'>{title}</Typography>
+        <Typography className={styles.title} variant="h4">
+          {title}
+        </Typography>
         {children}
       </div>
-      {!isMobile && <img src={photo} className={styles.img} alt='preview' />}
+      {!isMobile && <img src={photo} className={styles.img} alt="preview" />}
     </div>
   );
 };

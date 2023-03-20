@@ -7,16 +7,11 @@ interface Props {
   setCurrentTab: (tab: 'movies' | 'shows') => void;
 }
 
-const GenresTab: React.FC<Props> = ({
-  currentTab,
-  setCurrentTab,
-}) => {
+const GenresTab: React.FC<Props> = ({ currentTab, setCurrentTab }) => {
   const { t } = useTranslation();
 
-  const onTabChange = (
-    event: React.SyntheticEvent,
-    newValue: 'movies' | 'shows',
-  ) => setCurrentTab(newValue);
+  const onTabChange = (event: React.SyntheticEvent, newValue: 'movies' | 'shows') =>
+    setCurrentTab(newValue);
 
   return (
     <Tabs
@@ -25,10 +20,14 @@ const GenresTab: React.FC<Props> = ({
       onChange={onTabChange}
       value={currentTab}
       TabIndicatorProps={{ style: { backgroundColor: '#b45177' } }}
-      sx={{ marginTop: '25px', marginBottom: '20px', '.Mui-selected': {
-        color: '#b45177 !important',
-        borderColor: '#b45177',
-      } }}
+      sx={{
+        marginTop: '25px',
+        marginBottom: '20px',
+        '.Mui-selected': {
+          color: '#b45177 !important',
+          borderColor: '#b45177',
+        },
+      }}
     >
       <Tab
         sx={{

@@ -1,24 +1,23 @@
-.wrapper{
+.wrapper {
   height: 270px;
   width: 200px;
-  transition: .3s ease;
+  transition: 0.3s ease;
   z-index: 20;
   position: relative;
-  background-color: #2D2E2E;
+  background-color: #2d2e2e;
 }
 
-.poster{
+.poster {
   width: 100%;
   height: 270px;
   cursor: pointer;
-  transition: .5s ease;
+  transition: 0.5s ease;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.content{
+.content {
   padding: 7px;
   display: flex;
   flex-direction: column;
@@ -27,19 +26,19 @@
   margin: 0;
 }
 
-.cardButtons{
-  color: #AA7489;
+.cardButtons {
+  color: #aa7489;
   font-size: 50px;
 }
 
-.bigPoster{
+.bigPoster {
   width: 200px;
   height: 220px;
   cursor: pointer;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
-.info{
+.info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -47,11 +46,11 @@
   padding: 5px 10px;
 }
 
-.details{
+.details {
   margin: 0;
 }
 
-.runtime{
+.runtime {
   background-color: white;
   border-radius: 3px;
   font-size: 17px;
@@ -59,13 +58,13 @@
   font-weight: 600;
 }
 
-.iconWrapper{
+.iconWrapper {
   display: flex;
   gap: 15px;
 }
 
-@media screen and (min-width: 768px){
-  .wrapper:hover{
+@media screen and (min-width: 768px) {
+  .wrapper:hover {
     transform: scale(1.1);
     z-index: 111;
     height: 350px;

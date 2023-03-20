@@ -1,5 +1,5 @@
 export interface LoaderState {
-  isLoading: boolean,
+  isLoading: boolean;
 }
 
 export enum LoadingActionTypes {
@@ -8,6 +8,6 @@ export enum LoadingActionTypes {
 }
 
 export interface LoadingAction {
-  type: LoadingActionTypes,
-  payload: Object,
+  type: LoadingActionTypes;
+  payload: Object;
 }

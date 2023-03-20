@@ -1,5 +1,5 @@
-.header{
-  background-color:#4F4F4F;
+.header {
+  background-color: #4f4f4f;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -7,14 +7,14 @@
   padding-top: 5px;
 }
 
-.main{
+.main {
   display: flex;
   align-items: center;
   align-self: flex-start;
 }
 
 .menu {
-  color: #AA7489;
+  color: #aa7489;
   font-size: 40px;
   display: none;
 }
@@ -25,7 +25,7 @@
     cursor: pointer;
     padding: 12px 5px;
     font-size: 30px;
-  } 
+  }
 
   .header {
     padding: 0 5px;

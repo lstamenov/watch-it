@@ -8,7 +8,7 @@ interface Props {
   isOnHeader?: boolean;
 }
 
-export const Avatar: React.FC<Props> = ({ src, onClick, isOnHeader =  false }) => {
+export const Avatar: React.FC<Props> = ({ src, onClick, isOnHeader = false }) => {
   return (
     <div onClick={onClick}>
       <AvatarUI className={isOnHeader ? styles.headerAvatar : styles.avatar} src={src} />

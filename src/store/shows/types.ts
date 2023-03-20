@@ -7,14 +7,14 @@ export enum ShowActionTypes {
 }
 
 export interface ShowState {
-  popular: TvShow[],
-  topRated: TvShow[],
-  trending: TvShow[],
+  popular: TvShow[];
+  topRated: TvShow[];
+  trending: TvShow[];
 }
 
 export interface ShowAction {
-  type: ShowActionTypes,
+  type: ShowActionTypes;
   payload: {
-    shows: TvShow[],
-  }
+    shows: TvShow[];
+  };
 }

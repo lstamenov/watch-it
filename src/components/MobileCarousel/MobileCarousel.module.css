@@ -1,8 +1,8 @@
-.wrapper{
+.wrapper {
   margin: 30px 3px 0 3px;
 }
 
-.carousel{
+.carousel {
   display: flex;
   justify-content: space-evenly;
   margin: 5px 0 10px 0;
@@ -13,4 +13,3 @@
   text-transform: uppercase;
   font-weight: 600;
 }
-

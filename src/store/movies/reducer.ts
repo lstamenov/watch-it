@@ -32,7 +32,7 @@ export default (state: MoviesState = initialState, action: MovieDispatchTypes) =
       const oldDailyTrendingMovies = state.trending.daily;
       const newDailyTrendingState = [...oldDailyTrendingMovies, ...action.payload.movies];
       const updatedTrendingState = { ...state.trending, daily: newDailyTrendingState };
-      return { ...state, trending: updatedTrendingState };     
+      return { ...state, trending: updatedTrendingState };
     case MovieActionTypes.TRENDING_MOVIES_LOADED_FAILURE:
     case MovieActionTypes.POPULAR_MOVIES_LOADED_FAILURE:
     case MovieActionTypes.LATEST_MOVIES_LOADED_FAILURE:

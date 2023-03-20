@@ -1,8 +1,8 @@
-.container{
+.container {
   margin: 50px;
 }
 
-.modal{
+.modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,13 +12,13 @@
   transform: translate(-50%, -50%);
   width: 500px;
   height: 500px;
-  background-color:rgb(45, 46, 46);
+  background-color: rgb(45, 46, 46);
   box-shadow: 3px 5px 10px;
   border-radius: 3px;
-  outline: 0
+  outline: 0;
 }
 
-.avatarsContainer{
+.avatarsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 35px;
@@ -26,7 +26,7 @@
   align-items: center;
 }
 
-.info{
+.info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,26 +34,26 @@
   gap: 5px;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   width: 180px;
   gap: 15px;
 }
 
-.btn{
+.btn {
   background-color: transparent;
-  color: #AA7489;
+  color: #aa7489;
   font-weight: 600;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: transparent;
   color: #b45177;
 }
 
 @media screen and (max-width: 768px) {
-  .avatarsContainer{
+  .avatarsContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -61,13 +61,13 @@
     align-items: center;
   }
 
-  .container{
+  .container {
     margin: 50px 0;
     display: flex;
     justify-content: center;
   }
-  
-  .modal{
+
+  .modal {
     width: 285px;
     height: fit-content;
     padding: 35px 0;

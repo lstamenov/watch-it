@@ -14,7 +14,7 @@ export const resources = {
       USERNAME: 'Username',
       PASSWORD: 'Password',
       CONFIRM_PASSWORD: 'Confirm Password',
-      NO_ACCOUNT: 'Don\'t have an account?',
+      NO_ACCOUNT: "Don't have an account?",
       HAS_ACCOUNT: 'Already have an account?',
       EMAIL: 'Email',
       DAILY_TRENDING_MOVIES: 'Daily trending movies',
@@ -62,8 +62,7 @@ export const resources = {
 
 export type Lang = {
   id: keyof typeof resources;
-  Icon: React.FunctionComponent<
-  React.SVGProps<SVGSVGElement>>;
+  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 };
 
 export const langs: Lang[] = [

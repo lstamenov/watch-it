@@ -94,9 +94,7 @@ const Register: React.FC = () => {
         {hasError && <ErrorMessage message={message} />}
         {!isValid &&
           numberOfTries !== 0 &&
-          errorMessages.map((mess) => (
-            <ErrorMessage key={mess} message={mess} />
-          ))}
+          errorMessages.map((mess) => <ErrorMessage key={mess} message={mess} />)}
       </FormLayout>
     </AnimatedPage>
   );

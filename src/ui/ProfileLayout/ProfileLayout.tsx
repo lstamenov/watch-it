@@ -32,14 +32,26 @@ export const ProfileLayout: React.FC<Props> = ({
       <div className={styles.wrapper}>
         <div className={styles.info}>
           <Avatar onClick={onAvatarClick} src={avatar || ''} />
-          <Typography color='#AA7489' variant='h5'>@{username}</Typography>
+          <Typography color="#AA7489" variant="h5">
+            @{username}
+          </Typography>
         </div>
-        <Button className={styles.btn} variant='contained' onClick={onAvatarClick}>{t('CHANGE_AVATAR')}</Button>
-        <Button className={styles.btn} variant='contained' onClick={handleLogout}>{t('LOG_OUT')}</Button>
+        <Button className={styles.btn} variant="contained" onClick={onAvatarClick}>
+          {t('CHANGE_AVATAR')}
+        </Button>
+        <Button className={styles.btn} variant="contained" onClick={handleLogout}>
+          {t('LOG_OUT')}
+        </Button>
       </div>
-      <Dialog className={styles.modal} isClicked={shouldOpenAvatarsModal} onClose={onAvatarsModalClose}>
+      <Dialog
+        className={styles.modal}
+        isClicked={shouldOpenAvatarsModal}
+        onClose={onAvatarsModalClose}
+      >
         <div className={styles.avatarsContainer}>
-          {avatars.map(a => <Avatar key={a} src={a} onClick={() => onPickAvatarClick(a)} />)}
+          {avatars.map((a) => (
+            <Avatar key={a} src={a} onClick={() => onPickAvatarClick(a)} />
+          ))}
         </div>
       </Dialog>
     </div>

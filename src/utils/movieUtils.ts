@@ -11,9 +11,9 @@ export const convertMinutesToHours = (runtime: number): string => {
 export const formatMoney = (number: string): string => {
   const moneyArr = number.split('');
   const reversedArr = moneyArr.reverse();
-  
+
   return reversedArr
-    .map((val, index) => ((index + 2) % 3 === 0) && (index !== 1) ? `${val}.` : `${val}` )
+    .map((val, index) => ((index + 2) % 3 === 0 && index !== 1 ? `${val}.` : `${val}`))
     .reverse()
     .toString()
     .replaceAll(',', '');

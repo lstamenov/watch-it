@@ -6,13 +6,10 @@ const initialState: ToastsState = {
   type: 'success',
 };
 
-const toastsReducer = (
-  state: ToastsState = initialState,
-  action: ToastsAction,
-) => {
+const toastsReducer = (state: ToastsState = initialState, action: ToastsAction) => {
   switch (action.type) {
     case ToastsActionTypes.SET_MESSAGE:
-      return { ...state,  message: action.payload.message, type: action.payload.type };
+      return { ...state, message: action.payload.message, type: action.payload.type };
     default:
       return state;
   }

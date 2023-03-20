@@ -32,27 +32,23 @@ const ContentOverviewLayout: React.FC<Props> = ({
 }) => (
   <div className={styles.container}>
     <div>
-    <Typography color='white' textAlign="center" variant="h4">
-      {title}
-    </Typography>
-    <Divider />
-    <CarouselGenres genres={genres} numberToShow={4} />
-    <MovieActions>
-      <PlayButton url={isShow ? `/shows/play/${id}` : `/movies/play/${id}`} />
-      <AddToListButton movieId={id} movieName={title} isMovie={!isShow}>
-        {(props) => <AddToListButtonUI {...props} />}
-      </AddToListButton>
-    </MovieActions>
+      <Typography color="white" textAlign="center" variant="h4">
+        {title}
+      </Typography>
+      <Divider />
+      <CarouselGenres genres={genres} numberToShow={4} />
+      <MovieActions>
+        <PlayButton url={isShow ? `/shows/play/${id}` : `/movies/play/${id}`} />
+        <AddToListButton movieId={id} movieName={title} isMovie={!isShow}>
+          {(props) => <AddToListButtonUI {...props} />}
+        </AddToListButton>
+      </MovieActions>
     </div>
     <Divider />
     <div>
       {fields.map((field) =>
         field.field === 'Budget' || field.field === 'Revenue' ? (
-          <OverviewDetaill
-            key={field.value}
-            field={field.field}
-            value={formatMoney(field.value)}
-          />
+          <OverviewDetaill key={field.value} field={field.field} value={formatMoney(field.value)} />
         ) : (
           <OverviewDetaill key={field.value} {...field} />
         ),
@@ -60,12 +56,7 @@ const ContentOverviewLayout: React.FC<Props> = ({
     </div>
     <Divider />
     <div>
-      <Typography
-        className={styles.title}
-        textAlign="center"
-        gutterBottom
-        variant="h5"
-      >
+      <Typography className={styles.title} textAlign="center" gutterBottom variant="h5">
         Overview
       </Typography>
       <Typography textAlign="center" className={styles.overview}>

@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       </Helmet>
       <FormLayout title={t('SIGN_IN')}>
         <Form btnText={t('SIGN_IN')} inputs={items} onSubmit={onSubmit} />
-        <Link text={t('NO_ACCOUNT')} url='/register' />
+        <Link text={t('NO_ACCOUNT')} url="/register" />
         {isLoading && <TransparentLoader />}
         {hasError && <ErrorMessage message={message} />}
       </FormLayout>

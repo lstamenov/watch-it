@@ -18,25 +18,25 @@
   }
 }
 
-.wrapper{
+.wrapper {
   height: 70px;
   display: flex;
   flex-direction: column;
-  transition: .3s ease;
+  transition: 0.3s ease;
   animation-name: close;
-  animation-duration: .2s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
 
-.focused{
+.focused {
   height: 70px;
   display: flex;
   flex-direction: column;
   gap: 25px;
-  transition: .3s ease;
+  transition: 0.3s ease;
   animation-name: open;
-  animation-duration: .2s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
   -webkit-user-select: initial;
@@ -46,13 +46,13 @@
   user-select: initial;
 }
 
-.input{
-  color: #AA7489;
+.input {
+  color: #aa7489;
   font-size: 20px;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid;
-  transition: .3s ease;
+  transition: 0.3s ease;
   padding-left: 10px;
   -webkit-user-select: initial;
   -khtml-user-select: initial;
@@ -61,37 +61,37 @@
   user-select: initial;
 }
 
-.input:focus{
+.input:focus {
   color: #b45177;
   outline: none;
 }
 
-.label{
+.label {
   color: white;
   text-transform: uppercase;
   font-weight: 700;
   margin-left: 15px;
   margin-bottom: -20px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper{
+  .wrapper {
     -webkit-animation: none !important;
-		-moz-animation: none !important;
-		-o-animation: none !important;
-		-ms-animation: none !important;
-		animation: none !important;
+    -moz-animation: none !important;
+    -o-animation: none !important;
+    -ms-animation: none !important;
+    animation: none !important;
     gap: 20px;
   }
-  
-  .input{
-    color: #AA7489;
+
+  .input {
+    color: #aa7489;
     font-size: 20px;
     background-color: transparent;
     border: none;
     border-bottom: 2px solid;
-    transition: .3s ease;
+    transition: 0.3s ease;
     padding-left: 10px;
     -webkit-user-select: initial;
     -khtml-user-select: initial;
@@ -99,17 +99,17 @@
     -ms-user-select: initial;
     user-select: initial;
   }
-  
-  .input:focus{
+
+  .input:focus {
     color: #b45177;
     outline: none;
   }
-  
-  .label{
+
+  .label {
     color: white;
     text-transform: uppercase;
     font-weight: 700;
     margin-left: 15px;
-    transition: .3s;
+    transition: 0.3s;
   }
 }

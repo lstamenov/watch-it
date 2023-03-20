@@ -12,7 +12,7 @@ export default (state = initialState, action: GenreAction) => {
       return { ...state, movieGenres: action.payload.genres };
     case GenresActionTypes.GET_TV_GENRES:
       return { ...state, tvGenres: action.payload.genres };
-    default: 
+    default:
       return state;
   }
 };

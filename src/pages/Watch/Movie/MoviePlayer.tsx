@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../store/hooks';
-import {
-  loadCurrentMovie,
-  loadSuggestedMovies,
-} from '../../../store/watch/thunk';
+import { loadCurrentMovie, loadSuggestedMovies } from '../../../store/watch/thunk';
 import {
   selectCurrentMovie,
   selectMovieRecommendations,
@@ -52,9 +49,7 @@ const MoviePlayer: React.FC = () => {
             similar={similar}
             recommended={recommended}
             overview={movie.overview}
-            posterUrl={getMoviePosterPath(
-              isMobile ? movie.poster_path : movie.backdrop_path,
-            )}
+            posterUrl={getMoviePosterPath(isMobile ? movie.poster_path : movie.backdrop_path)}
             title={movie.original_title}
           >
             <Player isShow={false} id={movie.imdb_id} />

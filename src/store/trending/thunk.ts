@@ -21,12 +21,12 @@ const fetchShowGenresById = async (id: number) => {
 export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
   dispatch(loading());
   const response = await service.fetchWeeklyTrending();
-  
+
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
-  const trendingWithGenresResponse = trending.map(async trend => {
+  const trendingWithGenresResponse = trending.map(async (trend) => {
     if (trend.media_type === 'tv') {
       const genres: Genre[] = await fetchShowGenresById(trend.id);
-      return { ...trend, genres };  
+      return { ...trend, genres };
     }
     const genres: Genre[] = await fetchMovieGenresById(trend.id);
     return { ...trend, genres };
@@ -38,9 +38,9 @@ export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
 
 export const loadMoreWeeklyTrending = (page: number) => async (dispatch: Dispatch) => {
   const response = await service.fetchMoreWeeklyTrending(page);
-  
+
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
-  const trendingWithGenresResponse = trending.map(async trend => {
+  const trendingWithGenresResponse = trending.map(async (trend) => {
     if (trend.media_type === 'tv') {
       const genres: Genre[] = await fetchShowGenresById(trend.id);
       return { ...trend, genres };

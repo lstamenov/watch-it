@@ -9,8 +9,12 @@ interface Props {
 
 const OverviewDetaill: React.FC<Props> = ({ field, value }) => (
   <div className={styles.container}>
-    <Typography className={styles.field} variant='subtitle1'>{field}:</Typography>
-    <Typography className={styles.field} variant='subtitle1'>{value}</Typography>
+    <Typography className={styles.field} variant="subtitle1">
+      {field}:
+    </Typography>
+    <Typography className={styles.field} variant="subtitle1">
+      {value}
+    </Typography>
   </div>
 );
 

@@ -1,31 +1,33 @@
-.btn, .clickedBtn{
+.btn,
+.clickedBtn {
   text-decoration: none;
   height: 100%;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
-.btn{
+.btn {
   font-weight: 600;
-  color: #AA7489;
+  color: #aa7489;
   background-color: transparent;
 }
 
-.clickedBtn{
+.clickedBtn {
   background-color: rgba(25, 118, 210, 0.04);
   color: #b45177;
   font-weight: 700;
 }
 
-.btn:hover{
+.btn:hover {
   color: #b45177;
 }
 
-.link{
+.link {
   text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
-  .btn, .clickedBtn {
+  .btn,
+  .clickedBtn {
     display: none;
-  } 
+  }
 }

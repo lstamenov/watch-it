@@ -7,9 +7,9 @@ import { TrendingMovie, TrendingShow } from '../../types/types';
 import NoResults from '../../components/NoResults/NoResults';
 
 interface Props {
-  movies: (TrendingMovie | TrendingShow)[],
-  loadMovies: Function,
-  page: number,
+  movies: (TrendingMovie | TrendingShow)[];
+  loadMovies: Function;
+  page: number;
   query?: string;
 }
 
@@ -18,7 +18,7 @@ const InfiniteScrollLayout: React.FC<Props> = ({ movies = [], loadMovies, page, 
 
   const { observe } = useInView({
     onEnter: () => {
-      dispatch((query !== '' && query) ? loadMovies(query, page + 1) : loadMovies(page + 1));
+      dispatch(query !== '' && query ? loadMovies(query, page + 1) : loadMovies(page + 1));
     },
   });
 
@@ -26,7 +26,7 @@ const InfiniteScrollLayout: React.FC<Props> = ({ movies = [], loadMovies, page, 
     <>
       {movies?.length === 0 && <NoResults />}
       <ResultsLayout>
-        {movies && movies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        {movies && movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         <div style={{ height: '10px' }} ref={observe}></div>
       </ResultsLayout>
     </>

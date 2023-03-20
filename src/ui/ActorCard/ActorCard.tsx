@@ -11,17 +11,15 @@ interface Props {
 export const ActorCard: React.FC<Props> = ({ actor }) => {
   return (
     <Grid item>
-      <Card 
-        className={styles.card}
-        elevation={5}
-      >
-        <Avatar
-          className={styles.img}
-          src={getMoviePosterPath(actor.profile_path)}
-        />
+      <Card className={styles.card} elevation={5}>
+        <Avatar className={styles.img} src={getMoviePosterPath(actor.profile_path)} />
         <div className={styles.wrapper}>
-          <Typography color='white' variant='h5'>{actor.name}</Typography>
-          <Typography color='white' variant='h6'>as {actor.character}</Typography>
+          <Typography color="white" variant="h5">
+            {actor.name}
+          </Typography>
+          <Typography color="white" variant="h6">
+            as {actor.character}
+          </Typography>
         </div>
       </Card>
     </Grid>

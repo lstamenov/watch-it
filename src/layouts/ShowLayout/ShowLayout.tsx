@@ -3,16 +3,20 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { selectLoader } from '../../store/loader/selectors';
-import { selectCurrentShow, selectShowRecommendations, selectSimilarShows } from '../../store/watch/selectors';
+import {
+  selectCurrentShow,
+  selectShowRecommendations,
+  selectSimilarShows,
+} from '../../store/watch/selectors';
 import { loadCurrentShow, loadSuggestedShows } from '../../store/watch/thunk';
 import { TvShow } from '../../types/types';
 
 interface Props {
   children: (props: {
-    isLoading: boolean,
-    show: TvShow | null,
-    similarShows: TvShow[],
-    recommendedShows: TvShow[],
+    isLoading: boolean;
+    show: TvShow | null;
+    similarShows: TvShow[];
+    recommendedShows: TvShow[];
   }) => JSX.Element;
 }
 

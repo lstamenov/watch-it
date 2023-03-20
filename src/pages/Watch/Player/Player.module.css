@@ -1,9 +1,9 @@
-.player{
+.player {
   width: 100%;
   height: 600px;
 }
 
-.episodeSelector{
+.episodeSelector {
   display: flex;
   justify-content: flex-start;
   gap: 15px;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .episodeSelector{
+  .episodeSelector {
     gap: 5px;
   }
 }

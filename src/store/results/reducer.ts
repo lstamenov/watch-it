@@ -21,10 +21,7 @@ const initialState: ResultsState = {
   },
 };
 
-export default (
-  state: ResultsState = initialState,
-  action: ResultsDispatchType,
-): ResultsState => {
+export default (state: ResultsState = initialState, action: ResultsDispatchType): ResultsState => {
   switch (action.type) {
     case ResultActionTypes.MOVIE_GENRES_RESULT_LOADED:
       const results = action.payload.results as TrendingMovie[];
@@ -104,16 +101,20 @@ export default (
       const query = action.payload.query;
       const oldSearchResults = state.searchResults.results;
 
-      return moreSearchResults ? {
-        ...state,
-        searchResults: {
-          page: newSearchResultsPage,
-          results: [...oldSearchResults, ...moreSearchResults].filter((movie, index, movies) => {
-            return index === movies.findIndex(m => m.id === movie.id);
-          }),
-          query,
-        },
-      } : state;
+      return moreSearchResults
+        ? {
+            ...state,
+            searchResults: {
+              page: newSearchResultsPage,
+              results: [...oldSearchResults, ...moreSearchResults].filter(
+                (movie, index, movies) => {
+                  return index === movies.findIndex((m) => m.id === movie.id);
+                },
+              ),
+              query,
+            },
+          }
+        : state;
     default:
       return state;
   }

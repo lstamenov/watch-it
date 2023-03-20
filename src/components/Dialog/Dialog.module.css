@@ -1,12 +1,11 @@
-.xIcon{
+.xIcon {
   position: absolute;
   right: 10px;
   top: 5px;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .xIcon:hover {
   color: #df3777;
 }
- 

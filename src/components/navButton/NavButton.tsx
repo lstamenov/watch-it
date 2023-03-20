@@ -8,7 +8,9 @@ const NavButton: React.FC<ButtonProps> = ({ text, path, isClicked = false }) => 
   return (
     <StyledEngineProvider injectFirst>
       <Link className={styles.link} to={path}>
-        <Button size='large' variant='text' className={isClicked ? styles.clickedBtn : styles.btn}>{text}</Button>
+        <Button size="large" variant="text" className={isClicked ? styles.clickedBtn : styles.btn}>
+          {text}
+        </Button>
       </Link>
     </StyledEngineProvider>
   );

@@ -1,19 +1,19 @@
-.container{
+.container {
   display: flex;
 }
 
-.img{
+.img {
   width: 600px;
   height: 1000px;
   border-radius: 3px;
 }
 
 @media screen and (max-width: 1300px) {
-  .container{
+  .container {
     flex-direction: column;
   }
 
-  .img{
+  .img {
     width: 100%;
     height: 750px;
   }

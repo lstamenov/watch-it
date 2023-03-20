@@ -23,6 +23,6 @@ export default (state: UserState = initialState, action: UserDispatchTypes) => {
     case UserActionTypes.AUTH_FAILED:
       return { ...initialState, message: action.payload.message };
     default:
-      return state;  
+      return state;
   }
 };

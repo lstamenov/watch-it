@@ -21,7 +21,7 @@ export interface User {
   list: {
     shows: TvShow[];
     movies: Movie[];
-  }
+  };
   avatarURL: string;
 }
 

@@ -1,8 +1,8 @@
-.container{
+.container {
   display: flex;
   gap: 7px;
 }
 
-.field{
+.field {
   color: white;
 }

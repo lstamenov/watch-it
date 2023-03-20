@@ -18,100 +18,110 @@ export enum MovieActionTypes {
 }
 
 interface DailyMoviesLoadedSuccess {
-  type: MovieActionTypes.TRENDING_MOVIES_LOADED_SUCCESS,
+  type: MovieActionTypes.TRENDING_MOVIES_LOADED_SUCCESS;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface DailyMoviesLoadedFailure {
-  type: typeof MovieActionTypes.TRENDING_MOVIES_LOADED_FAILURE,
+  type: typeof MovieActionTypes.TRENDING_MOVIES_LOADED_FAILURE;
 }
 
 interface WeeklyMoviesLoadedSuccess {
-  type: MovieActionTypes.WEEKLY_TRENDING_MOVIES_LOADED_SUCCESS,
+  type: MovieActionTypes.WEEKLY_TRENDING_MOVIES_LOADED_SUCCESS;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface WeeklyMoviesLoadedFailure {
-  type: typeof MovieActionTypes.WEEKLY_TRENDING_MOVIES_LOADED_FAILURE,
+  type: typeof MovieActionTypes.WEEKLY_TRENDING_MOVIES_LOADED_FAILURE;
 }
 
 interface PopularMoviesLoadedSuccess {
-  type: MovieActionTypes.POPULAR_MOVIES_LOADED_SUCCESS,
+  type: MovieActionTypes.POPULAR_MOVIES_LOADED_SUCCESS;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface PopularMoviesLoadedFailure {
-  type: typeof MovieActionTypes.POPULAR_MOVIES_LOADED_FAILURE,
+  type: typeof MovieActionTypes.POPULAR_MOVIES_LOADED_FAILURE;
 }
 
 interface UpcomingMoviesLoadedSuccess {
-  type: MovieActionTypes.UPCOMING_MOVIES_LOADED_SUCCESS,
+  type: MovieActionTypes.UPCOMING_MOVIES_LOADED_SUCCESS;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface UpcomingMoviesLoadedFailure {
-  type: typeof MovieActionTypes.UPCOMING_MOVIES_LOADED_FAILURE,
+  type: typeof MovieActionTypes.UPCOMING_MOVIES_LOADED_FAILURE;
 }
 
 interface LatestMoviesLoadedSuccess {
-  type: MovieActionTypes.LATEST_MOVIES_LOADED_SUCCESS,
+  type: MovieActionTypes.LATEST_MOVIES_LOADED_SUCCESS;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface LatestMoviesLoadedFailure {
-  type: typeof MovieActionTypes.LATEST_MOVIES_LOADED_FAILURE,
+  type: typeof MovieActionTypes.LATEST_MOVIES_LOADED_FAILURE;
 }
 
 interface MorePopularMoviesLoaded {
-  type: MovieActionTypes.LOAD_MORE_POPULAR_MOVIES,
+  type: MovieActionTypes.LOAD_MORE_POPULAR_MOVIES;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface MoreUpcomingMoviesLoaded {
-  type: MovieActionTypes.LOAD_MORE_UPCOMING_MOVIES,
+  type: MovieActionTypes.LOAD_MORE_UPCOMING_MOVIES;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface MoreDailyTrendingMoviesLoaded {
-  type: MovieActionTypes.LOAD_MORE_DAILY_TRENDING_MOVIES,
+  type: MovieActionTypes.LOAD_MORE_DAILY_TRENDING_MOVIES;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
 interface MoreWeeklyTrendingMoviesLoaded {
-  type: MovieActionTypes.LOAD_MORE_WEEKLLY_TRENDING_MOVIES,
+  type: MovieActionTypes.LOAD_MORE_WEEKLLY_TRENDING_MOVIES;
   payload: {
-    movies: Movie[],
-  },
+    movies: Movie[];
+  };
 }
 
-export type MovieDispatchTypes = 
-  DailyMoviesLoadedSuccess | DailyMoviesLoadedFailure | WeeklyMoviesLoadedSuccess | WeeklyMoviesLoadedFailure |
-  PopularMoviesLoadedSuccess | PopularMoviesLoadedFailure | UpcomingMoviesLoadedSuccess | UpcomingMoviesLoadedFailure |
-  LatestMoviesLoadedSuccess | LatestMoviesLoadedFailure | MorePopularMoviesLoaded | MoreUpcomingMoviesLoaded |
-  MoreDailyTrendingMoviesLoaded | MoreWeeklyTrendingMoviesLoaded;
+export type MovieDispatchTypes =
+  | DailyMoviesLoadedSuccess
+  | DailyMoviesLoadedFailure
+  | WeeklyMoviesLoadedSuccess
+  | WeeklyMoviesLoadedFailure
+  | PopularMoviesLoadedSuccess
+  | PopularMoviesLoadedFailure
+  | UpcomingMoviesLoadedSuccess
+  | UpcomingMoviesLoadedFailure
+  | LatestMoviesLoadedSuccess
+  | LatestMoviesLoadedFailure
+  | MorePopularMoviesLoaded
+  | MoreUpcomingMoviesLoaded
+  | MoreDailyTrendingMoviesLoaded
+  | MoreWeeklyTrendingMoviesLoaded;
 
 export interface MoviesState {
   trending: {
-    daily: Movie[],
-    weekly: Movie[],
-  },
-  latest: Movie[],
-  popular: Movie[],
-  upcoming: Movie[],
+    daily: Movie[];
+    weekly: Movie[];
+  };
+  latest: Movie[];
+  popular: Movie[];
+  upcoming: Movie[];
 }

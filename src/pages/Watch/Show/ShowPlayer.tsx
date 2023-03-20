@@ -9,10 +9,7 @@ import {
   selectSimilarShows,
   selectShowRecommendations,
 } from '../../../store/watch/selectors';
-import {
-  loadCurrentShow,
-  loadSuggestedShows,
-} from '../../../store/watch/thunk';
+import { loadCurrentShow, loadSuggestedShows } from '../../../store/watch/thunk';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
 import { getMoviePosterPath } from '../../../utils/movieUtils';
 import Player from '../Player/Player';
@@ -57,9 +54,7 @@ const ShowPlayer: React.FC = () => {
             <Player
               isShow={true}
               id={show.imdb_id}
-              seasons={show.seasons.filter(
-                (season) => season.season_number > 0,
-              )}
+              seasons={show.seasons.filter((season) => season.season_number > 0)}
             />
           </WatchLayout>
         </StyledEngineProvider>

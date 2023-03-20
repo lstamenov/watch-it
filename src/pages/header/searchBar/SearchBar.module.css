@@ -1,22 +1,24 @@
-.searchBar{
+.searchBar {
   margin: 17px 30px;
 }
 
 @keyframes hide {
-  0%   {width: 200px;}
+  0% {
+    width: 200px;
+  }
   100% {
     width: 0px;
     opacity: 0;
   }
 }
 
-.defaultInput{
+.defaultInput {
   display: none;
 }
 
-.input{
+.input {
   animation-name: hide;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
   -webkit-user-select: initial;
@@ -26,25 +28,30 @@
   user-select: initial;
 }
 
-.icon{
+.icon {
   font-size: 24px;
   cursor: pointer;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
-.icon:hover{
+.icon:hover {
   color: #b45177;
 }
 
 @keyframes show {
-  0%   {width: 0px;}
-  100% {width: 180px;}
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 180px;
+  }
 }
 
-.input, .shownInput{
+.input,
+.shownInput {
   position: relative;
   border: none;
-  border-bottom: 3px solid #AA7489;
+  border-bottom: 3px solid #aa7489;
   background-color: transparent;
   color: white;
   -webkit-user-select: initial;
@@ -54,25 +61,26 @@
   user-select: initial;
 }
 
-.input, .shownInput::placeholder{
+.input,
+.shownInput::placeholder {
   color: white;
 }
 
-.shownInput{
+.shownInput {
   padding: 0 15px;
   font-size: 18px;
   animation-name: show;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
 
-.shownInput:focus{
+.shownInput:focus {
   outline: none;
 }
 
 @media screen and (max-width: 768px) {
   .searchBar {
     margin: 15px 5px;
-  } 
+  }
 }

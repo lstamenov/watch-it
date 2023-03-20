@@ -13,7 +13,7 @@ interface Props {
 
 const MobileShowCard: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isClicked, setIsClicked] = useState(false);
-  
+
   return (
     <>
       <Modal
@@ -25,27 +25,18 @@ const MobileShowCard: React.FC<Props> = ({ show, isOnProfile = false }) => {
         isOnProfile={isOnProfile}
       >
         <CarouselDetail
-          value={
-            show.number_of_seasons > 1
-              ? `${show.number_of_seasons} Seasons`
-              : '1 Season'
-          }
+          value={show.number_of_seasons > 1 ? `${show.number_of_seasons} Seasons` : '1 Season'}
         />
         {show.episode_run_time[0] && (
           <CarouselDetail
-            value={`${show.episode_run_time[0]
-              .toLocaleString()
-              .toUpperCase()} min`}
+            value={`${show.episode_run_time[0].toLocaleString().toUpperCase()} min`}
           />
         )}
         <CarouselDetail value={show.original_language.toUpperCase()} />
         <CarouselDetail value={`${show.vote_average.toFixed(1)}`} />
       </Modal>
       <Card onClick={() => setIsClicked(true)}>
-        <CardMedia
-          className={styles.card}
-          image={getMoviePosterPath(show.poster_path)}
-        />
+        <CardMedia className={styles.card} image={getMoviePosterPath(show.poster_path)} />
       </Card>
     </>
   );

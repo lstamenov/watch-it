@@ -2,14 +2,14 @@
   width: 100px;
   height: 100px;
   cursor: pointer;
-  transition: .2s;
+  transition: 0.2s;
 }
 
-.avatar:hover{
+.avatar:hover {
   transform: scale(1.2);
 }
 
-.headerAvatar{
+.headerAvatar {
   width: 55px;
   height: 55px;
   cursor: pointer;

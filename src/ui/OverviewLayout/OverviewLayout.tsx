@@ -17,15 +17,15 @@ const OverviewLayout: React.FC<Props> = ({ trailer, cast, companies }) => {
   return (
     <div className={styles.container}>
       {trailer && (
-        <OverviewDetailLayout title="trailer">
-          {<Video src={trailer} />}
-        </OverviewDetailLayout>
+        <OverviewDetailLayout title="trailer">{<Video src={trailer} />}</OverviewDetailLayout>
       )}
       <OverviewDetailLayout title="cast">
         <CastLayout>
-          {cast.filter((_, index) => index <= 9).map((actor, index) => (
-            <ActorCard key={index} actor={actor} />
-          ))}
+          {cast
+            .filter((_, index) => index <= 9)
+            .map((actor, index) => (
+              <ActorCard key={index} actor={actor} />
+            ))}
         </CastLayout>
       </OverviewDetailLayout>
       {companies.length > 0 && (

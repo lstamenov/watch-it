@@ -95,13 +95,13 @@ const Header: React.FC = () => {
     },
     user
       ? {
-        title: t('PROFILE'),
-        path: '/profile',
-      }
+          title: t('PROFILE'),
+          path: '/profile',
+        }
       : {
-        title: t('SIGN_IN'),
-        path: '/login',
-      },
+          title: t('SIGN_IN'),
+          path: '/login',
+        },
   ];
 
   type Items = typeof items;
@@ -147,9 +147,7 @@ const Header: React.FC = () => {
   }, [path]);
 
   const renderLanguageSelector = () => (
-    <LanguageSelector>
-      {(props) => <LanguageSelectorUI {...props} />}
-    </LanguageSelector>
+    <LanguageSelector>{(props) => <LanguageSelectorUI {...props} />}</LanguageSelector>
   );
 
   const renderAuthenticatedHeader = () => (
@@ -168,13 +166,7 @@ const Header: React.FC = () => {
       </div>
       <div className={styles.main}>
         <SearchBar />
-        {user && (
-          <Avatar
-            onClick={() => navigate('/profile')}
-            isOnHeader
-            src={user?.avatarURL}
-          />
-        )}
+        {user && <Avatar onClick={() => navigate('/profile')} isOnHeader src={user?.avatarURL} />}
         {renderLanguageSelector()}
       </div>
     </>

@@ -6,14 +6,14 @@ export enum TrendingActionTypes {
 }
 
 export interface TrendingAction {
-  type: TrendingActionTypes,
+  type: TrendingActionTypes;
   payload: {
-    trendings: (TrendingMovie | TrendingShow)[],
-    page: number,
-  },
+    trendings: (TrendingMovie | TrendingShow)[];
+    page: number;
+  };
 }
 
 export interface TrendingState {
-  trending: (TrendingMovie | TrendingShow)[],
-  page: number,
+  trending: (TrendingMovie | TrendingShow)[];
+  page: number;
 }

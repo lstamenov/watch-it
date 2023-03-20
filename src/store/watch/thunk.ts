@@ -5,7 +5,14 @@ import * as movieService from '../../services/movieService';
 import { Actor, Movie, TvShow, Video } from '../../types/types';
 import { loaded, loading } from '../loader/actions';
 import { RootState } from '../store';
-import { currentMovieLoaded, currentShowLoaded, movieRecommendationsLoaded, showRecommendationsLoaded, similarMoviesLoaded, similarShowsLoaded } from './actions';
+import {
+  currentMovieLoaded,
+  currentShowLoaded,
+  movieRecommendationsLoaded,
+  showRecommendationsLoaded,
+  similarMoviesLoaded,
+  similarShowsLoaded,
+} from './actions';
 
 const fetchFullMovieById = async (id: number) => {
   const fullMovieResponse = await movieService.fetchFullMovieDetailsById(id);
@@ -21,17 +28,17 @@ const fetchFullShowById = async (id: number) => {
 
 export const loadCurrentMovie = (id: number) => async (dispatch: Dispatch) => {
   dispatch(loading());
-  
+
   const response = await service.fetchMovieById(id);
   const movie: Movie = await response.data;
 
   const trailersResponse = await movieService.fetchMovieTrailers(id);
   const trailers: Video[] = await trailersResponse.data.results;
-  const trailer = trailers.find(t => t.site === 'YouTube' && t.type === 'Trailer');
+  const trailer = trailers.find((t) => t.site === 'YouTube' && t.type === 'Trailer');
   movie.trailer = trailer;
 
   const creditsResponse = await movieService.fetchMovieCast(id);
-  const cast: Actor[] = await creditsResponse.data.cast; 
+  const cast: Actor[] = await creditsResponse.data.cast;
   movie.cast = cast;
 
   dispatch(currentMovieLoaded(movie));
@@ -48,7 +55,7 @@ export const loadCurrentShow = (id: number) => async (dispatch: Dispatch) => {
 
   const trailersResponse = await showService.fetchShowTrailers(id);
   const trailers: Video[] = await trailersResponse.data.results;
-  const trailer = trailers.find(t => t.site === 'YouTube' && t.type === 'Trailer');
+  const trailer = trailers.find((t) => t.site === 'YouTube' && t.type === 'Trailer');
   show.trailer = trailer;
 
   const creditsResponse = await showService.fetchShowCast(id);
@@ -67,7 +74,7 @@ export const loadSimilarMovies = () => async (dispatch: Dispatch, getState: () =
   const response = await service.fetchSimilarMovies(state.watch.currentMovie.id);
   const similarMovies: Movie[] = await response.data.results;
 
-  const detailedResultsResponse = similarMovies.map(async result => {
+  const detailedResultsResponse = similarMovies.map(async (result) => {
     const movie: Movie = await fetchFullMovieById(result.id);
     return movie;
   });
@@ -77,24 +84,25 @@ export const loadSimilarMovies = () => async (dispatch: Dispatch, getState: () =
   dispatch(similarMoviesLoaded(detailedResults));
 };
 
-export const loadMovieRecommendations = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const state: RootState = getState();
-  if (!!!state.watch.currentMovie) {
-    return;
-  }
-  
-  const response = await service.fetchMovieRecommendations(state.watch.currentMovie.id);
-  const movies: Movie[] = await response.data.results;
+export const loadMovieRecommendations =
+  () => async (dispatch: Dispatch, getState: () => RootState) => {
+    const state: RootState = getState();
+    if (!!!state.watch.currentMovie) {
+      return;
+    }
 
-  const detailedResultsResponse = movies.map(async result => {
-    const movie: Movie = await fetchFullMovieById(result.id);
-    return movie;
-  });
+    const response = await service.fetchMovieRecommendations(state.watch.currentMovie.id);
+    const movies: Movie[] = await response.data.results;
 
-  const detailedResults = await Promise.all(detailedResultsResponse);
+    const detailedResultsResponse = movies.map(async (result) => {
+      const movie: Movie = await fetchFullMovieById(result.id);
+      return movie;
+    });
 
-  dispatch(movieRecommendationsLoaded(detailedResults));
-};
+    const detailedResults = await Promise.all(detailedResultsResponse);
+
+    dispatch(movieRecommendationsLoaded(detailedResults));
+  };
 
 export const loadSimilarShows = () => async (dispatch: Dispatch, getState: () => RootState) => {
   const state: RootState = getState();
@@ -104,7 +112,7 @@ export const loadSimilarShows = () => async (dispatch: Dispatch, getState: () =>
   const response = await service.fetchSimilarShows(state.watch.currentShow.id);
   const shows: TvShow[] = await response.data.results;
 
-  const detailedResultsResponse = shows.map(async result => {
+  const detailedResultsResponse = shows.map(async (result) => {
     const show: TvShow = await fetchFullShowById(result.id);
     return show;
   });
@@ -122,7 +130,7 @@ export const loadRecommendedShows = () => async (dispatch: Dispatch, getState: (
   const response = await service.fetchShowRecommendations(state.watch.currentShow.id);
   const shows: TvShow[] = await response.data.results;
 
-  const detailedResultsResponse = shows.map(async result => {
+  const detailedResultsResponse = shows.map(async (result) => {
     const show: TvShow = await fetchFullShowById(result.id);
     return show;
   });

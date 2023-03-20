@@ -85,7 +85,11 @@ const MovieLayout: React.FC<Props> = ({ movie, similarMovies, recommendedMovies 
             fields={fields}
           />
         </PosterLayout>
-       <OverviewLayout companies={movie.production_companies} cast={movie.cast} trailer={movie.trailer?.key} />
+        <OverviewLayout
+          companies={movie.production_companies}
+          cast={movie.cast}
+          trailer={movie.trailer?.key}
+        />
       </div>
       {isMobile ? renderSuggestedMobile() : renderSuggestedDesktop()}
     </BackgroundLayout>

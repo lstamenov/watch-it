@@ -1,21 +1,21 @@
-.card{
+.card {
   width: 620px;
   margin: 10px 0;
 }
 
-.img{
+.img {
   width: 600px;
   height: 250px;
 }
 
-@media screen and (max-width: 768px){
-  .card{
+@media screen and (max-width: 768px) {
+  .card {
     width: 420px;
     margin: 10px 0;
   }
-  
-  .img{
+
+  .img {
     width: 420px;
     height: 150px;
-  } 
+  }
 }

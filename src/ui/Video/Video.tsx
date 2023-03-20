@@ -6,10 +6,7 @@ interface Props {
 }
 
 const Video: React.FC<Props> = ({ src }) => (
-  <iframe
-    className={styles.player}
-    src={`https://www.youtube.com/embed/${src}`}
-  />
+  <iframe className={styles.player} src={`https://www.youtube.com/embed/${src}`} />
 );
 
 export default Video;

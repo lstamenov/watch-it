@@ -5,8 +5,8 @@ import styles from './GenresLayout.module.css';
 const GenresLayout: React.FC = ({ children }) => {
   return (
     <StyledEngineProvider injectFirst>
-      <Container maxWidth='md'>
-        <Grid container columnSpacing={2} className={styles.container}> 
+      <Container maxWidth="md">
+        <Grid container columnSpacing={2} className={styles.container}>
           {children}
         </Grid>
       </Container>

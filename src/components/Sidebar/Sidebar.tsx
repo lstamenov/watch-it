@@ -9,9 +9,9 @@ import styles from './Sidebar.module.css';
 
 interface Props {
   items: {
-    title: string,
-    path: string,
-    isClicked: boolean,
+    title: string;
+    path: string;
+    isClicked: boolean;
   }[];
 }
 
@@ -19,10 +19,7 @@ const Sidebar: React.FC<Props> = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => (event: any) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
 
@@ -37,28 +34,26 @@ const Sidebar: React.FC<Props> = ({ items }) => {
       onKeyDown={toggleDrawer()}
     >
       <List className={styles.drawer}>
-        {items.map(item => <HamburgerItem key={item.title} {...item} />)}
+        {items.map((item) => (
+          <HamburgerItem key={item.title} {...item} />
+        ))}
       </List>
     </Box>
   );
 
   return (
     <div>
-          <FontAwesomeIcon
-          onClick={toggleDrawer()}
-          className={styles.menu}
-          icon={faBars}
-          aria-controls="basic-menu"
-          aria-haspopup="true"
-          aria-expanded="false"
-        /> 
-          <Drawer
-            anchor={'bottom'}
-            open={isOpen}
-            onClose={toggleDrawer()}
-          >
-            {list()}
-          </Drawer>
+      <FontAwesomeIcon
+        onClick={toggleDrawer()}
+        className={styles.menu}
+        icon={faBars}
+        aria-controls="basic-menu"
+        aria-haspopup="true"
+        aria-expanded="false"
+      />
+      <Drawer anchor={'bottom'} open={isOpen} onClose={toggleDrawer()}>
+        {list()}
+      </Drawer>
     </div>
   );
 };

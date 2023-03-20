@@ -15,11 +15,7 @@ const Show: React.FC = () => {
   ) => {
     if (show) {
       return (
-        <ShowLayoutUI
-          show={show}
-          similarShows={similarShows}
-          recommendedShows={recommendedShows}
-        />
+        <ShowLayoutUI show={show} similarShows={similarShows} recommendedShows={recommendedShows} />
       );
     }
 
@@ -34,11 +30,7 @@ const Show: React.FC = () => {
             return props.isLoading ? (
               <Loader />
             ) : (
-              renderContent(
-                props.show,
-                props.similarShows,
-                props.recommendedShows,
-              )
+              renderContent(props.show, props.similarShows, props.recommendedShows)
             );
           }}
         </ShowLayout>

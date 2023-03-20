@@ -1,63 +1,63 @@
-.mobileModal{
+.mobileModal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 350px;
-  background-color:rgb(45, 46, 46, .85);
+  background-color: rgb(45, 46, 46, 0.85);
   box-shadow: 3px 5px 10px;
   border-radius: 3px;
-  outline: 0
+  outline: 0;
 }
 
-.desktopModal{
+.desktopModal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 45%;
-  background-color:rgb(45, 46, 46);
+  background-color: rgb(45, 46, 46);
   box-shadow: 3px 5px 10px;
   border-radius: 3px;
-  outline: 0
+  outline: 0;
 }
 
-.mobileModalPicture{
+.mobileModalPicture {
   height: 180px;
   width: 100%;
   border-radius: 3px;
 }
 
-.desktopModalPicture{
+.desktopModalPicture {
   width: 100%;
   border-radius: 3px;
 }
 
-.title{
+.title {
   color: white;
   text-align: center;
   font-weight: 600;
 }
 
-.overview{
+.overview {
   color: white;
 }
 
-.wrapper{
+.wrapper {
   padding: 5px 0;
   display: flex;
   justify-content: center;
   gap: 5px;
 }
 
-.container{
+.container {
   display: flex;
   justify-content: center;
   padding: 10px 0;
   gap: 20px;
 }
 
-.xIcon{
+.xIcon {
   position: absolute;
   right: 10px;
   top: 5px;

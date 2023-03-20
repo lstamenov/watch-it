@@ -43,11 +43,7 @@ const Movie: React.FC = () => {
             return props.isLoading ? (
               <Loader />
             ) : (
-              renderContent(
-                props.movie,
-                props.similarMovies,
-                props.recommendedMovies,
-              )
+              renderContent(props.movie, props.similarMovies, props.recommendedMovies)
             );
           }}
         </MovieLayout>

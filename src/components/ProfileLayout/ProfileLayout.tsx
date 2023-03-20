@@ -21,7 +21,7 @@ export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) =
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [shouldOpenAvatarsModal, setShouldOpenAvatarsModel] = useState(false);
-  
+
   const handleAvatarClick = () => {
     setShouldOpenAvatarsModel(true);
   };

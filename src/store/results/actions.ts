@@ -33,7 +33,11 @@ export const getMoreGenreShowResults = (results: TrendingShow[], page: number) =
   },
 });
 
-export const getSearchResults = (results: (TrendingMovie | TrendingShow)[], page: number, query: string) => ({
+export const getSearchResults = (
+  results: (TrendingMovie | TrendingShow)[],
+  page: number,
+  query: string,
+) => ({
   type: ResultActionTypes.SEARCH_RESULTS_LOADED,
   payload: {
     results,
@@ -42,7 +46,11 @@ export const getSearchResults = (results: (TrendingMovie | TrendingShow)[], page
   },
 });
 
-export const getMoreSearchResults = (results: (TrendingMovie | TrendingShow)[], page: number, query: string) => ({
+export const getMoreSearchResults = (
+  results: (TrendingMovie | TrendingShow)[],
+  page: number,
+  query: string,
+) => ({
   type: ResultActionTypes.MORE_SEARCH_RESULTS_LOADED,
   payload: {
     results,

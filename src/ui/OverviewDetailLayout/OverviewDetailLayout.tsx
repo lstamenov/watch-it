@@ -11,17 +11,15 @@ export const OverviewDetailLayout: React.FC<Props> = ({ title, children }) => {
     <>
       <Typography
         className={styles.title}
-        textAlign='center'
-        color='white'
-        variant='h4'
+        textAlign="center"
+        color="white"
+        variant="h4"
         gutterBottom
-        textTransform='uppercase'
+        textTransform="uppercase"
       >
         {title}
       </Typography>
-      <div className={styles.container}>
-        {children}
-      </div>
+      <div className={styles.container}>{children}</div>
     </>
   );
 };

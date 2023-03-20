@@ -1,5 +1,5 @@
-.card{
-  background-color: #2D2E2E;
+.card {
+  background-color: #2d2e2e;
   height: 500px;
 }
 
@@ -18,19 +18,19 @@
   padding-top: 5px;
 }
 
-.bigPoster{
+.bigPoster {
   height: 500px;
-  transition: .5s ease;
+  transition: 0.5s ease;
   cursor: pointer;
 }
 
-.bigPoster:hover{
+.bigPoster:hover {
   transform: scale(1.2);
 }
 
-.smallPoster{
+.smallPoster {
   height: 120px;
-  transition: .5s;
+  transition: 0.5s;
   cursor: pointer;
 }
 
@@ -43,17 +43,18 @@
   text-align: center;
 }
 
-.icon{
+.icon {
   cursor: pointer;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
-.icon:hover{
-  color: #AA7489;
+.icon:hover {
+  color: #aa7489;
 }
 
 @media only screen and (max-width: 768px) {
-  .card, .bigPoster{
+  .card,
+  .bigPoster {
     height: 380px;
   }
 }

@@ -1,28 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@1,200&display=swap');
 
-*{
+* {
   font-family: 'JetBrains Mono', monospace;
   user-select: none;
 }
 
-html, body{
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-#root{
-  background-color: #2D2E2E;
+#root {
+  background-color: #2d2e2e;
   min-height: 100%;
 }
 
-:root{
-  scrollbar-color: #4F4F4F #2D2E2E !important;
+:root {
+  scrollbar-color: #4f4f4f #2d2e2e !important;
   scrollbar-width: 15px !important;
 }
 
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
   background-color: white !important;
   opacity: 0.8;
 }
@@ -30,4 +31,3 @@ html, body{
 .swiper-pagination-bullet-active {
   background-color: #b45177 !important;
 }
-

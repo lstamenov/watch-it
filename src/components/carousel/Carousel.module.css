@@ -1,15 +1,15 @@
-.title{
+.title {
   margin: 0 0 -35px 50px;
   color: white;
   text-transform: uppercase;
   font-weight: 700;
 }
 
-.carousel{
+.carousel {
   display: flex;
 }
 
-.content{
+.content {
   overflow-x: hidden;
   display: flex;
   gap: 10px;
@@ -20,8 +20,11 @@
   touch-action: none;
 }
 
-.leftArrowWrapper, .rightArrowWrapper, .transparentLeftArrow, .transparentRightArrow{
-  transition: .5s;
+.leftArrowWrapper,
+.rightArrowWrapper,
+.transparentLeftArrow,
+.transparentRightArrow {
+  transition: 0.5s;
   height: 435px;
   z-index: 31;
   display: flex;
@@ -31,45 +34,51 @@
   opacity: 0;
 }
 
-.leftArrowWrapper, .rightArrowWrapper {
+.leftArrowWrapper,
+.rightArrowWrapper {
   background-color: rgba(45, 46, 46, 0.75);
 }
 
-.leftArrowWrapper:hover, .rightArrowWrapper:hover ,.transparentLeftArrow:hover, .transparentRightArrow:hover{
+.leftArrowWrapper:hover,
+.rightArrowWrapper:hover,
+.transparentLeftArrow:hover,
+.transparentRightArrow:hover {
   opacity: 1;
 }
 
-.leftArrowWrapper, .transparentLeftArrow{
+.leftArrowWrapper,
+.transparentLeftArrow {
   position: absolute;
 }
 
-.rightArrowWrapper, .transparentRightArrow{
+.rightArrowWrapper,
+.transparentRightArrow {
   position: absolute;
   right: 0;
   align-self: start;
 }
 
-.arrow{
+.arrow {
   font-size: 60px;
   font-weight: 100;
-  color: #AA7489;
+  color: #aa7489;
 }
 
-.leftArrowWrapper:hover{
+.leftArrowWrapper:hover {
   background-color: rgba(45, 46, 46, 0.85);
 }
 
-.rightArrowWrapper:hover{
+.rightArrowWrapper:hover {
   background-color: rgba(45, 46, 46, 0.85);
 }
 
 @media screen and (max-width: 768px) {
-  .title{
+  .title {
     font-size: 25px;
     margin-left: 0;
   }
 
-  .content{
+  .content {
     padding: 0;
   }
 }

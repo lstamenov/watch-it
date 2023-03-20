@@ -1,15 +1,15 @@
-.icon{
+.icon {
   font-size: 40px;
   color: white;
   cursor: pointer;
-  transition: .4s;
+  transition: 0.4s;
 }
 
-.icon:hover{
+.icon:hover {
   color: #b45177;
 }
 
-.added{
+.added {
   color: #b45177;
   font-size: 40px;
   cursor: pointer;

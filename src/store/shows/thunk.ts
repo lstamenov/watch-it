@@ -3,11 +3,7 @@ import * as service from '../../services/showService';
 import * as trendingService from '../../services/trendingService';
 import { TvShow } from '../../types/types';
 import { loaded, loading } from '../loader/actions';
-import {
-  popularShowsLoaded,
-  topRatedShowsLoaded,
-  trendingShowsLoaded,
-} from './actions';
+import { popularShowsLoaded, topRatedShowsLoaded, trendingShowsLoaded } from './actions';
 
 const fetchShowById = async (id: number) => {
   const response = await service.fetchFullDetailedShowById(id);
@@ -31,9 +27,7 @@ export const loadPopularShows = () => async (dispatch: Dispatch) => {
   const response = await service.fetchPopularShows();
   const shows: TvShow[] = response.data.results;
 
-  const fullDetailedShowsResponse = Promise.all(
-    shows.map((show) => fetchShowById(show.id)),
-  );
+  const fullDetailedShowsResponse = Promise.all(shows.map((show) => fetchShowById(show.id)));
   const fullDetailedShows = await fullDetailedShowsResponse;
 
   const showsWithSeasonsResponse = Promise.all(
@@ -48,9 +42,7 @@ export const loadTopRatedShows = () => async (dispatch: Dispatch) => {
   const response = await service.fetchTopRatedShows();
   const shows: TvShow[] = response.data.results;
 
-  const fullDetailedShowsResponse = Promise.all(
-    shows.map((show) => fetchShowById(show.id)),
-  );
+  const fullDetailedShowsResponse = Promise.all(shows.map((show) => fetchShowById(show.id)));
   const fullDetailedShows = await fullDetailedShowsResponse;
 
   const showsWithSeasonsResponse = Promise.all(
@@ -65,9 +57,7 @@ export const loadTrendingShows = () => async (dispatch: Dispatch) => {
   const response = await trendingService.fetchWeeklyTrendingTv();
   const shows: TvShow[] = response.data.results;
 
-  const fullDetailedShowsResponse = Promise.all(
-    shows.map((show) => fetchShowById(show.id)),
-  );
+  const fullDetailedShowsResponse = Promise.all(shows.map((show) => fetchShowById(show.id)));
   const fullDetailedShows = await fullDetailedShowsResponse;
 
   const showsWithSeasonsResponse = Promise.all(

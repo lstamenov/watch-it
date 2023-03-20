@@ -2,14 +2,8 @@ import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { useAppSelector } from '../../store/hooks';
 import { useDispatch } from 'react-redux';
-import {
-  selectTrending,
-  selectTrendingPage,
-} from '../../store/trending/selectors';
-import {
-  loadMoreWeeklyTrending,
-  loadWeeklyTrending,
-} from '../../store/trending/thunk';
+import { selectTrending, selectTrendingPage } from '../../store/trending/selectors';
+import { loadMoreWeeklyTrending, loadWeeklyTrending } from '../../store/trending/thunk';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
 import { selectLoader } from '../../store/loader/selectors';
 import Loader from '../../components/loader/Loader';

@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react';
-import { isValidEmail, isVaildPassword, isNotEmptyField, arePasswordsMatch } from '../utils/registerValidations';
+import {
+  isValidEmail,
+  isVaildPassword,
+  isNotEmptyField,
+  arePasswordsMatch,
+} from '../utils/registerValidations';
 
-const useRegisterValidations = (username: string, email: string, password: string, confirmPassword: string) => {
+const useRegisterValidations = (
+  username: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+) => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isValid, setIsValid] = useState(false);
 

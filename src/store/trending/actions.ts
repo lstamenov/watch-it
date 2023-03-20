@@ -9,7 +9,10 @@ export const getWeeklyTrending = (trendings: (TrendingMovie | TrendingShow)[], p
   },
 });
 
-export const getMoreWeeklyTrending = (trendings: (TrendingMovie | TrendingShow)[], page: number) => ({
+export const getMoreWeeklyTrending = (
+  trendings: (TrendingMovie | TrendingShow)[],
+  page: number,
+) => ({
   type: TrendingActionTypes.MORE_TRENDING_LOADED,
   payload: {
     trendings,

@@ -18,10 +18,7 @@ const GenreItem: React.FC<Props> = ({ genre, onClick, isActive = false }) => {
 
   return (
     <Grid item>
-      <Button
-        className={isClicked ? styles.clicked : styles.genre}
-        onClick={onClickHandler}
-      >
+      <Button className={isClicked ? styles.clicked : styles.genre} onClick={onClickHandler}>
         {genre.name}
       </Button>
     </Grid>

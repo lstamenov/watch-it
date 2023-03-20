@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 import { WatchDispatchTypes } from './actions';
 import { WatchActionTypes, WatchState } from './types';
- 
+
 const initialState: WatchState = {
   currentMovie: null,
   currentShow: null,

@@ -28,50 +28,57 @@ const WatchLayout: React.FC<Props> = ({
 }) => {
   const isMobile = useMobile();
 
-  const renderSuggestedDesktop = () => (
+  const renderSuggestedDesktop = () =>
     isShow ? (
       <>
-        {similar.length > 0 && <Carousel title="Similar Tv Shows" isTransparent>
-          {similar.map((show) => (
-            <CarouselShow show={show as TvShow} key={show.id} />
-          ))}
-        </Carousel>}
-        {recommended.length > 0 && <Carousel title="Recommended Tv Shows" isTransparent>
-          {recommended.map((show) => (
-            <CarouselShow show={show as TvShow} key={show.id} />
-          ))}
-        </Carousel>}
+        {similar.length > 0 && (
+          <Carousel title="Similar Tv Shows" isTransparent>
+            {similar.map((show) => (
+              <CarouselShow show={show as TvShow} key={show.id} />
+            ))}
+          </Carousel>
+        )}
+        {recommended.length > 0 && (
+          <Carousel title="Recommended Tv Shows" isTransparent>
+            {recommended.map((show) => (
+              <CarouselShow show={show as TvShow} key={show.id} />
+            ))}
+          </Carousel>
+        )}
       </>
     ) : (
       <>
-        {similar.length > 0 && <Carousel title="Similar movies" isTransparent>
-          {similar.map((movie) => (
-            <CarouselMovie movie={movie as Movie} key={movie.id} />
-          ))}
-        </Carousel>}
-        {recommended.length > 0 && <Carousel title="Recommended movies" isTransparent>
-          {recommended.map((movie) => (
-            <CarouselMovie movie={movie as Movie} key={movie.id} />
-          ))}
-        </Carousel>}
+        {similar.length > 0 && (
+          <Carousel title="Similar movies" isTransparent>
+            {similar.map((movie) => (
+              <CarouselMovie movie={movie as Movie} key={movie.id} />
+            ))}
+          </Carousel>
+        )}
+        {recommended.length > 0 && (
+          <Carousel title="Recommended movies" isTransparent>
+            {recommended.map((movie) => (
+              <CarouselMovie movie={movie as Movie} key={movie.id} />
+            ))}
+          </Carousel>
+        )}
       </>
-    )
-  );
+    );
 
-  const renderSuggestedMobile = () => (
+  const renderSuggestedMobile = () =>
     isShow ? (
       <>
-        {similar.length > 0 && <MobileCarousel title='similar' items={similar} />}
-        {recommended.length > 0 && <MobileCarousel title='recommended' items={recommended} />}
+        {similar.length > 0 && <MobileCarousel title="similar" items={similar} />}
+        {recommended.length > 0 && <MobileCarousel title="recommended" items={recommended} />}
       </>
     ) : (
       <>
-        {similar.length > 0 && <MobileCarousel isMovieCarousel title='similar' items={similar} />}
-        {recommended.length > 0 && <MobileCarousel isMovieCarousel title='recommended' items={recommended} />}
+        {similar.length > 0 && <MobileCarousel isMovieCarousel title="similar" items={similar} />}
+        {recommended.length > 0 && (
+          <MobileCarousel isMovieCarousel title="recommended" items={recommended} />
+        )}
       </>
-    )
-  );
-
+    );
 
   return (
     <div
@@ -81,12 +88,7 @@ const WatchLayout: React.FC<Props> = ({
       className={styles.wrapper}
     >
       <Container className={styles.container}>
-        <Typography
-          className={styles.title}
-          gutterBottom
-          align="center"
-          variant="h3"
-        >
+        <Typography className={styles.title} gutterBottom align="center" variant="h3">
           {title}
         </Typography>
         {children}

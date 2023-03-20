@@ -17,11 +17,7 @@ interface Props {
   recommendedShows: TvShow[];
 }
 
-const ShowLayout: React.FC<Props> = ({
-  show,
-  similarShows,
-  recommendedShows,
-}) => {
+const ShowLayout: React.FC<Props> = ({ show, similarShows, recommendedShows }) => {
   const fields = [
     {
       field: 'Runtime',
@@ -68,9 +64,7 @@ const ShowLayout: React.FC<Props> = ({
 
   const renderSuggestedMobile = () => (
     <>
-      {similarShows.length > 0 && (
-        <MobileCarousel title="similar" items={similarShows} />
-      )}
+      {similarShows.length > 0 && <MobileCarousel title="similar" items={similarShows} />}
       {recommendedShows.length > 0 && (
         <MobileCarousel title="recommended" items={recommendedShows} />
       )}

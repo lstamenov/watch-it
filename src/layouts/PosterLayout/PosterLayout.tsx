@@ -8,7 +8,7 @@ interface Props {
 
 const PosterLayout: React.FC<Props> = ({ image, children }) => (
   <div className={styles.container}>
-    <img className={styles.img} src={image} alt='poster' />
+    <img className={styles.img} src={image} alt="poster" />
     {children}
     <Divider />
   </div>

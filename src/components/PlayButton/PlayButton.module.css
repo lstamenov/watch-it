@@ -1,11 +1,11 @@
-.icon{
+.icon {
   font-size: 35px;
   color: white;
   cursor: pointer;
-  transition: .4s;
+  transition: 0.4s;
   z-index: 12;
 }
 
-.icon:hover{
+.icon:hover {
   color: #b45177;
 }

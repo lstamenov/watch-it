@@ -1,7 +1,7 @@
 .select {
-  background-color: #4F4F4F;
+  background-color: #4f4f4f;
   border: none;
-  color: #AA7489;
+  color: #aa7489;
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 600;
@@ -22,7 +22,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .select{
+  .select {
     width: 150px;
   }
 }
