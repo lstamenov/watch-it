@@ -10,15 +10,11 @@ import {
 } from '../../../store/watch/selectors';
 import Player from '../Player/Player';
 import { StyledEngineProvider } from '@mui/material';
-import { getMoviePosterPath } from '../../../utils/movieUtils';
 import WatchLayout from '../../../layouts/WatchLayout/WatchLayout';
-import useMobile from '../../../hooks/useMobile';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
 
 const MoviePlayer: React.FC = () => {
   const [isCorrectId, setIsCorrectId] = useState(false);
-  const isMobile = useMobile();
-
   const movieId = useParams().id;
   const movie = useAppSelector(selectCurrentMovie);
   const similar = useAppSelector(selectSimilarMovies);
@@ -49,7 +45,6 @@ const MoviePlayer: React.FC = () => {
             similar={similar}
             recommended={recommended}
             overview={movie.overview}
-            posterUrl={getMoviePosterPath(isMobile ? movie.poster_path : movie.backdrop_path)}
             title={movie.original_title}
           >
             <Player isShow={false} id={movie.imdb_id} />

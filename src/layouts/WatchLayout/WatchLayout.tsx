@@ -9,7 +9,6 @@ import useMobile from '../../hooks/useMobile';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 
 interface Props {
-  posterUrl: string;
   title: string;
   overview: string;
   similar: Movie[] | TvShow[];
@@ -18,7 +17,6 @@ interface Props {
 }
 
 const WatchLayout: React.FC<Props> = ({
-  posterUrl,
   title,
   overview,
   similar,
@@ -81,12 +79,7 @@ const WatchLayout: React.FC<Props> = ({
     );
 
   return (
-    <div
-      style={{
-        background: `url(https://image.tmdb.org/t/p/original${posterUrl}) no-repeat fixed 0px 0px/100vw 100vh`,
-      }}
-      className={styles.wrapper}
-    >
+    <div className={styles.wrapper}>
       <Container className={styles.container}>
         <Typography className={styles.title} gutterBottom align="center" variant="h3">
           {title}
