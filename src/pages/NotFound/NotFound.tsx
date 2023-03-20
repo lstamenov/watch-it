@@ -7,11 +7,7 @@ const NotFound: React.FC = () => (
     <Typography className={styles.title} variant="h1">
       404
     </Typography>
-    <Typography
-      className={styles.title}
-      style={{ fontWeight: '500' }}
-      variant="h2"
-    >
+    <Typography className={styles.title} style={{ fontWeight: '500' }} variant="h2">
       Page not found
     </Typography>
   </div>

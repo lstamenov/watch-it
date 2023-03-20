@@ -18,15 +18,13 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
   const ulrEpisode = searchParams.get('episode') || 1;
 
   const [currentSeason, setCurrentSeason] = useState(
-    seasons.length > 0 ? seasons[(Number(ulrSeason) - 1) || 0] : null,
+    seasons.length > 0 ? seasons[Number(ulrSeason) - 1 || 0] : null,
   );
 
   useEffect(() => {
-    setCurrentSeason(
-      seasons.length > 0 ? seasons[(Number(ulrSeason) - 1) || 0] : null,
-    );
+    setCurrentSeason(seasons.length > 0 ? seasons[Number(ulrSeason) - 1 || 0] : null);
   }, [seasons]);
-  
+
   const isMobile = useMobile();
 
   const movieURL = `https://autoembed.to/movie/imdb/${id}`;
@@ -34,38 +32,22 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
 
   const handleSeasonChange = (value: string) => {
     setSearchParams({ season: value, episode: '1' });
-    setCurrentSeason(
-      seasons.filter((season) => season.season_number === Number(value))[0],
-    );
+    setCurrentSeason(seasons.filter((season) => season.season_number === Number(value))[0]);
   };
 
   const handleEpisodeChange = (value: string) =>
     setSearchParams({ episode: value, season: String(ulrSeason) });
 
-  const getSeasons = () =>
-    seasons
-      .map((season) => season.season_number);
+  const getSeasons = () => seasons.map((season) => season.season_number);
 
-  const getEpisodes = useCallback(
-    () => {
-      return Array.from(
-        { length: currentSeason ? currentSeason.episode_count : 1 },
-        (_, i) => i + 1,
-      );
-    },
-    [currentSeason],
-  )
-  ;
-
+  const getEpisodes = useCallback(() => {
+    return Array.from({ length: currentSeason ? currentSeason.episode_count : 1 }, (_, i) => i + 1);
+  }, [currentSeason]);
   const renderMobile = () =>
     isShow && seasons ? (
       <>
         <div className={styles.episodeSelector}>
-          <Dropdown
-            prefix="season"
-            items={getSeasons()}
-            onChange={handleSeasonChange}
-          />
+          <Dropdown prefix="season" items={getSeasons()} onChange={handleSeasonChange} />
           <Dropdown
             current={Number(ulrEpisode)}
             prefix="episode"
@@ -73,20 +55,10 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
             onChange={handleEpisodeChange}
           />
         </div>
-        <iframe
-          className={styles.player}
-          src={showURL}
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
+        <iframe className={styles.player} src={showURL} frameBorder="0" allowFullScreen></iframe>
       </>
     ) : (
-      <iframe
-        className={styles.player}
-        src={movieURL}
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
+      <iframe className={styles.player} src={movieURL} frameBorder="0" allowFullScreen></iframe>
     );
 
   return isMobile ? (
@@ -107,20 +79,10 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
           onChange={handleEpisodeChange}
         />
       </div>
-      <iframe
-        className={styles.player}
-        src={showURL}
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
+      <iframe className={styles.player} src={showURL} frameBorder="0" allowFullScreen></iframe>
     </>
   ) : (
-    <iframe
-      className={styles.player}
-      src={movieURL}
-      frameBorder="0"
-      allowFullScreen
-    ></iframe>
+    <iframe className={styles.player} src={movieURL} frameBorder="0" allowFullScreen></iframe>
   );
 };
 

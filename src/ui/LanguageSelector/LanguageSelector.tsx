@@ -14,11 +14,7 @@ interface Props {
   onSelectLanguage: (newLang: string) => void;
 }
 
-const LanguageSelector: React.FC<Props> = ({
-  langs,
-  selectedLang,
-  onSelectLanguage,
-}) => {
+const LanguageSelector: React.FC<Props> = ({ langs, selectedLang, onSelectLanguage }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -90,11 +86,7 @@ const LanguageSelector: React.FC<Props> = ({
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {langs.map(({ id, Icon }) => (
-          <MenuItem
-            disabled={id === selectedLang.id}
-            key={id}
-            onClick={onLangClick(id)}
-          >
+          <MenuItem disabled={id === selectedLang.id} key={id} onClick={onLangClick(id)}>
             <Icon width={22} height={22} />
           </MenuItem>
         ))}
