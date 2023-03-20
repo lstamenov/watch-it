@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './LanguageSelector.module.css';
 import { Lang } from '../../i18n/langs';
+import { Tooltip } from '@mui/material';
+import { t } from 'i18next';
 
 interface Props {
   langs: Lang[];
@@ -40,10 +42,12 @@ const LanguageSelector: React.FC<Props> = ({ langs, selectedLang, onSelectLangua
           margin: '0 20px 0 20px',
         }}
       >
-        <div onClick={handleClick} className={styles.selector}>
-          {<selectedLang.Icon width={28} height={28} />}
-          <FontAwesomeIcon color="#AA7489" fontSize={22} icon={faAngleDown} />
-        </div>
+        <Tooltip title={t('CHANGE_LANGUAGE') || ''}>
+          <div onClick={handleClick} className={styles.selector}>
+            {<selectedLang.Icon width={28} height={28} />}
+            <FontAwesomeIcon color="#AA7489" fontSize={22} icon={faAngleDown} />
+          </div>
+        </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}

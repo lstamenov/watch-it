@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from './SearchBar.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar: React.FC = () => {
   const navigate = useNavigate();
   const [inputClass, setInputClass] = useState(styles.defaultInput);
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
+  const { t } = useTranslation();
 
   const showInput = () => {
     setInputClass(styles.shownInput);
@@ -34,7 +36,7 @@ const SearchBar: React.FC = () => {
       <input
         ref={inputRef}
         className={inputClass}
-        placeholder="search..."
+        placeholder={t('SEARCH_PACEHOLDER') || ''}
         onChange={(e) => setQuery(e.currentTarget.value)}
         value={query}
         onBlur={() => {
