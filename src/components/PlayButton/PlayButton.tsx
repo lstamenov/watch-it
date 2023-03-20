@@ -4,18 +4,23 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import styles from './PlayButton.module.css';
 import { Tooltip } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   url: string;
   size?: number;
 }
 
-const PlayButton: React.FC<Props> = ({ url, size }) => (
-  <Tooltip title="Play">
-    <Link to={url}>
-      <FontAwesomeIcon style={{ fontSize: `${size}px` }} className={styles.icon} icon={faPlay} />
-    </Link>
-  </Tooltip>
-);
+const PlayButton: React.FC<Props> = ({ url, size }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Tooltip title={t('PLAY') || ''}>
+      <Link to={url}>
+        <FontAwesomeIcon style={{ fontSize: `${size}px` }} className={styles.icon} icon={faPlay} />
+      </Link>
+    </Tooltip>
+  );
+};
 
 export default PlayButton;

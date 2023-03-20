@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from '@mui/material';
 import styles from './AddToListButton.module.css';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onClick: () => void;
@@ -20,10 +21,12 @@ const AddToListButton: React.FC<Props> = ({
   isOnProfile = false,
   isMovieAddedToList = false,
   isEnabled = false,
-}) =>
-  isEnabled ? (
+}) => {
+  const { t } = useTranslation();
+
+  return isEnabled ? (
     <>
-      <Tooltip title={isOnProfile ? 'Remove from list' : 'Add to list'}>
+      <Tooltip title={isOnProfile ? t('REMOVE_FROM_LIST') || '' : t('ADD_TO_LIST') || ''}>
         <div>
           <FontAwesomeIcon
             onClick={onClick}
@@ -35,5 +38,6 @@ const AddToListButton: React.FC<Props> = ({
       </Tooltip>
     </>
   ) : null;
+};
 
 export default AddToListButton;

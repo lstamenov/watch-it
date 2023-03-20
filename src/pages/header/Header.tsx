@@ -165,9 +165,9 @@ const Header: React.FC = () => {
         <Sidebar items={generateItems(items)} />
       </div>
       <div className={styles.main}>
-        {renderLanguageSelector()}
         <SearchBar />
         {user && <Avatar onClick={() => navigate('/profile')} isOnHeader src={user?.avatarURL} />}
+        {renderLanguageSelector()}
       </div>
     </>
   );
