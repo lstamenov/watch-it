@@ -11,7 +11,6 @@ import {
 } from '../../../store/watch/selectors';
 import { loadCurrentShow, loadSuggestedShows } from '../../../store/watch/thunk';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
-import { getMoviePosterPath } from '../../../utils/movieUtils';
 import Player from '../Player/Player';
 
 const ShowPlayer: React.FC = () => {
@@ -47,7 +46,6 @@ const ShowPlayer: React.FC = () => {
             similar={similar}
             recommended={recommended}
             overview={show.overview}
-            posterUrl={getMoviePosterPath(show.backdrop_path)}
             title={show.name}
             isShow
           >
