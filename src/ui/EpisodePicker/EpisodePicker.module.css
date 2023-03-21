@@ -1,0 +1,45 @@
+.dialog{
+  background-color: #2d2e2e;
+  align-self: flex-end;
+}
+
+.season{
+  font-size: 26px;
+}
+
+.accordion{
+  background-color: transparent;
+  color: white;
+}
+
+.episodesContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.episode{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  border-color: white;
+  transition: 0.5s;
+}
+
+.selectedEpisode{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-color: #b45177;
+  color: white;
+  background-color: rgba(170, 116, 137, 0.075);
+  transition: 0.5s;
+}
+
+.selectedEpisode:hover, .episode:hover{
+  border-color: #b45177;
+  background-color: rgba(170, 116, 137, 0.075);
+}

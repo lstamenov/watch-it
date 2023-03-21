@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import Dropdown from '../../../components/Dropdown/DropDown';
 import useMobile from '../../../hooks/useMobile';
 import { Season } from '../../../types/types';
+import EpisodePicker from '../../../ui/EpisodePicker/EpisodePicker';
 import styles from './Player.module.css';
 
 interface Props {
@@ -65,6 +66,7 @@ const Player: React.FC<Props> = ({ isShow, id, seasons = [] }) => {
     renderMobile()
   ) : isShow && seasons ? (
     <>
+      <EpisodePicker currentSeason={currentSeason || seasons[0]} seasons={seasons || []} />
       <div className={styles.episodeSelector}>
         <Dropdown
           current={currentSeason?.season_number || 1}
