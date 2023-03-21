@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import * as service from '../../services/watchService';
 import * as showService from '../../services/showService';
 import * as movieService from '../../services/movieService';
-import { Actor, Movie, TvShow, Video } from '../../types/types';
+import { Actor, Movie, Season, TvShow, Video } from '../../types/types';
 import { loaded, loading } from '../loader/actions';
 import { RootState } from '../store';
 import {
@@ -57,10 +57,16 @@ export const loadCurrentShow = (id: number) => async (dispatch: Dispatch) => {
   const trailers: Video[] = await trailersResponse.data.results;
   const trailer = trailers.find((t) => t.site === 'YouTube' && t.type === 'Trailer');
   show.trailer = trailer;
+  const fullDetailedSeasons: Season[] = await Promise.all(
+    show.seasons.map((season) =>
+      showService.fetchFullDetailedSeason(show.id, season.season_number),
+    ),
+  );
 
   const creditsResponse = await showService.fetchShowCast(id);
   const cast: Actor[] = await creditsResponse.data.cast;
   show.cast = cast;
+  show.seasons = fullDetailedSeasons;
 
   dispatch(currentShowLoaded({ ...show, imdb_id: imdbId }));
   dispatch(loaded());

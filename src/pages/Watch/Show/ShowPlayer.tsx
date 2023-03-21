@@ -11,6 +11,7 @@ import {
 } from '../../../store/watch/selectors';
 import { loadCurrentShow, loadSuggestedShows } from '../../../store/watch/thunk';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
+import NotFound from '../../NotFound/NotFound';
 import Player from '../Player/Player';
 
 const ShowPlayer: React.FC = () => {
@@ -56,7 +57,9 @@ const ShowPlayer: React.FC = () => {
             />
           </WatchLayout>
         </StyledEngineProvider>
-      ) : null}
+      ) : (
+        <NotFound />
+      )}
     </AnimatedPage>
   );
 };

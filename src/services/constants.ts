@@ -54,7 +54,6 @@ export const MORE_TRENDING_WEEKLY = (lang: string): string =>
   `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&language=${lang}&page=`;
 export const LOAD_SHOW_EXTERNAL_LINKS = (id: number, lang: string) =>
   `https://api.themoviedb.org/3/tv/${id}/external_ids?api_key=${API_KEY}&language=${lang}`;
-
 export const GENRE_RESULTS_URL = (lang: string): string =>
   `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=${lang}&sort_by=popularity.desc&include_adult=false&page=1&with_genres=`;
 export const SHOW_GENRE_RESULTS_URL = (lang: string): string =>
