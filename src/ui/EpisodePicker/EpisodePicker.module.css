@@ -1,10 +1,25 @@
 .dialog{
-  background-color: #2d2e2e;
-  align-self: flex-end;
+  background-color: #2d2e2e15;
 }
 
-.season{
-  font-size: 26px;
+.button{
+  color: white;
+  border-color: white;
+  font-size: 18px;
+  transition: .5s;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+.button:disabled {
+  color: rgb(110, 110, 110);
+  border-color: rgb(110, 110, 110);
+}
+
+.button:hover{
+  border-color: #b45177;
+  color: #b45177;
 }
 
 .accordion{
@@ -25,21 +40,24 @@
   display: flex;
   justify-content: space-between;
   color: white;
-  border-color: white;
+  background-color: #2d2e2e;
   transition: 0.5s;
+  text-align: left;
+  font-size: 15px;
 }
 
 .selectedEpisode{
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-color: #b45177;
-  color: white;
-  background-color: rgba(170, 116, 137, 0.075);
+  color: #b45177;
+  background-color: #2d2e2e;
   transition: 0.5s;
+  text-align: left;
+  font-size: 15px;
 }
 
-.selectedEpisode:hover, .episode:hover{
-  border-color: #b45177;
+.episode:hover, .selectedEpisode:hover{
+  color: #b45177;
   background-color: rgba(170, 116, 137, 0.075);
 }
