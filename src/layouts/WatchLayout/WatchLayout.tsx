@@ -7,6 +7,7 @@ import { Movie, TvShow } from '../../types/types';
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
 import useMobile from '../../hooks/useMobile';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   title: string;
@@ -25,19 +26,20 @@ const WatchLayout: React.FC<Props> = ({
   children,
 }) => {
   const isMobile = useMobile();
+  const { t } = useTranslation();
 
   const renderSuggestedDesktop = () =>
     isShow ? (
       <>
         {similar.length > 0 && (
-          <Carousel title="Similar Tv Shows" isTransparent>
+          <Carousel title={t('SIMILAR_SHOWS')} isTransparent>
             {similar.map((show) => (
               <CarouselShow show={show as TvShow} key={show.id} />
             ))}
           </Carousel>
         )}
         {recommended.length > 0 && (
-          <Carousel title="Recommended Tv Shows" isTransparent>
+          <Carousel title={t('RECOMMENDED_SHOWS')} isTransparent>
             {recommended.map((show) => (
               <CarouselShow show={show as TvShow} key={show.id} />
             ))}
@@ -47,14 +49,14 @@ const WatchLayout: React.FC<Props> = ({
     ) : (
       <>
         {similar.length > 0 && (
-          <Carousel title="Similar movies" isTransparent>
+          <Carousel title={t('SIMILAR_MOVIES')} isTransparent>
             {similar.map((movie) => (
               <CarouselMovie movie={movie as Movie} key={movie.id} />
             ))}
           </Carousel>
         )}
         {recommended.length > 0 && (
-          <Carousel title="Recommended movies" isTransparent>
+          <Carousel title={t('RECOMMENDED_MOVIES')} isTransparent>
             {recommended.map((movie) => (
               <CarouselMovie movie={movie as Movie} key={movie.id} />
             ))}
@@ -66,14 +68,18 @@ const WatchLayout: React.FC<Props> = ({
   const renderSuggestedMobile = () =>
     isShow ? (
       <>
-        {similar.length > 0 && <MobileCarousel title="similar" items={similar} />}
-        {recommended.length > 0 && <MobileCarousel title="recommended" items={recommended} />}
+        {similar.length > 0 && <MobileCarousel title={t('SIMILAR_SHOWS')} items={similar} />}
+        {recommended.length > 0 && (
+          <MobileCarousel title={t('RECOMMENDED_SHOWS')} items={recommended} />
+        )}
       </>
     ) : (
       <>
-        {similar.length > 0 && <MobileCarousel isMovieCarousel title="similar" items={similar} />}
+        {similar.length > 0 && (
+          <MobileCarousel isMovieCarousel title={t('SIMILAR_MOVIES')} items={similar} />
+        )}
         {recommended.length > 0 && (
-          <MobileCarousel isMovieCarousel title="recommended" items={recommended} />
+          <MobileCarousel isMovieCarousel title={t('RECOMMENDED_MOVIES')} items={recommended} />
         )}
       </>
     );
@@ -81,16 +87,18 @@ const WatchLayout: React.FC<Props> = ({
   return (
     <div className={styles.wrapper}>
       <Container className={styles.container}>
-        <Typography className={styles.title} gutterBottom align="center" variant="h3">
+        <Typography sx={{ color: 'white' }} className={styles.title} align="center" variant="h3">
           {title}
         </Typography>
         {children}
-        <Typography className={styles.overview} align="center" variant="h6">
-          <Typography className={styles.subTitile} variant="h4" gutterBottom>
-            Overview
+        {overview && (
+          <Typography className={styles.overview} align="center" variant="h6">
+            <Typography className={styles.subTitile} variant="h4" gutterBottom>
+              {t('OVERVIEW')}
+            </Typography>
+            {overview}
           </Typography>
-          {overview}
-        </Typography>
+        )}
       </Container>
       {isMobile ? renderSuggestedMobile() : renderSuggestedDesktop()}
     </div>

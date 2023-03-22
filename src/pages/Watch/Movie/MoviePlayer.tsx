@@ -8,10 +8,11 @@ import {
   selectMovieRecommendations,
   selectSimilarMovies,
 } from '../../../store/watch/selectors';
-import Player from '../Player/Player';
 import { StyledEngineProvider } from '@mui/material';
 import WatchLayout from '../../../layouts/WatchLayout/WatchLayout';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
+import styles from '../Watch.module.css';
+import { useTranslation } from 'react-i18next';
 
 const MoviePlayer: React.FC = () => {
   const [isCorrectId, setIsCorrectId] = useState(false);
@@ -19,6 +20,8 @@ const MoviePlayer: React.FC = () => {
   const movie = useAppSelector(selectCurrentMovie);
   const similar = useAppSelector(selectSimilarMovies);
   const recommended = useAppSelector(selectMovieRecommendations);
+  const { i18n } = useTranslation();
+  const movieURL = `https://autoembed.to/movie/imdb/${movie?.imdb_id}`;
 
   const dispatch = useDispatch();
 
@@ -31,7 +34,7 @@ const MoviePlayer: React.FC = () => {
     } else {
       setIsCorrectId(false);
     }
-  }, [movieId]);
+  }, [movieId, i18n.language]);
 
   useEffect(() => {
     dispatch(loadSuggestedMovies());
@@ -47,7 +50,12 @@ const MoviePlayer: React.FC = () => {
             overview={movie.overview}
             title={movie.original_title}
           >
-            <Player isShow={false} id={movie.imdb_id} />
+            <iframe
+              frameBorder="0"
+              className={styles.player}
+              src={movieURL}
+              allowFullScreen
+            ></iframe>
           </WatchLayout>
         </StyledEngineProvider>
       ) : null}
