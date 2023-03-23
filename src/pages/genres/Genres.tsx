@@ -9,7 +9,6 @@ import { loadGenres } from '../../store/genres/thunk';
 import GenreItem from '../../components/genreItem/GenreItem';
 import { Genre } from '../../types/types';
 import { selectMovieGenreResults, selectShowGenreResults } from '../../store/results/selectors';
-import { selectLoader } from '../../store/loader/selectors';
 import {
   loadMoreMovieGenreResults,
   loadMoreShowGenreResults,
@@ -23,12 +22,10 @@ import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import GenresTab from '../../ui/GenresTab/GenresTab';
-import Loader from '../../components/loader/Loader';
 
 const Genres: React.FC = () => {
   const [passedState, setPassedState] = useState<any>(useLocation().state);
   const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
-  const [hasResults, setHasResults] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<'movies' | 'shows'>('movies');
   const { i18n, t } = useTranslation();
   const dispatch = useDispatch();
@@ -37,7 +34,6 @@ const Genres: React.FC = () => {
   const tvGenres = useAppSelector(selectTvGenres);
   const movies = useAppSelector(selectMovieGenreResults);
   const shows = useAppSelector(selectShowGenreResults);
-  const isLoading = useAppSelector(selectLoader);
 
   const onGenreClick = (genre: Genre, isClicked: boolean) => {
     if (isClicked) {
@@ -47,6 +43,8 @@ const Genres: React.FC = () => {
     }
   };
 
+  console.log(selectedGenres);
+
   useEffect(() => {
     if (selectedGenres.length > 0) {
       if (selectedCategory === 'movies') {
@@ -54,9 +52,6 @@ const Genres: React.FC = () => {
       } else {
         dispatch(loadShowGenreResults(selectedGenres));
       }
-      setHasResults(true);
-    } else {
-      setHasResults(false);
     }
   }, [selectedGenres]);
 
@@ -159,13 +154,7 @@ const Genres: React.FC = () => {
             }}
             currentTab={selectedCategory}
           />
-          {isLoading && !hasResults ? (
-            <Loader />
-          ) : hasResults ? (
-            renderResults()
-          ) : (
-            <InfoText text={t('GENRES_PAGE_INFO')} />
-          )}
+          {selectedGenres.length && renderResults()}
         </Container>
       </StyledEngineProvider>
     </AnimatedPage>

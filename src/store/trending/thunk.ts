@@ -37,6 +37,7 @@ export const loadWeeklyTrending = () => async (dispatch: Dispatch) => {
 };
 
 export const loadMoreWeeklyTrending = (page: number) => async (dispatch: Dispatch) => {
+  dispatch(loading());
   const response = await service.fetchMoreWeeklyTrending(page);
 
   const trending: (TrendingMovie | TrendingShow)[] = await response.data.results;
@@ -50,4 +51,5 @@ export const loadMoreWeeklyTrending = (page: number) => async (dispatch: Dispatc
   });
   const trendingWithGenres = await Promise.all(trendingWithGenresResponse);
   dispatch(getMoreWeeklyTrending(trendingWithGenres, response.data.page));
+  dispatch(loaded());
 };

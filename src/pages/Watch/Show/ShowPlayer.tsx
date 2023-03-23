@@ -127,9 +127,11 @@ const ShowPlayer: React.FC = () => {
     }
   }, [currentEpisode, currentSeason, nextEpisode?.episode]);
 
+  if (!isCorrectId) return <NotFound />;
+
   return (
     <AnimatedPage>
-      {isCorrectId && show ? (
+      {show && (
         <StyledEngineProvider injectFirst>
           <WatchLayout
             similar={similar}
@@ -141,8 +143,6 @@ const ShowPlayer: React.FC = () => {
             {renderPlayer()}
           </WatchLayout>
         </StyledEngineProvider>
-      ) : (
-        <NotFound />
       )}
     </AnimatedPage>
   );

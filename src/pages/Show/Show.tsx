@@ -1,7 +1,6 @@
 import React from 'react';
 import ShowLayout from '../../layouts/ShowLayout/ShowLayout';
 import { default as ShowLayoutUI } from '../../ui/ShowLayout/ShowLayout';
-import Loader from '../../components/loader/Loader';
 import NotFound from '../NotFound/NotFound';
 import { TvShow } from '../../types/types';
 import Page from '../../ui/Page/Page';
@@ -26,13 +25,7 @@ const Show: React.FC = () => {
     <AnimatedPage>
       <Page>
         <ShowLayout>
-          {(props) => {
-            return props.isLoading ? (
-              <Loader />
-            ) : (
-              renderContent(props.show, props.similarShows, props.recommendedShows)
-            );
-          }}
+          {(props) => renderContent(props.show, props.similarShows, props.recommendedShows)}
         </ShowLayout>
       </Page>
     </AnimatedPage>
