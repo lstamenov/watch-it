@@ -43,6 +43,9 @@ export const resources = {
       SIMILAR_MOVIES: 'SIMILAR MOVIES',
       RECOMMENDED_MOVIES: 'RECOMMENDED MOVIES',
       NEXT_EPISODE: 'NEXT EPISODE',
+      SHOWING_RESULTS: 'SHOWING RESULTS FOR:',
+      NO_RESULTS: 'NO MOVIES OR SHOWS MATCHING YOUR SEARCH FOUND',
+      OOPS: 'OOPS :/',
     },
   },
   bg: {
@@ -86,6 +89,9 @@ export const resources = {
       SIMILAR_MOVIES: 'ПОДОБНИ',
       RECOMMENDED_MOVIES: 'ПРЕПОРЪЧАНИ',
       NEXT_EPISODE: 'СЛЕДВАЩ ЕПИЗОД',
+      SHOWING_RESULTS: 'ПОКАЗВАНЕ НА РЕЗУЛТАТИ ЗА:',
+      NO_RESULTS: 'НЕ БЯХА ОТКИРТИ РЕЗУЛТАТИ ОТГОВАРЯЩИ НА ТВОЕТО ТЪРСЕНЕ',
+      OOPS: 'ОПА :/',
     },
   },
 };

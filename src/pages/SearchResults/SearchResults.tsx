@@ -19,25 +19,28 @@ const SearchResults: React.FC = () => {
   const dispatch = useDispatch();
   const query = searchParams.get('query');
   const isLoading = useAppSelector(selectLoader);
-  const [isFirstView, setIsFirstView] = useState(true);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [isFirstTimeLoading, setIsFirstTimeLoading] = useState(true);
 
   useEffect(() => {
     dispatch(loadSearchResults(query || ''));
-    setTimeout(() => {
-      setIsFirstView(false);
-    }, 50);
   }, [searchParams, i18n.language]);
 
+  useEffect(() => {
+    if (searchState.page === 1 && searchState.results.length) {
+      setIsFirstTimeLoading(false);
+    }
+  }, [searchState.results]);
+
   const renderResults = () =>
-    isLoading && isFirstView ? (
+    isLoading && isFirstTimeLoading ? (
       <Loader />
     ) : (
       <AnimatedPage>
         <div className={styles.wrapper}>
           <Container>
             <Typography className={styles.title} variant="h4">
-              Showing results for: "{searchState.query}"
+              {`${t('SHOWING_RESULTS')} ${searchState.query}`}
             </Typography>
             <InfiniteScrollLayout
               movies={searchState.results}
