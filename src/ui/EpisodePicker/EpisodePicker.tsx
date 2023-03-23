@@ -113,7 +113,7 @@ const EpisodePicker: React.FC<Props> = ({
   );
 
   return (
-    <div>
+    <div className={styles.container}>
       <Button
         className={styles.button}
         endIcon={<ExpandMoreIcon />}

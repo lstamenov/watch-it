@@ -1,3 +1,7 @@
+.container{
+  display: flex;
+}
+
 .dialog{
   background-color: #2d2e2e15;
 }
@@ -10,6 +14,8 @@
   margin-top: 40px;
   margin-bottom: 15px;
   margin-right: 15px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .button:disabled {
@@ -60,4 +66,15 @@
 .episode:hover, .selectedEpisode:hover{
   color: #b45177;
   background-color: rgba(170, 116, 137, 0.075);
+}
+
+@media screen and (max-width: 768px) {
+  .button{
+    margin: 0;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
