@@ -9,6 +9,7 @@ import { loadGenres } from '../../store/genres/thunk';
 import GenreItem from '../../components/genreItem/GenreItem';
 import { Genre } from '../../types/types';
 import { selectMovieGenreResults, selectShowGenreResults } from '../../store/results/selectors';
+import { selectLoader } from '../../store/loader/selectors';
 import {
   loadMoreMovieGenreResults,
   loadMoreShowGenreResults,
@@ -22,6 +23,7 @@ import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import GenresTab from '../../ui/GenresTab/GenresTab';
+import Loader from '../../components/loader/Loader';
 
 const Genres: React.FC = () => {
   const [passedState, setPassedState] = useState<any>(useLocation().state);
@@ -35,6 +37,7 @@ const Genres: React.FC = () => {
   const tvGenres = useAppSelector(selectTvGenres);
   const movies = useAppSelector(selectMovieGenreResults);
   const shows = useAppSelector(selectShowGenreResults);
+  const isLoading = useAppSelector(selectLoader);
 
   const onGenreClick = (genre: Genre, isClicked: boolean) => {
     if (isClicked) {
@@ -156,7 +159,13 @@ const Genres: React.FC = () => {
             }}
             currentTab={selectedCategory}
           />
-          {hasResults ? renderResults() : <InfoText text={t('GENRES_PAGE_INFO')} />}
+          {isLoading && !hasResults ? (
+            <Loader />
+          ) : hasResults ? (
+            renderResults()
+          ) : (
+            <InfoText text={t('GENRES_PAGE_INFO')} />
+          )}
         </Container>
       </StyledEngineProvider>
     </AnimatedPage>
