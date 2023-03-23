@@ -3,15 +3,8 @@
   height: 600px;
 }
 
-.episodeSelector {
-  display: flex;
-  justify-content: flex-start;
-  gap: 15px;
-  margin: 15px 0;
-}
-
 @media screen and (max-width: 768px) {
-  .episodeSelector {
-    gap: 5px;
+  .player {
+    margin-top: 10px;
   }
 }
