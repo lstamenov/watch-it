@@ -1,6 +1,8 @@
 .card {
   background-color: #2d2e2e;
   height: 500px;
+  z-index: 20;
+  position: relative;
 }
 
 .container {
@@ -24,9 +26,7 @@
   cursor: pointer;
 }
 
-.bigPoster:hover {
-  transform: scale(1.2);
-}
+
 
 .smallPoster {
   height: 120px;
@@ -56,5 +56,11 @@
   .card,
   .bigPoster {
     height: 380px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .bigPoster:hover {
+    transform: scale(1.2);
   }
 }
