@@ -46,6 +46,7 @@ export const resources = {
       SHOWING_RESULTS: 'SHOWING RESULTS FOR:',
       NO_RESULTS: 'NO MOVIES OR SHOWS MATCHING YOUR SEARCH FOUND',
       OOPS: 'OOPS :/',
+      VIEW_MORE: 'View more',
     },
   },
   bg: {
@@ -92,6 +93,7 @@ export const resources = {
       SHOWING_RESULTS: 'ПОКАЗВАНЕ НА РЕЗУЛТАТИ ЗА:',
       NO_RESULTS: 'НЕ БЯХА ОТКИРТИ РЕЗУЛТАТИ ОТГОВАРЯЩИ НА ТВОЕТО ТЪРСЕНЕ',
       OOPS: 'ОПА :/',
+      VIEW_MORE: 'Виж повече',
     },
   },
 };

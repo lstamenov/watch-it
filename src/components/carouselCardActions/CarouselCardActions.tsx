@@ -4,11 +4,13 @@ import PlayButton from '../PlayButton/PlayButton';
 import AddToListButton from '../AddToListButton/AddToListButton';
 import { default as AddToListButtonUI } from '../../ui/AddToListButton/AddToListButton';
 import styles from './CarouselCardActions.module.css';
+import InfoButton from '../../ui/InfoButton/InfoButton';
 
 interface Props {
   id: number;
   title: string;
-  onHover: (isHovered: boolean) => void;
+  onHover?: (isHovered: boolean) => void;
+  onInfoClick?: () => void;
   isMovie?: boolean;
   isOnProfile?: boolean;
   isMovieAddedToList?: boolean;
@@ -20,17 +22,19 @@ const CarouselCardActions: React.FC<Props> = ({
   isMovie = false,
   isOnProfile = false,
   isMovieAddedToList = false,
+  onInfoClick,
   onHover,
 }) => {
   const getWatchLink = () => (isMovie ? `/movies/play/${id}` : `/shows/play/${id}`);
-
+  const iconsSize = 65;
   return (
     <CardActions
-      onMouseLeave={() => onHover(false)}
-      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover && onHover(false)}
+      onMouseEnter={() => onHover && onHover(true)}
       className={styles.container}
     >
-      <PlayButton url={getWatchLink()} size={65} />
+      <InfoButton onClick={onInfoClick} />
+      <PlayButton url={getWatchLink()} size={iconsSize} />
       <AddToListButton
         isMovieAddedToList={isMovieAddedToList}
         isOnProfile={isOnProfile}
