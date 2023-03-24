@@ -11,10 +11,8 @@ import {
   MOVIE_CAST_URL,
 } from './constants';
 
-export const fetchDailyTrendingMovies = (page: number = 1) => {
-  console.log(i18n.language);
-  return axios.get(`${TRENDING_DAILY_MOVIES_URL(i18n.language)}${page}`);
-};
+export const fetchDailyTrendingMovies = (page: number = 1) =>
+  axios.get(`${TRENDING_DAILY_MOVIES_URL(i18n.language)}${page}`);
 export const fetchWeeklyTrendingMovies = (page: number = 1) =>
   axios.get(`${TRENDING_WEEKLY_MOVIES_URL(i18n.language)}${page}`);
 export const fetchPopularMovies = (page: number = 1) =>

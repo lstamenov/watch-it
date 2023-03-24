@@ -1,0 +1,24 @@
+.card {
+  height: 500px;
+  animation: skeleton .9s ease-in-out 0.5s infinite;
+  background-color: #4f4f4f;
+  border-radius: 4px;
+}
+
+@keyframes skeleton {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .card{
+    height: 380px;
+  }
+}

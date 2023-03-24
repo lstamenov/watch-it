@@ -1,0 +1,36 @@
+@keyframes skeleton {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.card {
+  height: 270px;
+  width: 200px;
+  transition: 0.3s ease;
+  z-index: 20;
+  position: relative;
+  animation: skeleton .9s ease-in-out 0.5s infinite;
+  background-color: #4f4f4f;
+  border-radius: 4px;
+}
+
+.mobileCard{
+  animation: skeleton .9s ease-in-out 0.5s infinite;
+  background-color: #4f4f4f;
+  border-radius: 4px;
+  width: 210px;
+  height: 260px;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px 0 10px 0;
+}

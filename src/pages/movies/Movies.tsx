@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
-import CarouselMovie from '../../components/carousel/carouselMovie/CarouselMovie';
 import { useAppSelector } from '../../store/hooks';
 import { loadMoviesPageData } from '../../store/movies/thunk';
 import {
@@ -14,6 +13,7 @@ import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { useTranslation } from 'react-i18next';
+import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
@@ -52,19 +52,13 @@ const Movies: React.FC = () => {
         ) : (
           <>
             <Carousel title={t('DAILY_TRENDING_MOVIES')}>
-              {dailyTrendingMovies.map((movie) => (
-                <CarouselMovie key={movie.id} movie={movie} />
-              ))}
+              <CardsSkeleton movies={dailyTrendingMovies} />
             </Carousel>
             <Carousel title={t('POPULAR_MOVIES')}>
-              {popularMovies.map((movie) => (
-                <CarouselMovie key={movie.id} movie={movie} />
-              ))}
+              <CardsSkeleton movies={popularMovies} />
             </Carousel>
             <Carousel title={t('WEEKLY_TRENDING_MOVIES')}>
-              {weeklyTrendingMovies.map((movie) => (
-                <CarouselMovie key={movie.id} movie={movie} />
-              ))}
+              <CardsSkeleton movies={weeklyTrendingMovies} />
             </Carousel>
           </>
         )}
