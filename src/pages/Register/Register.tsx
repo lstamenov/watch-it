@@ -3,10 +3,8 @@ import FormLayout from '../../layouts/FormLayout/FormLayout';
 import Form from '../../components/Form/Form';
 import Link from '../../components/Link/Link';
 import { useAppSelector } from '../../store/hooks';
-import { selectLoader } from '../../store/loader/selectors';
 import { selectMessage, selectUser } from '../../store/user/selectors';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import TransparentLoader from '../../components/TransparentLoader/TransparentLoader';
 import { useDispatch } from 'react-redux';
 import { register } from '../../store/user/thunk';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +30,6 @@ const Register: React.FC = () => {
     confirmPassword,
   );
 
-  const isLoading = useAppSelector(selectLoader);
   const message = useAppSelector(selectMessage);
   const user = useAppSelector(selectUser);
 
@@ -90,7 +87,6 @@ const Register: React.FC = () => {
       <FormLayout title={t('SIGN_UP')}>
         <Form btnText={t('SIGN_UP')} inputs={items} onSubmit={onSubmit} />
         <Link text={t('HAS_ACCOUNT')} url="/login" />
-        {isLoading && <TransparentLoader />}
         {hasError && <ErrorMessage message={message} />}
         {!isValid &&
           numberOfTries !== 0 &&
