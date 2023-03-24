@@ -1,13 +1,12 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import { Movie, TvShow } from '../../types/types';
 import { Pagination } from 'swiper';
 import styles from './MobileCarousel.module.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import MobileMovieCard from '../MobileMovieCard/MobileMovieCard';
 import { Typography } from '@mui/material';
-import MobileShowCard from '../MobileShowCard/MobileShowCard';
+import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
 
 interface Props {
   title: string;
@@ -16,12 +15,7 @@ interface Props {
   isOnProfile?: boolean;
 }
 
-const MobileCarousel: React.FC<Props> = ({
-  items,
-  title,
-  isMovieCarousel = false,
-  isOnProfile = false,
-}) => {
+const MobileCarousel: React.FC<Props> = ({ items, title, isMovieCarousel = false }) => {
   return (
     <div className={styles.wrapper}>
       <Typography className={styles.title} variant="h4" color="white">
@@ -36,15 +30,11 @@ const MobileCarousel: React.FC<Props> = ({
         modules={[Pagination]}
         className={styles.carousel}
       >
-        {items.map((item) => (
-          <SwiperSlide>
-            {isMovieCarousel ? (
-              <MobileMovieCard isOnProfile={isOnProfile} movie={item as Movie} />
-            ) : (
-              <MobileShowCard isOnProfile={isOnProfile} show={item as TvShow} />
-            )}
-          </SwiperSlide>
-        ))}
+        {isMovieCarousel ? (
+          <CardsSkeleton movies={items as Movie[]} />
+        ) : (
+          <CardsSkeleton shows={items as TvShow[]} />
+        )}
       </Swiper>
     </div>
   );

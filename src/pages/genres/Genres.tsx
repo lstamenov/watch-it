@@ -43,8 +43,6 @@ const Genres: React.FC = () => {
     }
   };
 
-  console.log(selectedGenres);
-
   useEffect(() => {
     if (selectedGenres.length > 0) {
       if (selectedCategory === 'movies') {
