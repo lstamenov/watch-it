@@ -6,10 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Form from '../../components/Form/Form';
 import Link from '../../components/Link/Link';
-import TransparentLoader from '../../components/TransparentLoader/TransparentLoader';
 import FormLayout from '../../layouts/FormLayout/FormLayout';
 import { useAppSelector } from '../../store/hooks';
-import { selectLoader } from '../../store/loader/selectors';
 import { selectMessage, selectUser } from '../../store/user/selectors';
 import { login } from '../../store/user/thunk';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
@@ -25,7 +23,6 @@ const Login: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const [numberOfTries, setNumberOfTries] = useState(0);
 
-  const isLoading = useAppSelector(selectLoader);
   const message = useAppSelector(selectMessage);
   const user = useAppSelector(selectUser);
 
@@ -70,7 +67,6 @@ const Login: React.FC = () => {
       <FormLayout title={t('SIGN_IN')}>
         <Form btnText={t('SIGN_IN')} inputs={items} onSubmit={onSubmit} />
         <Link text={t('NO_ACCOUNT')} url="/register" />
-        {isLoading && <TransparentLoader />}
         {hasError && <ErrorMessage message={message} />}
       </FormLayout>
     </AnimatedPage>
