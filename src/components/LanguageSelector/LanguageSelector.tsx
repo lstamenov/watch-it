@@ -18,8 +18,6 @@ const LanguageSelector: React.FC<Props> = ({ children }) => {
 
   const selectedLang = langs.find((val) => val.id === i18n.language);
 
-  console.log(selectedLang);
-
   return children({
     langs,
     selectedLang: selectedLang || defaultLang,
