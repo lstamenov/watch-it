@@ -12,16 +12,15 @@ interface Props {
 
 const LanguageSelector: React.FC<Props> = ({ children }) => {
   const { i18n } = useTranslation();
+  const defaultLang = langs[0];
 
   const handleSelectLanguage = (newLang: string) => i18n.changeLanguage(newLang);
 
   const selectedLang = langs.find((val) => val.id === i18n.language);
 
-  if (!selectedLang) return null;
-
   return children({
     langs,
-    selectedLang,
+    selectedLang: selectedLang || defaultLang,
     onSelectLanguage: handleSelectLanguage,
   });
 };
