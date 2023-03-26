@@ -12,7 +12,7 @@ interface Props {
 
 const LanguageSelector: React.FC<Props> = ({ children }) => {
   const { i18n } = useTranslation();
-  const defaultLang = langs[0];
+  const defaultLang = langs[1];
 
   const handleSelectLanguage = (newLang: string) => i18n.changeLanguage(newLang);
 
