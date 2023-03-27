@@ -7,3 +7,11 @@
   cursor: pointer;
   z-index: 5;
 }
+
+
+@media screen and (max-width: 768px) {
+  .button {
+    padding-bottom: 70px;
+  }
+}
+
