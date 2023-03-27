@@ -28,9 +28,3 @@
   width: 210px;
   height: 260px;
 }
-
-.carousel {
-  display: flex;
-  justify-content: space-evenly;
-  margin: 5px 0 10px 0;
-}
