@@ -20,6 +20,8 @@
   background-color: #6d6d6d;
   padding: 10px 0 10px 35px;
   transition: .5s;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .input:focus{
