@@ -2,16 +2,17 @@ import React, { useEffect, useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
 import Logo from '../../components/logo/Logo';
 import NavButton from '../../components/navButton/NavButton';
-import SearchBar from './searchBar/SearchBar';
 import { AppBar, StyledEngineProvider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import styles from './Header.module.css';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
 import Avatar from '../../ui/Avatar/Avatar';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import { default as LanguageSelectorUI } from '../../ui/LanguageSelector/LanguageSelector';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import { default as SearchBarUI } from '../../ui/SearchBar/SearchBar';
+import useMobile from '../../hooks/useMobile';
+import styles from './Header.module.css';
 
 enum UrlParams {
   HOME = '/',
@@ -41,6 +42,7 @@ const Header: React.FC = () => {
   const path = useLocation().pathname;
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
+  const isMobile = useMobile();
   const { t } = useTranslation();
 
   const initialURLState: URLState = {
@@ -150,6 +152,8 @@ const Header: React.FC = () => {
     <LanguageSelector>{(props) => <LanguageSelectorUI {...props} />}</LanguageSelector>
   );
 
+  const renderSearchBar = () => <SearchBar>{(props) => <SearchBarUI {...props} />}</SearchBar>;
+
   const renderAuthenticatedHeader = () => (
     <>
       <div className={styles.main}>
@@ -162,11 +166,17 @@ const Header: React.FC = () => {
             isClicked={item.isClicked}
           />
         ))}
-        <Sidebar items={generateItems(items)} />
       </div>
       <div className={styles.main}>
-        <SearchBar />
-        {user && <Avatar onClick={() => navigate('/profile')} isOnHeader src={user?.avatarURL} />}
+        {renderSearchBar()}
+        {user && !isMobile && (
+          <Avatar
+            hasMarginLeft
+            onClick={() => navigate('/profile')}
+            isOnHeader
+            src={user?.avatarURL}
+          />
+        )}
         {renderLanguageSelector()}
       </div>
     </>

@@ -1,11 +1,7 @@
 import Grid from '@mui/material/Grid';
-import React, { useCallback, useMemo } from 'react';
-import { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useMemo } from 'react';
 import CarouselMovie from '../../components/carousel/carouselMovie/CarouselMovie';
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
-import MobileMovieCard from '../../components/MobileMovieCard/MobileMovieCard';
-import MobileShowCard from '../../components/MobileShowCard/MobileShowCard';
 import useMobile from '../../hooks/useMobile';
 import { useAppSelector } from '../../store/hooks';
 import { selectLoader } from '../../store/loader/selectors';
@@ -31,67 +27,19 @@ const CardsSkeleton: React.FC<Props> = ({ movies, shows }) => {
     [],
   );
 
-  const getMobileCardWrapper = useCallback(
-    (children: JSX.Element) => (
-      <Swiper
-        slidesPerView={2}
-        spaceBetween={10}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className={styles.carousel}
-      >
-        {children}
-      </Swiper>
+  const MobileSkeleton = useMemo(
+    () => (
+      <>
+        {Array.from(Array(20), (_, i) => i).map((key) => (
+          <div key={key} className={styles.mobileCard} />
+        ))}
+      </>
     ),
     [],
   );
 
-  const MobileSkeleton = useMemo(
-    () =>
-      getMobileCardWrapper(
-        <>
-          {Array.from(Array(20), (_, i) => i).map((key) => (
-            <Grid key={key}>
-              <div className={styles.mobileCard} />
-            </Grid>
-          ))}
-        </>,
-      ),
-    [],
-  );
-
-  const MobileCards = useMemo(() => {
-    if (shows) {
-      return getMobileCardWrapper(
-        <>
-          {shows.map((show) => (
-            <SwiperSlide key={show.id}>
-              <MobileShowCard show={show} />
-            </SwiperSlide>
-          ))}
-        </>,
-      );
-    }
-
-    if (movies) {
-      return getMobileCardWrapper(
-        <>
-          {movies.map((movie) => (
-            <SwiperSlide key={movie.id}>
-              <MobileMovieCard movie={movie} />
-            </SwiperSlide>
-          ))}
-        </>,
-      );
-    }
-
-    if (isLoading) return MobileSkeleton;
-  }, [shows, movies]);
-
   const getContent = () => {
-    if (isMobile) return MobileCards;
+    if (isMobile) return MobileSkeleton;
 
     if (shows) {
       return shows.map((show) => <CarouselShow key={show.id} show={show} />);

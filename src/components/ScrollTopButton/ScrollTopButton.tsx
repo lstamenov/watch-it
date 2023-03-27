@@ -31,7 +31,7 @@ const ScrollTopButton: React.FC = ({ children }) => {
         className={styles.button}
         icon={faCircleChevronUp}
         onClick={scrollToTop}
-        style={{ display: visible ? 'inline' : 'none' }}
+        style={{ display: visible ? 'inline' : 'none', zIndex: 999999 }}
       />
     </>
   );
