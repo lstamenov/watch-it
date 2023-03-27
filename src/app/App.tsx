@@ -1,5 +1,5 @@
 import { StyledEngineProvider } from '@mui/material';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from '../pages/header/Header';
 import ProtectedRoute from '../routes/ProtectedRoute';
@@ -12,14 +12,23 @@ import ToastProvider from '../providers/ToastProvider';
 import ScrollTopButton from '../components/ScrollTopButton';
 import { RouteData } from '../types/types';
 import { routes } from '../routes/routes';
+import BottomNavigation from '../components/BottomNavigation/BottomNavigation';
+import { default as BottomNavigationUI } from '../ui/BottomNavigation/BottomNavigation';
+import useMobile from '../hooks/useMobile';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const isMobile = useMobile();
 
   useLayoutEffect(() => {
     dispatch(auth());
   }, []);
+
+  const MobileNavigation = useMemo(
+    () => <BottomNavigation>{(props) => <BottomNavigationUI {...props} />}</BottomNavigation>,
+    [],
+  );
 
   const renderRoutes = (routesData: RouteData[]) => (
     <Routes location={location} key={location.pathname}>
@@ -66,6 +75,7 @@ const App: React.FC = () => {
             <ScrollTopButton>{renderRoutes(routes)}</ScrollTopButton>
           </AnimatePresence>
         </ToastProvider>
+        {isMobile && MobileNavigation}
       </div>
     </StyledEngineProvider>
   );

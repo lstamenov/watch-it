@@ -8,7 +8,7 @@ export const AnimatedPage: React.FC = ({ children }) => {
 
   return (
     <>
-      <Backdrop sx={{ zIndex: 999999 }} open={isLoading}>
+      <Backdrop sx={{ zIndex: 99999999 }} open={isLoading}>
         <CircularProgress size={90} sx={{ color: '#b45177' }} />
       </Backdrop>
       {children}

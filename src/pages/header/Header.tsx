@@ -4,8 +4,6 @@ import Logo from '../../components/logo/Logo';
 import NavButton from '../../components/navButton/NavButton';
 import { AppBar, StyledEngineProvider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import styles from './Header.module.css';
 import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../store/user/selectors';
 import Avatar from '../../ui/Avatar/Avatar';
@@ -14,6 +12,7 @@ import { default as LanguageSelectorUI } from '../../ui/LanguageSelector/Languag
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { default as SearchBarUI } from '../../ui/SearchBar/SearchBar';
 import useMobile from '../../hooks/useMobile';
+import styles from './Header.module.css';
 
 enum UrlParams {
   HOME = '/',
@@ -167,7 +166,6 @@ const Header: React.FC = () => {
             isClicked={item.isClicked}
           />
         ))}
-        <Sidebar items={generateItems(items)} />
       </div>
       <div className={styles.main}>
         {renderSearchBar()}
