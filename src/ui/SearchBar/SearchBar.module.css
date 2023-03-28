@@ -34,7 +34,11 @@
 }
 
 @media screen and (max-width: 768px) {
+  .input{
+    width: 100%;
+  }
+
   .input:focus{
-    width: 100px;
+    width: 100%;
   }
 }
