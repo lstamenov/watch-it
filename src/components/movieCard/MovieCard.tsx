@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
 import { TrendingMovie, TrendingShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
@@ -7,6 +7,7 @@ import Modal from '../Modal/Modal';
 import CarouselDetail from '../carouselDetail/CarouselDetail';
 import useMobile from '../../hooks/useMobile';
 import CarouselCardActions from '../carouselCardActions/CarouselCardActions';
+import InfoModalMobile from '../../ui/InfoModalMobile/InfoModalMobile';
 
 interface Props {
   movie: TrendingMovie | TrendingShow;
@@ -38,6 +39,23 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     return (movie as TrendingMovie).title;
   };
 
+  const DesktopModal = useMemo(
+    () => (
+      <Modal
+        isDesktop={!isMobile}
+        isShow={isShow}
+        title={getTitle()}
+        {...movie}
+        isClicked={isClicked}
+        setIsClicked={setIsClicked}
+      >
+        <CarouselDetail value={movie.original_language.toUpperCase()} />
+        <CarouselDetail value={`${movie.vote_average?.toFixed(1)}`} />
+      </Modal>
+    ),
+    [movie, isClicked, setIsClicked, isShow, getTitle],
+  );
+
   return movie.poster_path && movie.backdrop_path ? (
     <StyledEngineProvider injectFirst>
       <Grid item xs={6} sm={4}>
@@ -63,17 +81,14 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
                 isMovie={!isShow}
               />
             )}
-            <Modal
-              isDesktop={!isMobile}
-              isShow={isShow}
-              title={getTitle()}
-              {...movie}
-              isClicked={isClicked}
-              setIsClicked={setIsClicked}
-            >
-              <CarouselDetail value={movie.original_language.toUpperCase()} />
-              <CarouselDetail value={`${movie.vote_average?.toFixed(1)}`} />
-            </Modal>
+            {!isMobile && DesktopModal}
+            {isMobile && (
+              <InfoModalMobile
+                isOpen={isClicked}
+                movie={movie}
+                onClose={() => setIsClicked(false)}
+              />
+            )}
           </Card>
         }
       </Grid>
