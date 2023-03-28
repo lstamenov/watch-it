@@ -40,12 +40,12 @@ const BottomNavigation: React.FC<Props> = ({ children }) => {
       : { label: t('SIGN_IN'), Icon: LoginOutlinedIcon, route: '/login' },
   ];
 
-  const getRoute = () =>
-    routes.find(({ label }) => path.includes(label.toLocaleLowerCase())) || routes[0];
+  const getRoute = () => routes.find(({ route }) => path.includes(route) && route !== '/') || routes[0];
 
   const [currentRoute, setCurrentRoute] = useState(getRoute());
 
   useEffect(() => {
+    console.log(getRoute());
     setCurrentRoute(getRoute());
   }, [useLocation().pathname]);
 
