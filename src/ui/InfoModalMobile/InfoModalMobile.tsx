@@ -8,6 +8,7 @@ import PlayButton from '../../components/PlayButton/PlayButton';
 import AddToListButton from '../../components/AddToListButton/AddToListButton';
 import { default as AddToListButtonUI } from '../AddToListButton/AddToListButton';
 import styles from './InfoModalMobile.module.css';
+import useMobile from '../../hooks/useMobile';
 
 interface Props {
   isOpen: boolean;
@@ -17,6 +18,7 @@ interface Props {
 
 const InfoModalMobile: React.FC<Props> = ({ isOpen, onClose, movie }) => {
   const isShow = (object: any): object is TrendingShow => 'name' in object;
+  const isMobile = useMobile();
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { title, overview, genres, backdrop_path, id } = useMemo(() => {
@@ -37,11 +39,20 @@ const InfoModalMobile: React.FC<Props> = ({ isOpen, onClose, movie }) => {
     };
   }, [movie]);
 
+  const additionalStyleProps: React.CSSProperties = isMobile
+    ? {}
+    : {
+        width: '420px',
+        position: 'relative',
+        overflow: 'hidden',
+      };
+
   return (
     <Drawer
       PaperProps={{
         style: {
           backgroundColor: '#2d2e2e',
+          ...additionalStyleProps,
         },
       }}
       open={isOpen}
