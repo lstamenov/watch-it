@@ -41,7 +41,7 @@ const BottomNavigation: React.FC<Props> = ({ children }) => {
   ];
 
   const getRoute = () =>
-    routes.find(({ label }) => path.includes(label.toLocaleLowerCase())) || routes[0];
+    routes.find(({ route }) => path.includes(route) && route !== '/') || routes[0];
 
   const [currentRoute, setCurrentRoute] = useState(getRoute());
 

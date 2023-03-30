@@ -33,11 +33,11 @@ const BottomNavigation: React.FC<Props> = ({ routes, currentRoute, onChange }) =
         <BottomNavigationAction
           value={route}
           key={route.label}
-          className={styles.button}
           icon={
-            <route.Icon style={route.label === currentRoute.label ? { color: '#b45177' } : {}} />
+            <route.Icon style={route.route === currentRoute.route ? { color: '#b45177' } : {}} />
           }
           label={route.label}
+          sx={route.route === currentRoute.route ? { color: '#b45177' } : { color: '#aa7489' }}
         />
       ))}
     </BottomNavigationMUI>
