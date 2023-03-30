@@ -1,10 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
 import { TrendingMovie, TrendingShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import styles from './MovieCard.module.css';
-import Modal from '../Modal/Modal';
-import CarouselDetail from '../carouselDetail/CarouselDetail';
 import useMobile from '../../hooks/useMobile';
 import CarouselCardActions from '../carouselCardActions/CarouselCardActions';
 import InfoModalMobile from '../../ui/InfoModalMobile/InfoModalMobile';
@@ -22,6 +20,8 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     setIsClicked(!isClicked);
   };
 
+  const handleClose = () => setIsClicked(false);
+
   const onHover = () => {
     setIsHovered(true);
   };
@@ -38,23 +38,6 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     }
     return (movie as TrendingMovie).title;
   };
-
-  const DesktopModal = useMemo(
-    () => (
-      <Modal
-        isDesktop={!isMobile}
-        isShow={isShow}
-        title={getTitle()}
-        {...movie}
-        isClicked={isClicked}
-        setIsClicked={setIsClicked}
-      >
-        <CarouselDetail value={movie.original_language.toUpperCase()} />
-        <CarouselDetail value={`${movie.vote_average?.toFixed(1)}`} />
-      </Modal>
-    ),
-    [movie, isClicked, setIsClicked, isShow, getTitle],
-  );
 
   return movie.poster_path && movie.backdrop_path ? (
     <StyledEngineProvider injectFirst>
@@ -81,14 +64,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
                 isMovie={!isShow}
               />
             )}
-            {!isMobile && DesktopModal}
-            {isMobile && (
-              <InfoModalMobile
-                isOpen={isClicked}
-                movie={movie}
-                onClose={() => setIsClicked(false)}
-              />
-            )}
+            <InfoModalMobile isOpen={isClicked} movie={movie} onClose={handleClose} />)
           </Card>
         }
       </Grid>

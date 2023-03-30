@@ -108,7 +108,7 @@ export interface TvShow {
   poster_path: string;
   production_companies: ProdcutionCompany[];
   seasons: Season[];
-  media_type?: string;
+  media_type: string;
   vote_average: number;
   trailer: Video | undefined;
   cast: Actor[];
