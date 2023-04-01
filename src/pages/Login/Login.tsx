@@ -38,21 +38,27 @@ const Login: React.FC = () => {
 
   const items = [
     {
-      placeholder: t('USERNAME'),
-      onChange: setUsername,
+      label: t('USERNAME'),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value),
       value: username,
     },
     {
-      placeholder: t('PASSWORD'),
-      onChange: setPassword,
+      label: t('PASSWORD'),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value),
       value: password,
-      isPassword: true,
+      type: 'password',
     },
   ];
 
-  const onSubmit = async () => {
+  const handleSubmit = async () => {
     setNumberOfTries(numberOfTries + 1);
     dispatch(login({ username, password }));
+  };
+
+  const handlePressEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
   };
 
   return (
@@ -65,7 +71,12 @@ const Login: React.FC = () => {
         />
       </Helmet>
       <FormLayout title={t('SIGN_IN')}>
-        <Form btnText={t('SIGN_IN')} inputs={items} onSubmit={onSubmit} />
+        <Form
+          onEnter={handlePressEnter}
+          btnText={t('SIGN_IN')}
+          inputs={items}
+          onSubmit={handleSubmit}
+        />
         <Link text={t('NO_ACCOUNT')} url="/register" />
         {hasError && <ErrorMessage message={message} />}
       </FormLayout>

@@ -52,40 +52,52 @@ const Register: React.FC = () => {
 
   const items = [
     {
-      placeholder: t('USERNAME'),
-      onChange: setUsername,
+      label: t('USERNAME'),
+      onChange: (event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value),
       value: username,
     },
     {
-      placeholder: t('EMAIL'),
-      onChange: setEmail,
+      label: t('EMAIL'),
+      onChange: (event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value),
       value: email,
     },
     {
-      placeholder: t('PASSWORD'),
-      onChange: setPassword,
+      label: t('PASSWORD'),
+      onChange: (event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value),
       value: password,
       isPassword: true,
     },
     {
-      placeholder: t('CONFIRM_PASSWORD'),
-      onChange: setConfirmPassword,
+      label: t('CONFIRM_PASSWORD'),
+      onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+        setConfirmPassword(event.target.value),
       value: confirmPassword,
-      isPassword: true,
+      type: 'password',
     },
   ];
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
     setNumberOfTries(numberOfTries + 1);
     if (isValid) {
       dispatch(register({ username, email, password, confirmPassword }));
     }
   };
 
+  const handleEnterPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <AnimatedPage>
       <FormLayout title={t('SIGN_UP')}>
-        <Form btnText={t('SIGN_UP')} inputs={items} onSubmit={onSubmit} />
+        <Form
+          btnText={t('SIGN_UP')}
+          inputs={items}
+          onSubmit={handleSubmit}
+          onEnter={handleEnterPress}
+        />
         <Link text={t('HAS_ACCOUNT')} url="/login" />
         {hasError && <ErrorMessage message={message} />}
         {!isValid &&
