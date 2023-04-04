@@ -6,9 +6,8 @@ import CarouselCardActions from '../../carouselCardActions/CarouselCardActions';
 import CarouselDetail from '../../carouselDetail/CarouselDetail';
 import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import styles from '../carouselMovie/CarouselMovie.module.css';
-import { useAppSelector } from '../../../store/hooks';
-import { selectUser } from '../../../store/user/selectors';
 import InfoModalMobile from '../../../ui/InfoModalMobile/InfoModalMobile';
+import { useUser } from '../../../store';
 
 interface Props {
   show: TvShow;
@@ -19,7 +18,7 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
   const [areActionsHovered, setAreActionsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
 
   const onMouseLeave = () => {
     setIsWrapperHovered(false);
@@ -32,7 +31,7 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const isMovieAddedToList = (): boolean => {
     if (!user) return false;
 
-    return !!user.showsList.find((id) => id === show.id);
+    return !!user.user?.showsList.find((id) => id === show.id);
   };
 
   const onInfoButtonClick = () => setIsModalOpen(true);

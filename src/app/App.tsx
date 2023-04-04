@@ -4,8 +4,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from '../pages/header/Header';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import AuthRoute from '../routes/AuthRoute';
-import { useDispatch } from 'react-redux';
-import { auth } from '../store/user/thunk';
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import ToastProvider from '../providers/ToastProvider';
@@ -15,14 +13,15 @@ import { routes } from '../routes/routes';
 import BottomNavigation from '../components/BottomNavigation/BottomNavigation';
 import { default as BottomNavigationUI } from '../ui/BottomNavigation/BottomNavigation';
 import useMobile from '../hooks/useMobile';
+import { useUser } from '../store';
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const isMobile = useMobile();
+  const { authenticate } = useUser();
 
   useLayoutEffect(() => {
-    dispatch(auth());
+    authenticate();
   }, []);
 
   const MobileNavigation = useMemo(

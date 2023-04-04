@@ -14,6 +14,7 @@ interface Props {
   overview: string;
   similar: Movie[] | TvShow[];
   recommended: Movie[] | TvShow[];
+  isLoading: boolean;
   isShow?: boolean;
 }
 
@@ -22,6 +23,7 @@ const WatchLayout: React.FC<Props> = ({
   overview,
   similar,
   recommended,
+  isLoading,
   isShow = false,
   children,
 }) => {
@@ -68,18 +70,34 @@ const WatchLayout: React.FC<Props> = ({
   const renderSuggestedMobile = () =>
     isShow ? (
       <>
-        {similar.length > 0 && <MobileCarousel title={t('SIMILAR_SHOWS')} items={similar} />}
+        {similar.length > 0 && (
+          <MobileCarousel isLoading={isLoading} title={t('SIMILAR_SHOWS')} items={similar} />
+        )}
         {recommended.length > 0 && (
-          <MobileCarousel title={t('RECOMMENDED_SHOWS')} items={recommended} />
+          <MobileCarousel
+            isLoading={isLoading}
+            title={t('RECOMMENDED_SHOWS')}
+            items={recommended}
+          />
         )}
       </>
     ) : (
       <>
         {similar.length > 0 && (
-          <MobileCarousel isMovieCarousel title={t('SIMILAR_MOVIES')} items={similar} />
+          <MobileCarousel
+            isLoading={isLoading}
+            isMovieCarousel
+            title={t('SIMILAR_MOVIES')}
+            items={similar}
+          />
         )}
         {recommended.length > 0 && (
-          <MobileCarousel isMovieCarousel title={t('RECOMMENDED_MOVIES')} items={recommended} />
+          <MobileCarousel
+            isLoading={isLoading}
+            isMovieCarousel
+            title={t('RECOMMENDED_MOVIES')}
+            items={recommended}
+          />
         )}
       </>
     );

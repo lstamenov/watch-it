@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { AppBar, DialogContent, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { TrendingMovie, TrendingShow } from '../../types/types';
+import { Movie, TvShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import CarouselGenres from '../../components/carouselGenres/CarouselGenres';
 import PlayButton from '../../components/PlayButton/PlayButton';
@@ -13,11 +13,11 @@ import useMobile from '../../hooks/useMobile';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  movie: TrendingMovie | TrendingShow;
+  movie: Movie | TvShow;
 }
 
 const InfoModalMobile: React.FC<Props> = ({ isOpen, onClose, movie }) => {
-  const isShow = (object: any): object is TrendingShow => 'name' in object;
+  const isShow = (object: any): object is TvShow => 'name' in object;
   const isMobile = useMobile();
 
   // eslint-disable-next-line @typescript-eslint/naming-convention

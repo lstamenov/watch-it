@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { auth, changeAvatar } from '../../store/user/thunk';
+import { useUser } from '../../store';
 
 interface Props {
   avatar: string;
@@ -18,7 +17,7 @@ interface Props {
 }
 
 export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) => {
-  const dispatch = useDispatch();
+  const { changeAvatar, authenticate } = useUser();
   const navigate = useNavigate();
   const [shouldOpenAvatarsModal, setShouldOpenAvatarsModel] = useState(false);
 
@@ -28,16 +27,16 @@ export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) =
 
   const handlePickAvatar = (src: string) => {
     setShouldOpenAvatarsModel(false);
-    dispatch(changeAvatar(src));
+    changeAvatar(src);
   };
 
   const handleAvatarsModalClosed = () => setShouldOpenAvatarsModel(false);
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
-    dispatch(auth());
+    authenticate();
     setTimeout(() => {
-      navigate('/login');
+      navigate('/');
     }, 500);
   };
 

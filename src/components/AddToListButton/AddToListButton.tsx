@@ -1,8 +1,7 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/user/selectors';
-import { addMovie, addShow, removeMovie, removeShow } from '../../store/user/thunk';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ToastContext } from '../../providers/ToastProvider';
+import { useUser } from '../../store';
 
 interface Props {
   movieId: number;
@@ -20,29 +19,47 @@ interface Props {
 
 const AddToListButton: React.FC<Props> = ({
   movieId,
-  movieName,
   isMovie = true,
   isOnProfile = false,
   isMovieAddedToList,
+  movieName,
   children,
 }) => {
-  const dispatch = useDispatch();
-  const user = useAppSelector(selectUser);
+  const {
+    user,
+    addMovieToList,
+    addShowToList,
+    removeMovieFromList,
+    removeShowFromList,
+    authenticate,
+  } = useUser();
+  const { t } = useTranslation('');
+  const { pushMessage } = useContext(ToastContext);
+
+  const reloadMovies = () => setTimeout(() => authenticate(), 10);
 
   const handleAdd = () => {
-    if (isMovie) {
-      dispatch(addMovie(movieId, movieName));
-    } else {
-      dispatch(addShow(movieId, movieName));
+    if (isMovieAddedToList) {
+      pushMessage(t('MOVIE_ALREADY_ADDED_MESSAGE', { movie: movieName }), 'warning');
+      return;
     }
+
+    if (isMovie) {
+      addMovieToList(movieId);
+    } else {
+      addShowToList(movieId);
+    }
+    pushMessage(t('MOVIE_ADDED_MESSAGE', { movie: movieName }), 'success');
+    reloadMovies();
   };
 
   const handleRemove = () => {
     if (isMovie) {
-      dispatch(removeMovie(movieId, movieName));
+      removeMovieFromList(movieId);
     } else {
-      dispatch(removeShow(movieId, movieName));
+      removeShowFromList(movieId);
     }
+    reloadMovies();
   };
 
   return children({

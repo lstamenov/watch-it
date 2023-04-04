@@ -1,14 +1,17 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
-import { selectUser } from '../store/user/selectors';
+import { useUser } from '../store';
 
 const AuthRoute: React.FC = ({ children }) => {
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
 
-  const renderContent = () => (!user ? <>{children}</> : <Navigate to="/" />);
+  const isAuthenticated = Boolean(user.user);
 
-  return renderContent();
+  if (!isAuthenticated) {
+    return <>{children}</>;
+  } else {
+    return <Navigate to="/" />;
+  }
 };
 
 export default AuthRoute;
