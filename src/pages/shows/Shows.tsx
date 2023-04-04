@@ -1,57 +1,68 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
-import { useAppSelector } from '../../store/hooks';
-import {
-  selectPopularShows,
-  selectTopRatedShows,
-  selectTrendingShows,
-} from '../../store/shows/selectors';
-import { loadShowsPageData } from '../../store/shows/thunk';
-import { TvShow } from '../../types/types';
+import { usePopularShows, useTopRatedShows, useTrendingShows } from '../../store';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
 import styles from './Shows.module.css';
 
 const Shows: React.FC = () => {
-  const dispatch = useDispatch();
   const { i18n, t } = useTranslation();
   const isMobile = useMobile();
 
-  useEffect(() => {
-    dispatch(loadShowsPageData());
-  }, [i18n.language]);
+  const { trendingShowsData, loadTrendingShows } = useTrendingShows();
+  const { popularShowsData, loadPopularShows } = usePopularShows();
+  const { topRatedShowsData, loadTopRatedShows } = useTopRatedShows();
 
-  const popularShows: TvShow[] = useAppSelector(selectPopularShows);
-  const topRatedShows: TvShow[] = useAppSelector(selectTopRatedShows);
-  const trendingShows: TvShow[] = useAppSelector(selectTrendingShows);
+  const areTrendingShowsLoading = trendingShowsData.status === 'pending';
+  const arePopularShowsLoading = popularShowsData.status === 'pending';
+  const areTopRatedShowsLoading = topRatedShowsData.status === 'pending';
+
+  useEffect(() => {
+    loadTrendingShows();
+    loadPopularShows();
+    loadTopRatedShows();
+  }, [i18n.language]);
 
   const renderMobile = () => (
     <>
-      <MobileCarousel items={popularShows} title={t('POPULAR_SHOWS')} />
-      <MobileCarousel items={topRatedShows} title={t('TOP_RATED_SHOWS')} />
-      <MobileCarousel items={trendingShows} title={t('TRENDING_SHOWS')} />
+      <MobileCarousel
+        isLoading={arePopularShowsLoading}
+        items={popularShowsData.shows}
+        title={t('POPULAR_SHOWS')}
+      />
+      <MobileCarousel
+        isLoading={areTopRatedShowsLoading}
+        items={topRatedShowsData.shows}
+        title={t('TOP_RATED_SHOWS')}
+      />
+      <MobileCarousel
+        isLoading={areTrendingShowsLoading}
+        items={trendingShowsData.shows}
+        title={t('TRENDING_SHOWS')}
+      />
     </>
   );
 
   return (
-    <AnimatedPage>
+    <AnimatedPage
+      isLoading={arePopularShowsLoading || areTopRatedShowsLoading || areTrendingShowsLoading}
+    >
       <div className={styles.shows}>
         {isMobile ? (
           renderMobile()
         ) : (
           <>
             <Carousel title={t('POPULAR_SHOWS')}>
-              <CardsSkeleton shows={popularShows} />
+              <CardsSkeleton isLoading={arePopularShowsLoading} shows={popularShowsData.shows} />
             </Carousel>
             <Carousel title={t('TOP_RATED_SHOWS')}>
-              <CardsSkeleton shows={topRatedShows} />
+              <CardsSkeleton isLoading={areTopRatedShowsLoading} shows={topRatedShowsData.shows} />
             </Carousel>
             <Carousel title={t('TRENDING_SHOWS')}>
-              <CardsSkeleton shows={trendingShows} />
+              <CardsSkeleton isLoading={areTrendingShowsLoading} shows={trendingShowsData.shows} />
             </Carousel>
           </>
         )}

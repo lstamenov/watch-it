@@ -3,18 +3,17 @@ import { CarouselMovieProps } from './types';
 import { getMoviePosterPath, convertMinutesToHours } from '../../../utils/movieUtils';
 import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import CarouselDetail from '../../carouselDetail/CarouselDetail';
-import styles from './CarouselMovie.module.css';
 import { Card, CardContent, CardMedia, Grid } from '@mui/material';
 import CarouselCardActions from '../../carouselCardActions/CarouselCardActions';
-import { useAppSelector } from '../../../store/hooks';
-import { selectUser } from '../../../store/user/selectors';
 import InfoModalMobile from '../../../ui/InfoModalMobile/InfoModalMobile';
+import { useUser } from '../../../store';
+import styles from './CarouselMovie.module.css';
 
 const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
   const [areActionsHovered, setAreActionsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
 
   const onMouseLeave = () => {
     setIsWrapperHovered(false);
@@ -27,7 +26,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
   const isMovieAddedToList = (): boolean => {
     if (!user) return false;
 
-    return !!user.moviesList.find((id) => id === movie.id);
+    return !!user.user?.moviesList.find((id) => id === movie.id);
   };
 
   const onInfoButtonClick = () => setIsModalOpen(true);
@@ -77,11 +76,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
           )}
         </Card>
       </Grid>
-      <InfoModalMobile
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        movie={{ ...movie, genre_ids: movie.genres.map((genre) => genre.id) }}
-      />
+      <InfoModalMobile isOpen={isModalOpen} onClose={handleCloseModal} movie={movie} />
     </>
   ) : null;
 };

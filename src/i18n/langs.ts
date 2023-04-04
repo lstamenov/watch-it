@@ -47,6 +47,8 @@ export const resources = {
       NO_RESULTS: 'NO MOVIES OR SHOWS MATCHING YOUR SEARCH FOUND',
       OOPS: 'OOPS :/',
       VIEW_MORE: 'View more',
+      MOVIE_ADDED_MESSAGE: 'You successfuly added {{movie}} to tour list.',
+      MOVIE_ALREADY_ADDED_MESSAGE: '{{movie}} have already been added to tour list.',
     },
   },
   bg: {
@@ -94,6 +96,8 @@ export const resources = {
       NO_RESULTS: 'НЕ БЯХА ОТКИРТИ РЕЗУЛТАТИ ОТГОВАРЯЩИ НА ТВОЕТО ТЪРСЕНЕ',
       OOPS: 'ОПА :/',
       VIEW_MORE: 'Виж повече',
+      MOVIE_ADDED_MESSAGE: 'Добавихте {{movie}} към вашия лист.',
+      MOVIE_ALREADY_ADDED_MESSAGE: '{{movie}} е вече добавено към вашия лист.',
     },
   },
 };

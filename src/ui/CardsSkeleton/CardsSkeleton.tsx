@@ -3,15 +3,12 @@ import React, { useMemo } from 'react';
 import CarouselMovie from '../../components/carousel/carouselMovie/CarouselMovie';
 import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
 import useMobile from '../../hooks/useMobile';
-import { useAppSelector } from '../../store/hooks';
-import { selectLoader } from '../../store/loader/selectors';
 import { Movie, TvShow } from '../../types/types';
 import styles from './CardsSkeleton.module.css';
 
 type Props = { movies: Movie[]; shows?: never } | { shows: TvShow[]; movies?: never };
 
-const CardsSkeleton: React.FC<Props> = ({ movies, shows }) => {
-  const isLoading = useAppSelector(selectLoader);
+const CardsSkeleton: React.FC<Props & { isLoading: boolean }> = ({ movies, shows, isLoading }) => {
   const isMobile = useMobile();
 
   const DesktopSkeleton = useMemo(

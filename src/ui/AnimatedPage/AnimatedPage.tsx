@@ -1,11 +1,7 @@
 import React from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
-import { useAppSelector } from '../../store/hooks';
-import { selectLoader } from '../../store/loader/selectors';
 
-export const AnimatedPage: React.FC = ({ children }) => {
-  const isLoading = useAppSelector(selectLoader);
-
+export const AnimatedPage: React.FC<{ isLoading: boolean }> = ({ children, isLoading }) => {
   return (
     <>
       <Backdrop sx={{ zIndex: 99999999 }} open={isLoading}>

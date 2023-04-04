@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Form from '../../components/Form/Form';
 import Link from '../../components/Link/Link';
 import FormLayout from '../../layouts/FormLayout/FormLayout';
-import { useAppSelector } from '../../store/hooks';
-import { selectMessage, selectUser } from '../../store/user/selectors';
-import { login } from '../../store/user/thunk';
+import { useUser } from '../../store';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch();
+  const { user, login } = useUser();
   const navigate = useNavigate();
   const path = useLocation().pathname;
   const { t } = useTranslation();
@@ -23,15 +20,14 @@ const Login: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const [numberOfTries, setNumberOfTries] = useState(0);
 
-  const message = useAppSelector(selectMessage);
-  const user = useAppSelector(selectUser);
+  const message = '';
 
   useEffect(() => {
     setHasError(message !== '' && numberOfTries !== 0);
   }, [message, numberOfTries]);
 
   useEffect(() => {
-    if (user || localStorage.getItem('user')) {
+    if (user.user || localStorage.getItem('user')) {
       navigate(path !== '/login' ? path : '/');
     }
   }, [user]);
@@ -52,7 +48,7 @@ const Login: React.FC = () => {
 
   const handleSubmit = async () => {
     setNumberOfTries(numberOfTries + 1);
-    dispatch(login({ username, password }));
+    login({ username, password });
   };
 
   const handlePressEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -62,7 +58,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <AnimatedPage>
+    <AnimatedPage isLoading={user.status === 'pending'}>
       <Helmet>
         <title>watch-it - Login</title>
         <meta

@@ -173,3 +173,5 @@ export interface RouteData {
   Page: React.FC;
   path: string;
 }
+
+export type Status = 'fulfilled' | 'pending' | 'rejected';

@@ -1,47 +1,49 @@
 import { Container, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
-import { useAppSelector } from '../../store/hooks';
-import { selectSearchResults } from '../../store/results/selectors';
-import { loadSearchResults } from '../../store/results/thunk';
+import { useSearchResults } from '../../store';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import NotFound from '../NotFound/NotFound';
 import styles from './SearchResults.module.css';
 
 const SearchResults: React.FC = () => {
-  const searchState = useAppSelector(selectSearchResults);
+  const { searchResults, loadSearchResults } = useSearchResults();
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
   const query = searchParams.get('query');
   const { t, i18n } = useTranslation();
+  const [page, setPage] = useState(1);
+  const isLoading = searchResults.status === 'pending';
 
   useEffect(() => {
-    dispatch(loadSearchResults(query || ''));
-  }, [searchParams, i18n.language]);
-
+    loadSearchResults({ query: query || '', page: 1 });
+    setPage(1);
+  }, [searchParams, i18n.language, query]);
 
   const renderResults = () => (
-    <AnimatedPage>
+    <AnimatedPage isLoading={isLoading}>
       <div className={styles.wrapper}>
         <Container>
           <Typography className={styles.title} variant="h4">
-            {`${t('SHOWING_RESULTS')} ${searchState.query}`}
+            {`${t('SHOWING_RESULTS')} ${query}`}
           </Typography>
           <InfiniteScrollLayout
-            movies={searchState.results}
-            page={searchState.page}
-            loadMovies={loadSearchResults}
+            movies={searchResults.results}
+            page={page}
+            loadMovies={(params: { query: string; page: number }) => {
+              loadSearchResults(params);
+              setPage((oldPage) => oldPage + 1);
+            }}
             query={query || ''}
+            isLoading={isLoading}
           />
         </Container>
       </div>
     </AnimatedPage>
   );
 
-  return searchState.query && query ? renderResults() : <NotFound />;
+  return query ? renderResults() : <NotFound />;
 };
 
 export default SearchResults;

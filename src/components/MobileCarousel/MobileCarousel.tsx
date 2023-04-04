@@ -9,19 +9,16 @@ import { Typography } from '@mui/material';
 import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
 import MobileShowCard from '../MobileShowCard/MobileShowCard';
 import MobileMovieCard from '../MobileMovieCard/MobileMovieCard';
-import { useAppSelector } from '../../store/hooks';
-import { selectLoader } from '../../store/loader/selectors';
 
 interface Props {
   title: string;
   items: Movie[] | TvShow[];
+  isLoading: boolean;
   isMovieCarousel?: boolean;
   isOnProfile?: boolean;
 }
 
-const MobileCarousel: React.FC<Props> = ({ items, title, isMovieCarousel = false }) => {
-  const isLoading = useAppSelector(selectLoader);
-
+const MobileCarousel: React.FC<Props> = ({ items, title, isLoading, isMovieCarousel = false }) => {
   const renderCards = useCallback(
     () => (
       <>
@@ -53,7 +50,7 @@ const MobileCarousel: React.FC<Props> = ({ items, title, isMovieCarousel = false
         modules={[Pagination]}
         className={styles.carousel}
       >
-        {isLoading ? <CardsSkeleton movies={[]} /> : renderCards()}
+        {isLoading ? <CardsSkeleton isLoading movies={[] as Movie[]} /> : renderCards()}
       </Swiper>
     </div>
   );

@@ -1,64 +1,81 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import Carousel from '../../components/carousel/Carousel';
-import { useAppSelector } from '../../store/hooks';
-import { loadMoviesPageData } from '../../store/movies/thunk';
-import {
-  selectDailyTrendingMovies,
-  selectPopularMovies,
-  selectWeeklyTrendingMovies,
-} from '../../store/movies/selectors';
-import styles from './Movies.module.css';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { useTranslation } from 'react-i18next';
 import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
+import styles from './Movies.module.css';
+import { usePopularMovies, useTopRatedMovies, useTrendingMovies } from '../../store';
 
 const Movies: React.FC = () => {
-  const dispatch = useDispatch();
   const isMobile = useMobile();
   const { i18n, t } = useTranslation();
 
-  const dailyTrendingMovies = useAppSelector(selectDailyTrendingMovies);
-  const weeklyTrendingMovies = useAppSelector(selectWeeklyTrendingMovies);
-  const popularMovies = useAppSelector(selectPopularMovies);
+  const { trendingMoviesData, loadTrendingMovies } = useTrendingMovies();
+  const { popularMoviesData, loadPopularMovies } = usePopularMovies();
+  const { topRatedMoviesData, loadTopRatedMovies } = useTopRatedMovies();
+
+  const areTrendingMoviesLoading = trendingMoviesData.status === 'pending';
+  const arePopularMoviesLoading = popularMoviesData.status === 'pending';
+  const areTopRatedMoviesLoading = topRatedMoviesData.status === 'pending';
+
+  const areMoviesLoading =
+    arePopularMoviesLoading || areTopRatedMoviesLoading || areTrendingMoviesLoading;
 
   useEffect(() => {
-    dispatch(loadMoviesPageData());
+    loadTrendingMovies();
+    loadPopularMovies();
+    loadTopRatedMovies();
   }, [i18n.language]);
 
   const renderMobile = () => (
     <>
       <MobileCarousel
+        isLoading={areTrendingMoviesLoading}
         isMovieCarousel
-        items={dailyTrendingMovies}
+        items={trendingMoviesData.movies}
         title={t('DAILY_TRENDING_MOVIES')}
       />
-      <MobileCarousel isMovieCarousel items={popularMovies} title={t('POPULAR_MOVIES')} />
       <MobileCarousel
+        isLoading={arePopularMoviesLoading}
         isMovieCarousel
-        items={weeklyTrendingMovies}
+        items={popularMoviesData.movies}
+        title={t('POPULAR_MOVIES')}
+      />
+      <MobileCarousel
+        isLoading={areTopRatedMoviesLoading}
+        isMovieCarousel
+        items={topRatedMoviesData.movies}
         title={t('WEEKLY_TRENDING_MOVIES')}
       />
     </>
   );
 
   return (
-    <AnimatedPage>
+    <AnimatedPage isLoading={areMoviesLoading}>
       <div className={styles.home}>
         {isMobile ? (
           renderMobile()
         ) : (
           <>
             <Carousel title={t('DAILY_TRENDING_MOVIES')}>
-              <CardsSkeleton movies={dailyTrendingMovies} />
+              <CardsSkeleton
+                isLoading={areTrendingMoviesLoading}
+                movies={trendingMoviesData.movies}
+              />
             </Carousel>
             <Carousel title={t('POPULAR_MOVIES')}>
-              <CardsSkeleton movies={popularMovies} />
+              <CardsSkeleton
+                isLoading={arePopularMoviesLoading}
+                movies={popularMoviesData.movies}
+              />
             </Carousel>
             <Carousel title={t('WEEKLY_TRENDING_MOVIES')}>
-              <CardsSkeleton movies={weeklyTrendingMovies} />
+              <CardsSkeleton
+                isLoading={areTrendingMoviesLoading}
+                movies={topRatedMoviesData.movies}
+              />
             </Carousel>
           </>
         )}

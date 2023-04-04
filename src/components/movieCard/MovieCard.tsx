@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
-import { TrendingMovie, TrendingShow } from '../../types/types';
+import { Movie, TvShow } from '../../types/types';
 import { getMoviePosterPath } from '../../utils/movieUtils';
 import styles from './MovieCard.module.css';
 import useMobile from '../../hooks/useMobile';
 import CarouselCardActions from '../carouselCardActions/CarouselCardActions';
 import InfoModalMobile from '../../ui/InfoModalMobile/InfoModalMobile';
+import { useUser } from '../../store';
 
 interface Props {
-  movie: TrendingMovie | TrendingShow;
+  movie: Movie | TvShow;
 }
 
 const MovieCard: React.FC<Props> = ({ movie }) => {
+  const {
+    user: { user },
+  } = useUser();
   const [isClicked, setIsClicked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useMobile();
@@ -34,10 +38,20 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
 
   const getTitle = () => {
     if (isShow) {
-      return (movie as TrendingShow).name;
+      return (movie as TvShow).name;
     }
-    return (movie as TrendingMovie).title;
+    return (movie as Movie).title;
   };
+
+  const isAddedToList = useMemo(() => {
+    if (!user) return false;
+
+    if (user.list.movies.find((m) => m.id === movie.id)) return true;
+
+    if (user.list.shows.find((m) => m.id === movie.id)) return true;
+
+    return false;
+  }, [movie]);
 
   return movie.poster_path && movie.backdrop_path ? (
     <StyledEngineProvider injectFirst>
@@ -62,6 +76,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
                 id={movie.id}
                 title={getTitle()}
                 isMovie={!isShow}
+                isMovieAddedToList={isAddedToList}
               />
             )}
             <InfoModalMobile isOpen={isClicked} movie={movie} onClose={handleClose} />)
