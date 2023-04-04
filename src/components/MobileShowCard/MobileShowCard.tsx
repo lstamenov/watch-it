@@ -20,11 +20,7 @@ const MobileShowCard: React.FC<Props> = ({ show }) => {
       <Card onClick={() => setIsClicked(true)}>
         <CardMedia className={styles.card} image={getMoviePosterPath(show.poster_path)} />
       </Card>
-      <InfoModalMobile
-        isOpen={isClicked}
-        onClose={handleClose}
-        movie={{ ...show, genre_ids: show.genres.map((genre) => genre.id) }}
-      />
+      <InfoModalMobile isOpen={isClicked} onClose={handleClose} movie={show} />
     </>
   );
 };

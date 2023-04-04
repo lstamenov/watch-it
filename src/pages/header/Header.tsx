@@ -4,14 +4,13 @@ import Logo from '../../components/logo/Logo';
 import NavButton from '../../components/navButton/NavButton';
 import { AppBar, StyledEngineProvider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/user/selectors';
 import Avatar from '../../ui/Avatar/Avatar';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import { default as LanguageSelectorUI } from '../../ui/LanguageSelector/LanguageSelector';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { default as SearchBarUI } from '../../ui/SearchBar/SearchBar';
 import useMobile from '../../hooks/useMobile';
+import { useUser } from '../../store';
 import styles from './Header.module.css';
 
 enum UrlParams {
@@ -40,7 +39,7 @@ interface Action {
 
 const Header: React.FC = () => {
   const path = useLocation().pathname;
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
   const navigate = useNavigate();
   const isMobile = useMobile();
   const { t } = useTranslation();
@@ -95,7 +94,7 @@ const Header: React.FC = () => {
       title: t('GENRES'),
       path: '/genres',
     },
-    user
+    user.user
       ? {
           title: t('PROFILE'),
           path: '/profile',
@@ -169,12 +168,12 @@ const Header: React.FC = () => {
       </div>
       <div className={styles.main}>
         {renderSearchBar()}
-        {user && !isMobile && (
+        {user.user && !isMobile && (
           <Avatar
             hasMarginLeft
             onClick={() => navigate('/profile')}
             isOnHeader
-            src={user?.avatarURL}
+            src={user.user.avatarURL}
           />
         )}
         {renderLanguageSelector()}

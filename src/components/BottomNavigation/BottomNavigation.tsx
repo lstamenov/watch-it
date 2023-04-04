@@ -7,9 +7,8 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import { SvgIconTypeMap } from '@mui/material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
-import { selectUser } from '../../store/user/selectors';
 import { useTranslation } from 'react-i18next';
+import { useUser } from '../../store';
 
 type Route = {
   label: string;
@@ -29,7 +28,7 @@ const BottomNavigation: React.FC<Props> = ({ children }) => {
   const path = useLocation().pathname;
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const user = useAppSelector(selectUser);
+  const { user } = useUser();
 
   const routes = [
     { label: t('HOME'), Icon: HomeOutlinedIcon, route: '/' },

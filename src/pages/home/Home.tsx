@@ -1,25 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
-import { useAppSelector } from '../../store/hooks';
-import { useDispatch } from 'react-redux';
-import { selectTrending, selectTrendingPage } from '../../store/trending/selectors';
-import { loadMoreWeeklyTrending, loadWeeklyTrending } from '../../store/trending/thunk';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
-import styles from './Home.module.css';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { Helmet } from 'react-helmet';
+import styles from './Home.module.css';
+import { useTrending } from '../../store/features/trendingSlice/hooks';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const trending = useAppSelector(selectTrending);
-  const trendingPage = useAppSelector(selectTrendingPage);
+  const {
+    trending: { trending, status },
+    clear,
+    loadTrending,
+  } = useTrending();
+
+  const [page, setPage] = useState(1);
+
+  const isLoading = status === 'pending';
+
+  const onLoadMovies = () => {
+    loadTrending(page);
+    setPage((oldPage) => oldPage + 1);
+  };
 
   useEffect(() => {
-    dispatch(loadWeeklyTrending());
+    return () => {
+      clear();
+    };
   }, []);
 
   return (
-    <AnimatedPage>
+    <AnimatedPage isLoading={isLoading}>
       <Helmet>
         <title>watch-it - The free streaming platform</title>
         <meta
@@ -30,9 +40,10 @@ const Home: React.FC = () => {
       (
       <Container className={styles.home}>
         <InfiniteScrollLayout
+          isLoading={isLoading}
           movies={trending}
-          page={trendingPage}
-          loadMovies={loadMoreWeeklyTrending}
+          page={page}
+          loadMovies={onLoadMovies}
         />
       </Container>
       )

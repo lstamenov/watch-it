@@ -1,16 +1,9 @@
 import { StyledEngineProvider } from '@mui/material';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
 import WatchLayout from '../../../layouts/WatchLayout/WatchLayout';
-import { useAppSelector } from '../../../store/hooks';
-import {
-  selectCurrentShow,
-  selectSimilarShows,
-  selectShowRecommendations,
-} from '../../../store/watch/selectors';
-import { loadCurrentShow, loadSuggestedShows } from '../../../store/watch/thunk';
+import { useWatchShow } from '../../../store';
 import { Season, Episode } from '../../../types/types';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
 import EpisodePicker from '../../../ui/EpisodePicker/EpisodePicker';
@@ -18,13 +11,13 @@ import NotFound from '../../NotFound/NotFound';
 import styles from '../Watch.module.css';
 
 const ShowPlayer: React.FC = () => {
-  const show = useAppSelector(selectCurrentShow);
   const showId = useParams().id;
-  const similar = useAppSelector(selectSimilarShows);
-  const recommended = useAppSelector(selectShowRecommendations);
+  const {
+    showData: { show, recommendations, similar, status },
+    loadShow,
+  } = useWatchShow();
   const { i18n } = useTranslation();
 
-  const dispatch = useDispatch();
   const [isCorrectId, setIsCorrectId] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const seasons = show?.seasons.filter((season) => season.season_number > 0) || [];
@@ -45,15 +38,11 @@ const ShowPlayer: React.FC = () => {
 
     if (id !== -1) {
       setIsCorrectId(true);
-      dispatch(loadCurrentShow(id));
+      loadShow(id);
     } else {
       setIsCorrectId(false);
     }
   }, [showId, i18n.language]);
-
-  useLayoutEffect(() => {
-    dispatch(loadSuggestedShows());
-  }, [show]);
 
   useEffect(() => {
     if (show) {
@@ -130,12 +119,13 @@ const ShowPlayer: React.FC = () => {
   if (!isCorrectId) return <NotFound />;
 
   return (
-    <AnimatedPage>
+    <AnimatedPage isLoading={status === 'pending'}>
       {show && (
         <StyledEngineProvider injectFirst>
           <WatchLayout
+            isLoading={status === 'pending'}
             similar={similar}
-            recommended={recommended}
+            recommended={recommendations}
             overview={show.overview}
             title={show.name}
             isShow
