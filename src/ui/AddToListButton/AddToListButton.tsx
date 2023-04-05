@@ -8,30 +8,42 @@ import { useTranslation } from 'react-i18next';
 interface Props {
   onClick: () => void;
   size?: number;
+  className?: string;
   isOnProfile?: boolean;
   isMovieAddedToList?: boolean;
   hasMargin?: boolean;
   isEnabled?: boolean;
+  isTransparent?: boolean;
 }
 
 const AddToListButton: React.FC<Props> = ({
   onClick,
   size,
+  className,
   hasMargin = false,
   isOnProfile = false,
   isMovieAddedToList = false,
   isEnabled = false,
+  isTransparent = false,
 }) => {
   const { t } = useTranslation();
 
   return isEnabled ? (
     <>
-      <Tooltip title={isOnProfile ? t('REMOVE_FROM_LIST') || '' : t('ADD_TO_LIST') || ''}>
+      <Tooltip
+        className={className}
+        title={isOnProfile ? t('REMOVE_FROM_LIST') || '' : t('ADD_TO_LIST') || ''}
+      >
         <div>
           <FontAwesomeIcon
             onClick={onClick}
-            style={{ fontSize: `${size}px`, marginLeft: hasMargin ? '5px' : '0px' }}
-            className={isMovieAddedToList ? styles.added : styles.icon}
+            style={{
+              fontSize: `${size}px`,
+              marginLeft: hasMargin ? '5px' : '0px',
+            }}
+            className={`${isMovieAddedToList ? styles.added : styles.icon} ${
+              isTransparent && styles.transparent
+            }`}
             icon={isOnProfile ? faMinus : faPlus}
           />
         </div>

@@ -14,6 +14,7 @@ interface Props {
   isMovie?: boolean;
   isOnProfile?: boolean;
   isMovieAddedToList?: boolean;
+  isOnBigCard?: boolean;
 }
 
 const CarouselCardActions: React.FC<Props> = ({
@@ -22,28 +23,31 @@ const CarouselCardActions: React.FC<Props> = ({
   isMovie = false,
   isOnProfile = false,
   isMovieAddedToList = false,
+  isOnBigCard = false,
   onInfoClick,
   onHover,
 }) => {
   const getWatchLink = () => (isMovie ? `/movies/play/${id}` : `/shows/play/${id}`);
-  const iconsSize = 65;
+  const iconsSize = 105;
   return (
     <CardActions
       onMouseLeave={() => onHover && onHover(false)}
       onMouseEnter={() => onHover && onHover(true)}
-      className={styles.container}
+      className={`${styles.container} ${isOnBigCard ? styles.bigCard : styles.regularCard}`}
     >
-      <InfoButton onClick={onInfoClick} />
-      <PlayButton url={getWatchLink()} size={iconsSize} />
-      <AddToListButton
-        isMovieAddedToList={isMovieAddedToList}
-        isOnProfile={isOnProfile}
-        movieName={title}
-        movieId={id}
-        isMovie={isMovie}
-      >
-        {(props) => <AddToListButtonUI hasMargin {...props} size={65} />}
-      </AddToListButton>
+      <PlayButton isTransparent url={getWatchLink()} size={iconsSize} />
+      <div className={styles.buttonsContainer}>
+        <InfoButton isTransparent onClick={onInfoClick} />
+        <AddToListButton
+          isMovieAddedToList={isMovieAddedToList}
+          isOnProfile={isOnProfile}
+          movieName={title}
+          movieId={id}
+          isMovie={isMovie}
+        >
+          {(props) => <AddToListButtonUI isTransparent {...props} size={40} />}
+        </AddToListButton>
+      </div>
     </CardActions>
   );
 };

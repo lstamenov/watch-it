@@ -9,15 +9,20 @@ import { useTranslation } from 'react-i18next';
 interface Props {
   url: string;
   size?: number;
+  isTransparent?: boolean;
 }
 
-const PlayButton: React.FC<Props> = ({ url, size }) => {
+const PlayButton: React.FC<Props> = ({ url, size, isTransparent = false }) => {
   const { t } = useTranslation();
 
   return (
     <Tooltip title={t('PLAY') || ''}>
       <Link to={url}>
-        <FontAwesomeIcon style={{ fontSize: `${size}px` }} className={styles.icon} icon={faPlay} />
+        <FontAwesomeIcon
+          style={{ fontSize: `${size}px` }}
+          className={`${styles.icon} ${isTransparent && styles.transparent}`}
+          icon={faPlay}
+        />
       </Link>
     </Tooltip>
   );

@@ -6,6 +6,11 @@
   z-index: 12;
 }
 
+.transparent {
+  opacity: 0.65;
+}
+
 .icon:hover {
   color: #b45177;
+  opacity: 1;
 }

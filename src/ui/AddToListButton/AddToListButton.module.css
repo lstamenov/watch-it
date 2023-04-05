@@ -5,8 +5,13 @@
   transition: 0.4s;
 }
 
+.transparent {
+  opacity: 0.65;
+}
+
 .icon:hover {
   color: #b45177;
+  opacity: 1;
 }
 
 .added {
