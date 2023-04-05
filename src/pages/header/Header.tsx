@@ -1,81 +1,18 @@
-import React, { useEffect, useReducer } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Logo from '../../components/logo/Logo';
-import NavButton from '../../components/navButton/NavButton';
 import { AppBar, StyledEngineProvider } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Avatar from '../../ui/Avatar/Avatar';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import { default as LanguageSelectorUI } from '../../ui/LanguageSelector/LanguageSelector';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { default as SearchBarUI } from '../../ui/SearchBar/SearchBar';
-import useMobile from '../../hooks/useMobile';
 import { useUser } from '../../store';
 import styles from './Header.module.css';
-
-enum UrlParams {
-  HOME = '/',
-  MOVIES = 'movies',
-  SHOWS = 'shows',
-  GENRES = 'genres',
-  SIGN_IN = 'login',
-  SIGN_UP = 'register',
-  PROFILE = 'profile',
-}
-
-interface URLState {
-  '/': boolean;
-  movies: boolean;
-  shows: boolean;
-  genres: boolean;
-  login: boolean;
-  register: boolean;
-  profile: boolean;
-}
-
-interface Action {
-  type: UrlParams;
-}
+import HeaderButton from '../../ui/HeaderButton/HeaderButton';
 
 const Header: React.FC = () => {
-  const path = useLocation().pathname;
   const { user } = useUser();
-  const navigate = useNavigate();
-  const isMobile = useMobile();
   const { t } = useTranslation();
-
-  const initialURLState: URLState = {
-    '/': false,
-    movies: false,
-    shows: false,
-    genres: false,
-    login: false,
-    register: false,
-    profile: false,
-  };
-
-  const urlReducer = (state: URLState, action: Action) => {
-    switch (action.type) {
-      case UrlParams.HOME:
-        return { ...initialURLState, '/': true };
-      case UrlParams.MOVIES:
-        return { ...initialURLState, movies: true };
-      case UrlParams.SHOWS:
-        return { ...initialURLState, shows: true };
-      case UrlParams.GENRES:
-        return { ...initialURLState, genres: true };
-      case UrlParams.SIGN_IN:
-        return { ...initialURLState, login: true };
-      case UrlParams.SIGN_UP:
-        return { ...initialURLState, register: true };
-      case UrlParams.PROFILE:
-        return { ...initialURLState, profile: true };
-      default:
-        return state;
-    }
-  };
-
-  const [urlState, dispatch] = useReducer(urlReducer, initialURLState);
 
   const items = [
     {
@@ -105,48 +42,6 @@ const Header: React.FC = () => {
         },
   ];
 
-  type Items = typeof items;
-
-  const generateItems = (navItems: Items) => {
-    return navItems.map((item) => {
-      const url = item.path;
-
-      if (url.includes(UrlParams.MOVIES)) {
-        return { ...item, isClicked: urlState[UrlParams.MOVIES] };
-      } else if (url.includes(UrlParams.SHOWS)) {
-        return { ...item, isClicked: urlState[UrlParams.SHOWS] };
-      } else if (url.includes(UrlParams.GENRES)) {
-        return { ...item, isClicked: urlState[UrlParams.GENRES] };
-      } else if (url.includes(UrlParams.PROFILE)) {
-        return { ...item, isClicked: urlState[UrlParams.PROFILE] };
-      } else if (url.includes(UrlParams.SIGN_IN)) {
-        return { ...item, isClicked: urlState[UrlParams.SIGN_IN] };
-      } else if (url.includes(UrlParams.SIGN_UP)) {
-        return { ...item, isClicked: urlState[UrlParams.SIGN_UP] };
-      } else {
-        return { ...item, isClicked: urlState[UrlParams.HOME] };
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (path.includes(UrlParams.MOVIES)) {
-      dispatch({ type: UrlParams.MOVIES });
-    } else if (path.includes(UrlParams.SHOWS)) {
-      dispatch({ type: UrlParams.SHOWS });
-    } else if (path.includes(UrlParams.GENRES)) {
-      dispatch({ type: UrlParams.GENRES });
-    } else if (path.includes(UrlParams.PROFILE)) {
-      dispatch({ type: UrlParams.PROFILE });
-    } else if (path.includes(UrlParams.SIGN_IN)) {
-      dispatch({ type: UrlParams.SIGN_IN });
-    } else if (path.includes(UrlParams.SIGN_UP)) {
-      dispatch({ type: UrlParams.SIGN_UP });
-    } else {
-      dispatch({ type: UrlParams.HOME });
-    }
-  }, [path]);
-
   const renderLanguageSelector = () => (
     <LanguageSelector>{(props) => <LanguageSelectorUI {...props} />}</LanguageSelector>
   );
@@ -157,25 +52,12 @@ const Header: React.FC = () => {
     <>
       <div className={styles.main}>
         <Logo />
-        {generateItems(items).map((item) => (
-          <NavButton
-            key={item.title}
-            text={item.title}
-            path={item.path}
-            isClicked={item.isClicked}
-          />
+        {items.map((item) => (
+          <HeaderButton key={item.path} {...item} />
         ))}
       </div>
       <div className={styles.main}>
         {renderSearchBar()}
-        {user.user && !isMobile && (
-          <Avatar
-            hasMarginLeft
-            onClick={() => navigate('/profile')}
-            isOnHeader
-            src={user.user.avatarURL}
-          />
-        )}
         {renderLanguageSelector()}
       </div>
     </>
