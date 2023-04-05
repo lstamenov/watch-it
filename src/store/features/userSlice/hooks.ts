@@ -20,7 +20,7 @@ export const useUser = () => {
     login: (credentials: LoginCredentials) => dispatch(login(credentials)),
     register: (credentials: RegisterCredentials) => dispatch(register(credentials)),
     logout: () => dispatch(logout()),
-    authenticate: () => dispatch(authenticateUser()),
+    authenticate: (shouldReload = false) => dispatch(authenticateUser(shouldReload)),
     addMovieToList: (movieId: number) => dispatch(addMovieToList(movieId)),
     addShowToList: (showId: number) => dispatch(addShowToList(showId)),
     removeMovieFromList: (movieId: number) => dispatch(removeMovieFromList(movieId)),

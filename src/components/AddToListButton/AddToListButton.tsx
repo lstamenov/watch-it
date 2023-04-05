@@ -36,7 +36,7 @@ const AddToListButton: React.FC<Props> = ({
   const { t } = useTranslation('');
   const { pushMessage } = useContext(ToastContext);
 
-  const reloadMovies = () => setTimeout(() => authenticate(), 10);
+  const reloadMovies = () => setTimeout(() => authenticate(true), 10);
 
   const handleAdd = () => {
     if (isMovieAddedToList) {

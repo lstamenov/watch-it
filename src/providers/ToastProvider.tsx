@@ -1,4 +1,4 @@
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, Typography } from '@mui/material';
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 
 type MessageType = 'success' | 'warning' | 'error';
@@ -30,7 +30,7 @@ const ToastProvider: React.FC = ({ children }) => {
       {children}
       <Snackbar open={shouldShowMessage} autoHideDuration={6000} onClose={onMessageClosed}>
         <Alert severity={message?.type} onClose={onMessageClosed}>
-          {message?.message}
+          <Typography color="#ef5350">{message?.message}</Typography>
         </Alert>
       </Snackbar>
     </ToastContext.Provider>

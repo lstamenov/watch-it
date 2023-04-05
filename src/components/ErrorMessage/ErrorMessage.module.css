@@ -1,0 +1,11 @@
+.container{
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-top: 10px;
+  gap: 5px;
+}
+
+.color{
+  color: rgb(211, 47, 47);
+}
