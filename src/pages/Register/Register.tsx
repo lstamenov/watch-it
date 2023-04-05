@@ -8,6 +8,7 @@ import useRegisterValidations from '../../hooks/useRegisterValidations';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '../../store';
+import { useAuthErrors } from '../../hooks/useAuthErrors';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -17,16 +18,13 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [hasError] = useState(false);
-  const [numberOfTries, setNumberOfTries] = useState(0);
-  const { errorMessages, isValid } = useRegisterValidations(
+  const { getErrorMessages, isValid } = useRegisterValidations(
     username,
     email,
     password,
     confirmPassword,
   );
-
-  const message = '';
+  useAuthErrors();
   const { user, register } = useUser();
 
   useEffect(() => {
@@ -62,7 +60,7 @@ const Register: React.FC = () => {
   ];
 
   const handleSubmit = () => {
-    setNumberOfTries(numberOfTries + 1);
+    getErrorMessages();
     if (isValid) {
       register({ username, email, password, confirmPassword });
     }
@@ -84,10 +82,7 @@ const Register: React.FC = () => {
           onEnter={handleEnterPress}
         />
         <Link text={t('HAS_ACCOUNT')} url="/login" />
-        {hasError && <ErrorMessage message={message} />}
-        {!isValid &&
-          numberOfTries !== 0 &&
-          errorMessages.map((mess) => <ErrorMessage key={mess} message={mess} />)}
+        {user.error?.message && <ErrorMessage message={user.error.message} />}
       </FormLayout>
     </AnimatedPage>
   );

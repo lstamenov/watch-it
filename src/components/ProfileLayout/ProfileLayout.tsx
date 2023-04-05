@@ -34,7 +34,7 @@ export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) =
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
-    authenticate();
+    authenticate(true);
     setTimeout(() => {
       navigate('/');
     }, 500);

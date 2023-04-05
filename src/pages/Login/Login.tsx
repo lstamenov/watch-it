@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Form from '../../components/Form/Form';
 import Link from '../../components/Link/Link';
+import { useAuthErrors } from '../../hooks/useAuthErrors';
 import FormLayout from '../../layouts/FormLayout/FormLayout';
 import { useUser } from '../../store';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
@@ -13,18 +13,11 @@ const Login: React.FC = () => {
   const { user, login } = useUser();
   const navigate = useNavigate();
   const path = useLocation().pathname;
+  useAuthErrors();
   const { t } = useTranslation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [hasError, setHasError] = useState(false);
-  const [numberOfTries, setNumberOfTries] = useState(0);
-
-  const message = '';
-
-  useEffect(() => {
-    setHasError(message !== '' && numberOfTries !== 0);
-  }, [message, numberOfTries]);
 
   useEffect(() => {
     if (user.user || localStorage.getItem('user')) {
@@ -47,7 +40,6 @@ const Login: React.FC = () => {
   ];
 
   const handleSubmit = async () => {
-    setNumberOfTries(numberOfTries + 1);
     login({ username, password });
   };
 
@@ -74,7 +66,6 @@ const Login: React.FC = () => {
           onSubmit={handleSubmit}
         />
         <Link text={t('NO_ACCOUNT')} url="/register" />
-        {hasError && <ErrorMessage message={message} />}
       </FormLayout>
     </AnimatedPage>
   );

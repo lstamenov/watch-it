@@ -5,22 +5,35 @@ import MovieService from '../../../services/movies/MovieService';
 import ShowService from '../../../services/shows/ShowService';
 import UserService from '../../../services/user/UserService';
 import { LoginCredentials, RegisterCredentials } from '../../../types/types';
+import { RootState } from '../../store';
+import { User } from './types';
 import { UserState } from './userSlice';
 
 const movieService: MovieService = new MovieService(axios, i18n);
 const showService: ShowService = new ShowService(axios, i18n);
 const userService: UserService = new UserService(axios, i18n, showService, movieService);
 
-export const login = createAsyncThunk('user/login', async (credentials: LoginCredentials) => {
-  const { user, jwt } = await userService.login(credentials);
-  localStorage.setItem('jwt', jwt);
-  return { user, jwt };
-});
+export const login = createAsyncThunk<{ user: User; jwt: string }, LoginCredentials>(
+  'user/login',
+  async (credentials: LoginCredentials, thunkAPI) => {
+    try {
+      const { user, jwt } = await userService.login(credentials);
+      localStorage.setItem('jwt', jwt);
+      return { user, jwt };
+    } catch (e: any) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  },
+);
 
 export const register = createAsyncThunk(
   'user/register',
-  async (credentials: RegisterCredentials) => {
-    userService.register(credentials);
+  async (credentials: RegisterCredentials, thunkAPI) => {
+    try {
+      await userService.register(credentials);
+    } catch (e: any) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
   },
 );
 
@@ -28,9 +41,22 @@ export const logout = createAsyncThunk('user/logout', async () => {
   userService.logout();
 });
 
-export const authenticateUser = createAsyncThunk('user/auth', async () => {
-  const { user, jwt } = await userService.authenticateUser();
-  return { user, jwt };
+export const authenticateUser = createAsyncThunk<
+  { user: User; jwt: string },
+  boolean | void,
+  { state: RootState }
+  // eslint-disable-next-line @typescript-eslint/default-param-last
+>('user/auth', async (shouldReload = false, thunkAPI) => {
+  const stateUser: UserState = thunkAPI.getState().user;
+  if (stateUser.user && stateUser.jwt && !shouldReload) {
+    return { user: stateUser.user, jwt: stateUser.jwt };
+  }
+  try {
+    const { user, jwt } = await userService.authenticateUser();
+    return { user, jwt };
+  } catch (e: any) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
 });
 
 export const addMovieToList = createAsyncThunk('user/addMovieToList', async (id: number) => {
@@ -62,6 +88,7 @@ export const extraReducers = (builder: ActionReducerMapBuilder<UserState>) => {
     state.jwt = jwt;
     state.user = user;
     state.status = requestStatus;
+    state.error = null;
   });
 
   builder.addCase(authenticateUser.fulfilled, (state, action) => {
@@ -72,12 +99,16 @@ export const extraReducers = (builder: ActionReducerMapBuilder<UserState>) => {
     state.jwt = jwt;
     state.user = user;
     state.status = requestStatus;
+    state.error = null;
   });
 
   builder.addCase(login.rejected, (state, action) => {
     state.jwt = null;
     state.user = null;
     state.status = action.meta.requestStatus;
+    state.error = {
+      message: action.payload as string,
+    };
   });
 
   builder.addCase(authenticateUser.rejected, (state, action) => {
@@ -91,6 +122,7 @@ export const extraReducers = (builder: ActionReducerMapBuilder<UserState>) => {
       meta: { requestStatus },
     } = action;
     state.status = requestStatus;
+    state.error = null;
   });
 
   builder.addCase(register.rejected, (state, action) => {
@@ -101,6 +133,9 @@ export const extraReducers = (builder: ActionReducerMapBuilder<UserState>) => {
     state.status = action.meta.requestStatus;
     state.jwt = null;
     state.user = null;
+    state.error = {
+      message: action.payload as unknown as string,
+    };
   });
 
   builder.addCase(addMovieToList.fulfilled, (state, action) => {

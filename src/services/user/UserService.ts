@@ -45,19 +45,27 @@ export default class UserService extends Service {
   }
 
   async login(credentials: LoginCredentials): Promise<{ user: User; jwt: string }> {
-    const response = await this.fetcher.post(LOGIN_URL, credentials);
-    const userData: { user: User; jwt: string } = await response.data;
-    const movies = await this.fetcMovies(userData.user.moviesList);
-    const shows = await this.fetchShows(userData.user.showsList);
-    userData.user.list = {
-      movies,
-      shows,
-    };
-    return userData;
+    try {
+      const response = await this.fetcher.post(LOGIN_URL, credentials);
+      const userData: { user: User; jwt: string } = await response.data;
+      const movies = await this.fetcMovies(userData.user.moviesList);
+      const shows = await this.fetchShows(userData.user.showsList);
+      userData.user.list = {
+        movies,
+        shows,
+      };
+      return userData;
+    } catch (e: any) {
+      throw new Error(e.response.data.error);
+    }
   }
 
-  register(credentials: RegisterCredentials) {
-    this.fetcher.post(REGISTER_URL, credentials);
+  async register(credentials: RegisterCredentials) {
+    try {
+      await this.fetcher.post(REGISTER_URL, credentials);
+    } catch (e: any) {
+      throw new Error(e.response.data.error);
+    }
   }
 
   logout() {
@@ -65,16 +73,20 @@ export default class UserService extends Service {
   }
 
   async authenticateUser() {
-    const response = await this.fetcher.get(AUTH_URL, { headers: getAuthHeaders() });
-    const { user, jwt }: { user: User; jwt: string } = response.data;
-    const movies = await this.fetcMovies(user.moviesList);
-    const shows = await this.fetchShows(user.showsList);
-    user.list = {
-      movies,
-      shows,
-    };
+    try {
+      const response = await this.fetcher.get(AUTH_URL, { headers: getAuthHeaders() });
+      const { user, jwt }: { user: User; jwt: string } = response.data;
+      const movies = await this.fetcMovies(user.moviesList);
+      const shows = await this.fetchShows(user.showsList);
+      user.list = {
+        movies,
+        shows,
+      };
 
-    return { user, jwt };
+      return { user, jwt };
+    } catch (e: any) {
+      throw new Error(e.response.data.error);
+    }
   }
 
   addMovieToList(id: number) {
