@@ -6,15 +6,22 @@ import styles from './InfoButton.module.css';
 
 interface Props {
   onClick?: () => void;
+  className?: string;
+  isTransparent?: boolean;
 }
 
-const InfoButton: React.FC<Props> = ({ onClick }) => {
+const InfoButton: React.FC<Props> = ({ onClick, className, isTransparent = false }) => {
   const { t } = useTranslation();
 
   return (
-    <Tooltip title={t('VIEW_MORE') || ''}>
+    <Tooltip className={className} title={t('VIEW_MORE') || ''}>
       <IconButton onClick={onClick}>
-        <InfoOutlinedIcon className={styles.icon} />
+        <InfoOutlinedIcon
+          sx={{
+            opacity: isTransparent ? '0.65' : '1',
+          }}
+          className={styles.icon}
+        />
       </IconButton>
     </Tooltip>
   );

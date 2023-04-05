@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ToastContext } from '../providers/ToastProvider';
 import {
   isValidEmail,
   isVaildPassword,
@@ -12,33 +14,39 @@ const useRegisterValidations = (
   password: string,
   confirmPassword: string,
 ) => {
-  const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isValid, setIsValid] = useState(false);
+  const { pushMessage } = useContext(ToastContext);
+  const { t } = useTranslation();
 
-  useEffect(() => {
+  useEffect(() => {}, [username, password, email, confirmPassword]);
+
+  const getErrorMessages = () => {
     const currentMessages: string[] = [];
 
     if (!isValidEmail(email)) {
-      currentMessages.push('Invalid email');
+      currentMessages.push(t('INVALID_EMAIL'));
     }
 
     if (!isVaildPassword(password)) {
-      currentMessages.push('Password must be at least 8 characters long');
+      currentMessages.push(t('REGISTRATION_INVALID_PASSWORD'));
     }
 
     if (!isNotEmptyField(username) || !isNotEmptyField(confirmPassword)) {
-      currentMessages.push('There can not be empty fields');
+      currentMessages.push(t('NO_EMPTY_FIELDS'));
     }
 
     if (!arePasswordsMatch(password, confirmPassword)) {
-      currentMessages.push('Passwords do not match');
+      currentMessages.push(t('PASSWORDS_MATCH_ERROR'));
     }
 
     setIsValid(currentMessages.length === 0);
-    setErrorMessages(currentMessages);
-  }, [username, password, email, confirmPassword]);
 
-  return { errorMessages, isValid };
+    if (!isValid) {
+      pushMessage(currentMessages[0], 'error');
+    }
+  };
+
+  return { isValid, getErrorMessages };
 };
 
 export default useRegisterValidations;
