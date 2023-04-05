@@ -2,9 +2,26 @@
   display: flex;
   justify-content: center;
   position: absolute;
+  width: 100%;
+}
+
+.bigCard {
+  height: 100%;
+  bottom: 0;
+}
+
+.regularCard {
+  height: 260px;
   left: 0;
   right: 0;
-  top: -50px;
+  top: 0;
+}
+
+.buttonsContainer{
+  position: absolute;
   bottom: 0;
-  margin: 0;
+  right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

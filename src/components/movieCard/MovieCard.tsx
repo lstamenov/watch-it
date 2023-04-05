@@ -77,6 +77,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
                 title={getTitle()}
                 isMovie={!isShow}
                 isMovieAddedToList={isAddedToList}
+                isOnBigCard
               />
             )}
             <InfoModalMobile isOpen={isClicked} movie={movie} onClose={handleClose} />)
