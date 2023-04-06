@@ -30,7 +30,7 @@ export const useSearchResults = () => {
 
   return {
     searchResults: useAppSelector((state) => state.results.searchResults),
-    loadSearchResults: (params: { query: string; page: number }) =>
+    loadSearchResults: (params: { query: string; page: number; isFirstSearch?: boolean }) =>
       dispatch(fetchSearchResults(params)),
   };
 };

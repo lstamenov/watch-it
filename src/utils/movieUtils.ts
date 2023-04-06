@@ -1,3 +1,5 @@
+import { Movie, TvShow } from '../types/types';
+
 export const getMoviePosterPath = (path: string): string => {
   return `https://image.tmdb.org/t/p/original${path}`;
 };
@@ -18,3 +20,7 @@ export const formatMoney = (number: string): string => {
     .toString()
     .replaceAll(',', '');
 };
+
+export function isShow(content: Movie | TvShow): content is TvShow {
+  return (content as TvShow).name !== undefined;
+}
