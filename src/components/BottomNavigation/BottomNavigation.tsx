@@ -34,7 +34,7 @@ const BottomNavigation: React.FC<Props> = ({ children }) => {
     { label: t('HOME'), Icon: HomeOutlinedIcon, route: '/' },
     { label: t('MOVIES'), Icon: MovieOutlinedIcon, route: '/movies' },
     { label: t('SHOWS'), Icon: TvIcon, route: '/shows' },
-    user
+    user.user
       ? { label: t('PROFILE'), Icon: PermIdentityOutlinedIcon, route: '/profile' }
       : { label: t('SIGN_IN'), Icon: LoginOutlinedIcon, route: '/login' },
   ];

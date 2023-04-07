@@ -88,4 +88,8 @@ export const extraReducers = (builder: ActionReducerMapBuilder<ResultsState>) =>
     state.searchResults.results = [];
     state.searchResults.status = action.meta.requestStatus;
   });
+
+  builder.addCase(fetchSearchResults.pending, (state, action) => {
+    state.searchResults.status = action.meta.requestStatus;
+  });
 };

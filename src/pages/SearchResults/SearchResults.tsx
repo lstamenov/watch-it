@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
@@ -11,15 +11,15 @@ import styles from './SearchResults.module.css';
 const SearchResults: React.FC = () => {
   const { searchResults, loadSearchResults } = useSearchResults();
   const [searchParams] = useSearchParams();
-  const query = searchParams.get('query');
-  const { t, i18n } = useTranslation();
+  const query = searchParams.get('query') || '';
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const isLoading = searchResults.status === 'pending';
 
-  useEffect(() => {
-    loadSearchResults({ query: query || '', page: 1 });
-    setPage(1);
-  }, [searchParams, i18n.language, query]);
+  const handleLoadMovies = () => {
+    loadSearchResults({ query, page });
+    setPage((oldPage) => oldPage + 1);
+  };
 
   const renderResults = () => (
     <AnimatedPage isLoading={isLoading}>
@@ -31,11 +31,7 @@ const SearchResults: React.FC = () => {
           <InfiniteScrollLayout
             movies={searchResults.results}
             page={page}
-            loadMovies={(params: { query: string; page: number }) => {
-              loadSearchResults(params);
-              setPage((oldPage) => oldPage + 1);
-            }}
-            query={query || ''}
+            loadMovies={handleLoadMovies}
             isLoading={isLoading}
           />
         </Container>
