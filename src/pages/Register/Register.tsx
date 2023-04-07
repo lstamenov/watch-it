@@ -18,11 +18,13 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { getErrorMessages, isValid } = useRegisterValidations(
+  const [shouldTriggerValidations, setShouldTriggerValidations] = useState(false);
+  const { isValid } = useRegisterValidations(
     username,
     email,
     password,
     confirmPassword,
+    shouldTriggerValidations,
   );
   useAuthErrors();
   const { user, register } = useUser();
@@ -32,6 +34,12 @@ const Register: React.FC = () => {
       navigate('/');
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user.status === 'fulfilled') {
+      navigate('/login');
+    }
+  }, [user.status]);
 
   const items = [
     {
@@ -48,7 +56,7 @@ const Register: React.FC = () => {
       label: t('PASSWORD'),
       onChange: (event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value),
       value: password,
-      isPassword: true,
+      type: 'password',
     },
     {
       label: t('CONFIRM_PASSWORD'),
@@ -60,7 +68,7 @@ const Register: React.FC = () => {
   ];
 
   const handleSubmit = () => {
-    getErrorMessages();
+    setShouldTriggerValidations(true);
     if (isValid) {
       register({ username, email, password, confirmPassword });
     }

@@ -13,12 +13,11 @@ const useRegisterValidations = (
   email: string,
   password: string,
   confirmPassword: string,
+  shouldTriggerValidations: boolean,
 ) => {
   const [isValid, setIsValid] = useState(false);
   const { pushMessage } = useContext(ToastContext);
   const { t } = useTranslation();
-
-  useEffect(() => {}, [username, password, email, confirmPassword]);
 
   const getErrorMessages = () => {
     const currentMessages: string[] = [];
@@ -41,12 +40,16 @@ const useRegisterValidations = (
 
     setIsValid(currentMessages.length === 0);
 
-    if (!isValid) {
+    if (currentMessages.length > 0 && shouldTriggerValidations) {
       pushMessage(currentMessages[0], 'error');
     }
   };
 
-  return { isValid, getErrorMessages };
+  useEffect(() => {
+    getErrorMessages();
+  }, [username, password, email, confirmPassword, shouldTriggerValidations]);
+
+  return { isValid };
 };
 
 export default useRegisterValidations;

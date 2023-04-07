@@ -31,10 +31,13 @@ export const fetchShowGenresResults = createAsyncThunk(
 
 export const fetchSearchResults = createAsyncThunk(
   'results/fetchSearchResults',
-  async (params: { query: string; page: number }) => {
-    const { query, page } = params;
+  async (params: { query: string; page: number; isFirstSearch?: boolean }) => {
+    const { query, page, isFirstSearch } = params;
+    if (!query) {
+      return { isFirstSearch: true, results: [] };
+    }
     const results = await resultsService.fetchSearchResults(query, page);
-    return results;
+    return { results, isFirstSearch };
   },
 );
 
@@ -61,11 +64,13 @@ export const extraReducers = (builder: ActionReducerMapBuilder<ResultsState>) =>
 
   builder.addCase(fetchSearchResults.fulfilled, (state, action) => {
     const {
-      payload,
+      payload: { results, isFirstSearch },
       meta: { requestStatus },
     } = action;
 
-    state.searchResults.results = [...state.searchResults.results, ...payload];
+    state.searchResults.results = isFirstSearch
+      ? results
+      : [...state.searchResults.results, ...results];
     state.searchResults.status = requestStatus;
   });
 
@@ -81,6 +86,10 @@ export const extraReducers = (builder: ActionReducerMapBuilder<ResultsState>) =>
 
   builder.addCase(fetchSearchResults.rejected, (state, action) => {
     state.searchResults.results = [];
+    state.searchResults.status = action.meta.requestStatus;
+  });
+
+  builder.addCase(fetchSearchResults.pending, (state, action) => {
     state.searchResults.status = action.meta.requestStatus;
   });
 };

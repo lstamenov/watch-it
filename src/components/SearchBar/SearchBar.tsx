@@ -1,5 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDebouncer } from '../../hooks/useDebouncer';
+import { useSearchResults } from '../../store';
+import { isShow } from '../../utils/movieUtils';
 
 interface Props {
   children: (props: {
@@ -7,6 +10,9 @@ interface Props {
     query: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     inputRef: React.RefObject<HTMLInputElement>;
+    isLoading: boolean;
+    results: { title: string; type: string; id: number }[];
+    onResultClick: (type: string, id: number) => () => void;
   }) => JSX.Element;
 }
 
@@ -14,8 +20,46 @@ const SearchBar: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const { isLoading, param } = useDebouncer(query);
+  const { searchResults, loadSearchResults } = useSearchResults();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value);
+  const results = useMemo(
+    () =>
+      searchResults.results
+        .map((result) => {
+          let name: string;
+          let type: string;
+
+          if (isShow(result)) {
+            name = result.name;
+            type = 'tv';
+          } else {
+            name = result.original_title;
+            type = 'movie';
+          }
+
+          return {
+            title: name.length > 24 ? name.substring(0, 24) + '..' : name,
+            id: result.id,
+            type,
+          };
+        })
+        .filter((result, index, self) => {
+          const firstRes = self.find((res) => res.title === result.title);
+          if (!firstRes) return false;
+          return self.indexOf(firstRes) === index;
+        })
+        .filter((_, index) => index < 15),
+    [searchResults.results, query],
+  );
+
+  useEffect(() => {
+    loadSearchResults({ query, page: 1, isFirstSearch: true });
+  }, [param]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
   const handleSearch = () => {
     if (query !== '') {
@@ -25,7 +69,22 @@ const SearchBar: React.FC<Props> = ({ children }) => {
     }
   };
 
-  return children({ query, onChange: handleChange, onSearch: handleSearch, inputRef });
+  const handleResultClick = (type: string, id: number) => () => {
+    console.log(type);
+    const url = type === 'tv' ? `/shows/play/${id}` : `/movies/play/${id}`;
+    navigate(url);
+    setQuery('');
+  };
+
+  return children({
+    query,
+    onChange: handleChange,
+    onSearch: handleSearch,
+    inputRef,
+    isLoading: isLoading || searchResults.status === 'pending',
+    results,
+    onResultClick: handleResultClick,
+  });
 };
 
 export default SearchBar;

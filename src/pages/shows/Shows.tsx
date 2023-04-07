@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import Carousel from '../../components/carousel/Carousel';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
@@ -50,6 +51,10 @@ const Shows: React.FC = () => {
     <AnimatedPage
       isLoading={arePopularShowsLoading || areTopRatedShowsLoading || areTrendingShowsLoading}
     >
+      <Helmet>
+        <title>watch365 - {t('SHOWS_TITLE')}</title>
+        <meta name="description" content={t('SHOWS_DESCRIPTION') || ''} />
+      </Helmet>
       <div className={styles.shows}>
         {isMobile ? (
           renderMobile()
