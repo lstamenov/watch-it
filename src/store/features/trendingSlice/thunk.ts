@@ -28,6 +28,10 @@ export const extraReducers = (builder: ActionReducerMapBuilder<TrendingState>) =
     state.status = action.meta.requestStatus;
   });
 
+  builder.addCase(fetchTrending.pending, (state, action) => {
+    state.status = action.meta.requestStatus;
+  });
+
   builder.addCase(fetchTrending.rejected, (state, action) => {
     state.status = action.meta.requestStatus;
   });

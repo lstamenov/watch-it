@@ -5,14 +5,14 @@ import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { Helmet } from 'react-helmet';
 import styles from './Home.module.css';
 import { useTrending } from '../../store/features/trendingSlice/hooks';
+import useMobile from '../../hooks/useMobile';
 
 const Home: React.FC = () => {
   const {
     trending: { trending, status },
-    clear,
     loadTrending,
   } = useTrending();
-
+  const isMobile = useMobile();
   const [page, setPage] = useState(1);
 
   const isLoading = status === 'pending';
@@ -23,9 +23,9 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    return () => {
-      clear();
-    };
+    if (isMobile) {
+      onLoadMovies();
+    }
   }, []);
 
   return (

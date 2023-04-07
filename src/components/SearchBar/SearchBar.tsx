@@ -28,16 +28,20 @@ const SearchBar: React.FC<Props> = ({ children }) => {
       searchResults.results
         .map((result) => {
           let name: string;
+          let type: string;
+
           if (isShow(result)) {
             name = result.name;
+            type = 'tv';
           } else {
             name = result.original_title;
+            type = 'movie';
           }
 
           return {
             title: name.length > 24 ? name.substring(0, 24) + '..' : name,
             id: result.id,
-            type: result.media_type,
+            type,
           };
         })
         .filter((result, index, self) => {
@@ -66,6 +70,7 @@ const SearchBar: React.FC<Props> = ({ children }) => {
   };
 
   const handleResultClick = (type: string, id: number) => () => {
+    console.log(type);
     const url = type === 'tv' ? `/shows/play/${id}` : `/movies/play/${id}`;
     navigate(url);
     setQuery('');
