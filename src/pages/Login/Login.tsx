@@ -52,11 +52,8 @@ const Login: React.FC = () => {
   return (
     <AnimatedPage isLoading={user.status === 'pending'}>
       <Helmet>
-        <title>watch-it - Login</title>
-        <meta
-          name="description"
-          content="Log in to your account and start watching everything you like"
-        />
+        <title>watch365 - {t('SIGN_IN')}</title>
+        <meta name="description" content={t('SIGN_IN') || ''} />
       </Helmet>
       <FormLayout title={t('SIGN_IN')}>
         <Form
