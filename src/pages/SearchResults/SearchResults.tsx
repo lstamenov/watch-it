@@ -1,5 +1,6 @@
 import { Container, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
@@ -23,6 +24,10 @@ const SearchResults: React.FC = () => {
 
   const renderResults = () => (
     <AnimatedPage isLoading={isLoading}>
+      <Helmet>
+        <title>watch365 - {t('SEARCH_TITLE')}</title>
+        <meta name="description" content={t('SEARCH_DESCRIPTION') || ''} />
+      </Helmet>
       <div className={styles.wrapper}>
         <Container>
           <Typography className={styles.title} variant="h4">

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
 import styles from './Movies.module.css';
 import { usePopularMovies, useTopRatedMovies, useTrendingMovies } from '../../store';
+import { Helmet } from 'react-helmet';
 
 const Movies: React.FC = () => {
   const isMobile = useMobile();
@@ -54,6 +55,10 @@ const Movies: React.FC = () => {
 
   return (
     <AnimatedPage isLoading={areMoviesLoading}>
+      <Helmet>
+        <title>watch365 - {t('MOVIES_TITLE')}</title>
+        <meta name="description" content={t('MOVIES_DESCRIPTION') || ''} />
+      </Helmet>
       <div className={styles.home}>
         {isMobile ? (
           renderMobile()

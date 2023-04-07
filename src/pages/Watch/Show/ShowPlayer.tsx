@@ -1,5 +1,6 @@
 import { StyledEngineProvider } from '@mui/material';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useParams, useSearchParams } from 'react-router-dom';
 import WatchLayout from '../../../layouts/WatchLayout/WatchLayout';
@@ -16,7 +17,7 @@ const ShowPlayer: React.FC = () => {
     showData: { show, recommendations, similar, status },
     loadShow,
   } = useWatchShow();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const [isCorrectId, setIsCorrectId] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -122,6 +123,11 @@ const ShowPlayer: React.FC = () => {
     <AnimatedPage isLoading={status === 'pending'}>
       {show && (
         <StyledEngineProvider injectFirst>
+          <Helmet>
+            <title>watch365 - {show.name}</title>
+            <meta name="description" content={show.overview} />
+            <meta name="keywords" content={t('HOME_KEYWORDS') || ''} />
+          </Helmet>
           <WatchLayout
             isLoading={status === 'pending'}
             similar={similar}

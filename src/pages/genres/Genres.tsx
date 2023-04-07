@@ -156,8 +156,8 @@ const Genres: React.FC = () => {
     <AnimatedPage isLoading={status === 'pending'}>
       <StyledEngineProvider injectFirst>
         <Helmet>
-          <title>watch-it - Search movies and shows by genre</title>
-          <meta name="description" content="Browse through genres to find the best match for you" />
+          <title>watch-it - {t('GENRES_TITLE')}</title>
+          <meta name="description" content={t('GENRES_TITLE') || ''} />
         </Helmet>
         <Container className={styles.container}>
           <GenresLayout>{GenresComponent}</GenresLayout>
