@@ -1,4 +1,5 @@
 import Genres from '../pages/genres/Genres';
+import GoogleVerification from '../pages/GoogleVerification/GoogleVerification';
 import Home from '../pages/home/Home';
 import Login from '../pages/Login/Login';
 import Movies from '../pages/movies/Movies';
@@ -56,6 +57,11 @@ export const routes: RouteData[] = [
     type: 'PUBLIC_ROUTE',
     path: '/genres',
     Page: Genres,
+  },
+  {
+    type: 'PUBLIC_ROUTE',
+    path: '/google7c0872963fa47a44.html',
+    Page: GoogleVerification,
   },
   {
     type: 'PUBLIC_ROUTE',
