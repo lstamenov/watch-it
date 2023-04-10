@@ -5,6 +5,7 @@ import {
   addShowToList,
   authenticateUser,
   changeAvatar,
+  changePassword,
   login,
   logout,
   register,
@@ -26,5 +27,7 @@ export const useUser = () => {
     removeMovieFromList: (movieId: number) => dispatch(removeMovieFromList(movieId)),
     removeShowFromList: (showId: number) => dispatch(removeShowFromList(showId)),
     changeAvatar: (avatar: string) => dispatch(changeAvatar(avatar)),
+    changePassword: (oldPassword: string, newPassword: string) =>
+      dispatch(changePassword({ oldPassword, newPassword })),
   };
 };

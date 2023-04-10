@@ -1,17 +1,16 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import NotFound from '../pages/NotFound/NotFound';
 import { useUser } from '../store';
+import AnimatedPage from '../ui/AnimatedPage/AnimatedPage';
 
 const AuthRoute: React.FC = ({ children }) => {
-  const { user } = useUser();
+  const {
+    user: { user, status },
+  } = useUser();
 
-  const isAuthenticated = Boolean(user.user);
+  if (status === 'pending') return <AnimatedPage isLoading={status === 'pending'} />;
 
-  if (!isAuthenticated) {
-    return <>{children}</>;
-  } else {
-    return <Navigate to="/" />;
-  }
+  return !user ? <>{children}</> : <NotFound />;
 };
 
 export default AuthRoute;

@@ -1,3 +1,4 @@
+import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import Genres from '../pages/genres/Genres';
 import GoogleVerification from '../pages/GoogleVerification/GoogleVerification';
 import Home from '../pages/home/Home';
@@ -42,6 +43,11 @@ export const routes: RouteData[] = [
     type: 'PUBLIC_ROUTE',
     path: '/movies/play/:id',
     Page: MoviePlayer,
+  },
+  {
+    type: 'PRIVATE_ROUTE',
+    path: 'change-password',
+    Page: ChangePassword,
   },
   {
     type: 'PUBLIC_ROUTE',
