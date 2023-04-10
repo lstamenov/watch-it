@@ -14,6 +14,7 @@ import {
   ADD_MOVIE_TO_LIST_URL,
   ADD_SHOW_TO_LIST_URL,
   CHANGE_AVATAR,
+  CHANGE_PASSWORD,
 } from './constants';
 
 export default class UserService extends Service {
@@ -107,5 +108,18 @@ export default class UserService extends Service {
 
   changeAvatar(avatar: string) {
     this.fetcher.put(CHANGE_AVATAR, { avatar }, { headers: getAuthHeaders() });
+  }
+
+  async changePassword(oldPassword: string, newPassword: string) {
+    try {
+      await this.fetcher.put(
+        CHANGE_PASSWORD,
+        { oldPassword, newPassword },
+        { headers: getAuthHeaders() },
+      );
+    } catch (e: any) {
+      console.log(e.response.data.error);
+      throw new Error(e.response.data.error);
+    }
   }
 }

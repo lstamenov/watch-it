@@ -12,6 +12,7 @@ interface Props {
     onPickAvatarClick: (src: string) => void;
     onAvatarsModalClose: () => void;
     handleLogout: () => void;
+    handleChangePassword: () => void;
     shouldOpenAvatarsModal: boolean;
   }) => JSX.Element;
 }
@@ -40,6 +41,8 @@ export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) =
     }, 500);
   };
 
+  const handleChangePassword = () => navigate('/change-password');
+
   return children({
     avatar,
     username,
@@ -48,6 +51,7 @@ export const ProfileLayout: React.FC<Props> = ({ avatar, username, children }) =
     onPickAvatarClick: handlePickAvatar,
     onAvatarsModalClose: handleAvatarsModalClosed,
     handleLogout,
+    handleChangePassword,
   });
 };
 
