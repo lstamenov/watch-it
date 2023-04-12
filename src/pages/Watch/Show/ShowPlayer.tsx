@@ -17,6 +17,7 @@ const ShowPlayer: React.FC = () => {
   const {
     showData: { show, recommendations, similar, status },
     loadShow,
+    clear,
   } = useWatchShow();
   const { i18n, t } = useTranslation();
 
@@ -44,6 +45,10 @@ const ShowPlayer: React.FC = () => {
     } else {
       setIsCorrectId(false);
     }
+
+    return () => {
+      clear();
+    };
   }, [showId, i18n.language]);
 
   useEffect(() => {

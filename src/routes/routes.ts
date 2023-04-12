@@ -9,6 +9,7 @@ import NotFound from '../pages/NotFound/NotFound';
 import Profile from '../pages/Profile/Profile';
 import Register from '../pages/Register/Register';
 import SearchResults from '../pages/SearchResults/SearchResults';
+import Show from '../pages/Show/Show';
 import Shows from '../pages/shows/Shows';
 import MoviePlayer from '../pages/Watch/Movie/MoviePlayer';
 import ShowPlayer from '../pages/Watch/Show/ShowPlayer';
@@ -49,6 +50,11 @@ export const routes: RouteData[] = [
     type: 'PUBLIC_ROUTE',
     path: 'movies/:id',
     Page: Movie,
+  },
+  {
+    type: 'PUBLIC_ROUTE',
+    path: 'shows/:id',
+    Page: Show,
   },
   {
     type: 'PRIVATE_ROUTE',

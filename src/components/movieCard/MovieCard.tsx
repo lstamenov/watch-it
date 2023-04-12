@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
 import { Movie, TvShow } from '../../types/types';
-import { getMoviePosterPath } from '../../utils/movieUtils';
+import { getMoviePosterPath, isShow } from '../../utils/movieUtils';
 import styles from './MovieCard.module.css';
 import useMobile from '../../hooks/useMobile';
 import CarouselCardActions from '../carouselCardActions/CarouselCardActions';
@@ -20,10 +20,10 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useMobile();
 
-  const isShow = movie.media_type === 'tv';
+  const isShowContent = isShow(movie);
 
   const onClick = () => {
-    if (isShow) {
+    if (isShowContent) {
       navigate(`/shows/${movie.id}`);
     }
 
@@ -39,10 +39,10 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
   };
 
   const getTitle = () => {
-    if (isShow) {
-      return (movie as TvShow).name;
+    if (isShowContent) {
+      return movie.name;
     }
-    return (movie as Movie).title;
+    return movie.title;
   };
 
   const isAddedToList = useMemo(() => {

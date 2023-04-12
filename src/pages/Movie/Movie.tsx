@@ -20,6 +20,7 @@ const Movie: React.FC = () => {
     ),
     [movieId],
   );
+
   return <AnimatedPage isLoading={status === 'pending'}>{Content}</AnimatedPage>;
 };
 
