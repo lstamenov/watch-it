@@ -69,6 +69,7 @@ export const resources = {
       CURRENT_PASSWORD: 'Current password',
       NEW_PASSWORD: 'New password',
       CONFIRM_NEW_PASSWORD: 'Confirm new password',
+      WATCH_NOW: 'Watch now',
     },
   },
   bg: {
@@ -138,6 +139,7 @@ export const resources = {
       CURRENT_PASSWORD: 'Сегашна парола',
       NEW_PASSWORD: 'Нова парола',
       CONFIRM_NEW_PASSWORD: 'Потвърди нова парола',
+      WATCH_NOW: 'Гледай сега',
     },
   },
 };

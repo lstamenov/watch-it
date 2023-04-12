@@ -1,0 +1,29 @@
+.banner{
+  height: 90vh;
+  position: relative;
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner::after, .banner::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.banner::after{
+  bottom: 0;
+  height: 100px;
+  background-image: linear-gradient(0deg,#2D2E2E,transparent);
+}
+
+.banner::before{
+  top: 0;
+  height: 100%;
+  background-color: #2d2e2e7c;
+}

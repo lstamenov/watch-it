@@ -8,6 +8,7 @@ import { useWatchShow } from '../../../store';
 import { Season, Episode } from '../../../types/types';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
 import EpisodePicker from '../../../ui/EpisodePicker/EpisodePicker';
+import { getMoviePosterPath } from '../../../utils/movieUtils';
 import NotFound from '../../NotFound/NotFound';
 import styles from '../Watch.module.css';
 
@@ -134,6 +135,7 @@ const ShowPlayer: React.FC = () => {
             recommended={recommendations}
             overview={show.overview}
             title={show.name}
+            backDropImage={getMoviePosterPath(show.backdrop_path)}
             isShow
           >
             {renderPlayer()}
