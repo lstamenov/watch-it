@@ -79,6 +79,18 @@ export const changeAvatar = createAsyncThunk('user/changeAvatar', async (avatar:
   userService.changeAvatar(avatar);
 });
 
+export const changePassword = createAsyncThunk<void, { oldPassword: string; newPassword: string }>(
+  'user/changePassword',
+  async (params: { oldPassword: string; newPassword: string }, thunkAPI) => {
+    try {
+      const { oldPassword, newPassword } = params;
+      await userService.changePassword(oldPassword, newPassword);
+    } catch (e: any) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  },
+);
+
 export const extraReducers = (builder: ActionReducerMapBuilder<UserState>) => {
   builder.addCase(login.fulfilled, (state, action) => {
     const {
@@ -100,6 +112,21 @@ export const extraReducers = (builder: ActionReducerMapBuilder<UserState>) => {
     state.user = user;
     state.status = requestStatus;
     state.error = null;
+  });
+
+  builder.addCase(changePassword.fulfilled, (state, action) => {
+    state.changePasswordStatus = action.meta.requestStatus;
+  });
+
+  builder.addCase(changePassword.pending, (state, action) => {
+    state.changePasswordStatus = action.meta.requestStatus;
+  });
+
+  builder.addCase(changePassword.rejected, (state, action) => {
+    state.changePasswordStatus = action.meta.requestStatus;
+    state.error = {
+      message: action.payload as string,
+    };
   });
 
   builder.addCase(login.rejected, (state, action) => {

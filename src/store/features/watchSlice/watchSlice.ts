@@ -35,8 +35,25 @@ const initialState: WatchState = {
 const watchSlice = createSlice({
   name: 'watch',
   initialState,
-  reducers: {},
+  reducers: {
+    clear: (state) => {
+      state.movie = {
+        movie: null,
+        recommendations: [],
+        similar: [],
+        status: 'pending',
+      };
+      state.show = {
+        show: null,
+        recommendations: [],
+        similar: [],
+        status: 'pending',
+      };
+    },
+  },
   extraReducers,
 });
+
+export const { clear } = watchSlice.actions;
 
 export default watchSlice.reducer;

@@ -7,6 +7,7 @@ import styles from '../Watch.module.css';
 import { useTranslation } from 'react-i18next';
 import { useWatchMovie } from '../../../store';
 import { Helmet } from 'react-helmet';
+import { getMoviePosterPath } from '../../../utils/movieUtils';
 
 const MoviePlayer: React.FC = () => {
   const [isCorrectId, setIsCorrectId] = useState(false);
@@ -34,7 +35,7 @@ const MoviePlayer: React.FC = () => {
       {isCorrectId && movie ? (
         <StyledEngineProvider injectFirst>
           <Helmet>
-            <title>watch365 - {movie.original_title}</title>
+            <title>watch365 - {movie.title}</title>
             <meta name="description" content={movie.overview} />
             <meta name="keywords" content={t('HOME_KEYWORDS') || ''} />
           </Helmet>
@@ -43,7 +44,8 @@ const MoviePlayer: React.FC = () => {
             similar={similar}
             recommended={recommendations}
             overview={movie.overview}
-            title={movie.original_title}
+            title={movie.title}
+            backDropImage={getMoviePosterPath(movie.backdrop_path)}
           >
             <iframe
               frameBorder="0"

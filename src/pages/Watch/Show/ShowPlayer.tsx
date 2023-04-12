@@ -8,6 +8,7 @@ import { useWatchShow } from '../../../store';
 import { Season, Episode } from '../../../types/types';
 import AnimatedPage from '../../../ui/AnimatedPage/AnimatedPage';
 import EpisodePicker from '../../../ui/EpisodePicker/EpisodePicker';
+import { getMoviePosterPath } from '../../../utils/movieUtils';
 import NotFound from '../../NotFound/NotFound';
 import styles from '../Watch.module.css';
 
@@ -16,6 +17,7 @@ const ShowPlayer: React.FC = () => {
   const {
     showData: { show, recommendations, similar, status },
     loadShow,
+    clear,
   } = useWatchShow();
   const { i18n, t } = useTranslation();
 
@@ -43,6 +45,10 @@ const ShowPlayer: React.FC = () => {
     } else {
       setIsCorrectId(false);
     }
+
+    return () => {
+      clear();
+    };
   }, [showId, i18n.language]);
 
   useEffect(() => {
@@ -134,6 +140,7 @@ const ShowPlayer: React.FC = () => {
             recommended={recommendations}
             overview={show.overview}
             title={show.name}
+            backDropImage={getMoviePosterPath(show.backdrop_path)}
             isShow
           >
             {renderPlayer()}

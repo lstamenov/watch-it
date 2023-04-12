@@ -5,14 +5,14 @@ import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import CarouselDetail from '../../carouselDetail/CarouselDetail';
 import { Card, CardContent, CardMedia, Grid } from '@mui/material';
 import CarouselCardActions from '../../carouselCardActions/CarouselCardActions';
-import InfoModalMobile from '../../../ui/InfoModalMobile/InfoModalMobile';
 import { useUser } from '../../../store';
 import styles from './CarouselMovie.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = false }) => {
+  const navigate = useNavigate();
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
   const [areActionsHovered, setAreActionsHovered] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useUser();
 
   const onMouseLeave = () => {
@@ -29,9 +29,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
     return !!user.user?.moviesList.find((id) => id === movie.id);
   };
 
-  const onInfoButtonClick = () => setIsModalOpen(true);
-
-  const handleCloseModal = () => setIsModalOpen(false);
+  const onInfoButtonClick = () => navigate(`/movies/${movie.id}`);
 
   const onActionsHover = (areHovered: boolean) => setAreActionsHovered(areHovered);
 
@@ -76,7 +74,6 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
           )}
         </Card>
       </Grid>
-      <InfoModalMobile isOpen={isModalOpen} onClose={handleCloseModal} movie={movie} />
     </>
   ) : null;
 };

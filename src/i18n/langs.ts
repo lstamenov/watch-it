@@ -65,6 +65,11 @@ export const resources = {
       SHOWS_TITLE: 'Shows',
       SEARCH_DESCRIPTION: 'Search shows and movies',
       SEARCH_TITLE: 'Search',
+      CHANGE_PASSWORD: 'Change password',
+      CURRENT_PASSWORD: 'Current password',
+      NEW_PASSWORD: 'New password',
+      CONFIRM_NEW_PASSWORD: 'Confirm new password',
+      WATCH_NOW: 'Watch now',
     },
   },
   bg: {
@@ -130,6 +135,11 @@ export const resources = {
       SHOWS_TITLE: 'Сериали',
       SEARCH_DESCRIPTION: 'Търси филми и сериали',
       SEARCH_TITLE: 'Търсене',
+      CHANGE_PASSWORD: 'Промени парола',
+      CURRENT_PASSWORD: 'Сегашна парола',
+      NEW_PASSWORD: 'Нова парола',
+      CONFIRM_NEW_PASSWORD: 'Потвърди нова парола',
+      WATCH_NOW: 'Гледай сега',
     },
   },
 };

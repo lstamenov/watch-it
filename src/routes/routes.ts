@@ -1,12 +1,15 @@
+import ChangePassword from '../pages/ChangePassword/ChangePassword';
 import Genres from '../pages/genres/Genres';
 import GoogleVerification from '../pages/GoogleVerification/GoogleVerification';
 import Home from '../pages/home/Home';
 import Login from '../pages/Login/Login';
+import Movie from '../pages/Movie/Movie';
 import Movies from '../pages/movies/Movies';
 import NotFound from '../pages/NotFound/NotFound';
 import Profile from '../pages/Profile/Profile';
 import Register from '../pages/Register/Register';
 import SearchResults from '../pages/SearchResults/SearchResults';
+import Show from '../pages/Show/Show';
 import Shows from '../pages/shows/Shows';
 import MoviePlayer from '../pages/Watch/Movie/MoviePlayer';
 import ShowPlayer from '../pages/Watch/Show/ShowPlayer';
@@ -42,6 +45,21 @@ export const routes: RouteData[] = [
     type: 'PUBLIC_ROUTE',
     path: '/movies/play/:id',
     Page: MoviePlayer,
+  },
+  {
+    type: 'PUBLIC_ROUTE',
+    path: 'movies/:id',
+    Page: Movie,
+  },
+  {
+    type: 'PUBLIC_ROUTE',
+    path: 'shows/:id',
+    Page: Show,
+  },
+  {
+    type: 'PRIVATE_ROUTE',
+    path: 'change-password',
+    Page: ChangePassword,
   },
   {
     type: 'PUBLIC_ROUTE',

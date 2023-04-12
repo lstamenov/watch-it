@@ -1,0 +1,19 @@
+.button{
+  width: 190px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #b45177;
+  color: white;
+  box-shadow: 0 0 5px 5px #b4517748;
+  transition: .3s;
+}
+
+.button:hover{
+  box-shadow: 0 0 5px 10px #b4517748;
+  background-color: #b45177;
+}
+
+.icon{
+  font-size: 30px;
+}

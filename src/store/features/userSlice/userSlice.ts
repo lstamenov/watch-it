@@ -10,12 +10,14 @@ export type UserState = {
   error: null | {
     message: string;
   };
+  changePasswordStatus: Status;
 };
 
 const initialState: UserState = {
   user: null,
   jwt: null,
   status: 'rejected',
+  changePasswordStatus: 'rejected',
   error: null,
 };
 

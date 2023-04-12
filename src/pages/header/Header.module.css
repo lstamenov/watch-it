@@ -1,11 +1,10 @@
 .header {
-  background-color: #4f4f4f;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-top: 5px;
   height: 70px;
+  transition: .5s ease;
 }
 
 .main {

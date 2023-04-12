@@ -13,6 +13,7 @@ interface Props {
   onPickAvatarClick: (src: string) => void;
   handleLogout: () => void;
   onAvatarsModalClose: () => void;
+  handleChangePassword: () => void;
   shouldOpenAvatarsModal: boolean;
 }
 
@@ -23,6 +24,7 @@ export const ProfileLayout: React.FC<Props> = ({
   onAvatarClick,
   onPickAvatarClick,
   onAvatarsModalClose,
+  handleChangePassword,
   shouldOpenAvatarsModal,
 }) => {
   const { t } = useTranslation();
@@ -36,6 +38,9 @@ export const ProfileLayout: React.FC<Props> = ({
             @{username}
           </Typography>
         </div>
+        <Button className={styles.btn} variant="contained" onClick={handleChangePassword}>
+          {t('CHANGE_PASSWORD')}
+        </Button>
         <Button className={styles.btn} variant="contained" onClick={onAvatarClick}>
           {t('CHANGE_AVATAR')}
         </Button>

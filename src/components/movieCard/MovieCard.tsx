@@ -1,30 +1,34 @@
 import React, { useMemo, useState } from 'react';
 import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
 import { Movie, TvShow } from '../../types/types';
-import { getMoviePosterPath } from '../../utils/movieUtils';
+import { getMoviePosterPath, isShow } from '../../utils/movieUtils';
 import styles from './MovieCard.module.css';
 import useMobile from '../../hooks/useMobile';
 import CarouselCardActions from '../carouselCardActions/CarouselCardActions';
-import InfoModalMobile from '../../ui/InfoModalMobile/InfoModalMobile';
 import { useUser } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   movie: Movie | TvShow;
 }
 
 const MovieCard: React.FC<Props> = ({ movie }) => {
+  const navigate = useNavigate();
   const {
     user: { user },
   } = useUser();
-  const [isClicked, setIsClicked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useMobile();
 
-  const onClick = () => {
-    setIsClicked(!isClicked);
-  };
+  const isShowContent = isShow(movie);
 
-  const handleClose = () => setIsClicked(false);
+  const onClick = () => {
+    if (isShowContent) {
+      navigate(`/shows/${movie.id}`);
+    }
+
+    navigate(`/movies/${movie.id}`);
+  };
 
   const onHover = () => {
     setIsHovered(true);
@@ -34,13 +38,11 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     setIsHovered(false);
   };
 
-  const isShow = movie.media_type === 'tv';
-
   const getTitle = () => {
-    if (isShow) {
-      return (movie as TvShow).name;
+    if (isShowContent) {
+      return movie.name;
     }
-    return (movie as Movie).title;
+    return movie.title;
   };
 
   const isAddedToList = useMemo(() => {
@@ -80,7 +82,6 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
                 isOnBigCard
               />
             )}
-            <InfoModalMobile isOpen={isClicked} movie={movie} onClose={handleClose} />)
           </Card>
         }
       </Grid>

@@ -1,11 +1,16 @@
 import React from 'react';
 import { useUser } from '../store';
-import Login from '../pages/Login/Login';
+import NotFound from '../pages/NotFound/NotFound';
+import AnimatedPage from '../ui/AnimatedPage/AnimatedPage';
 
 const ProtectedRoute: React.FC = ({ children }) => {
-  const { user } = useUser();
+  const {
+    user: { user, status },
+  } = useUser();
 
-  return user.user ? <>{children}</> : <Login />;
+  if (status === 'pending') return <AnimatedPage isLoading={status === 'pending'} />;
+
+  return user ? <>{children}</> : <NotFound />;
 };
 
 export default ProtectedRoute;

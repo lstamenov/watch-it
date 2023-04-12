@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Container } from '@mui/material';
 import InfiniteScrollLayout from '../../layouts/InfiniteScrollLayout/InfiniteScrollLayout';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
@@ -7,6 +7,8 @@ import styles from './Home.module.css';
 import { useTrending } from '../../store/features/trendingSlice/hooks';
 import useMobile from '../../hooks/useMobile';
 import { useTranslation } from 'react-i18next';
+import ContentInfo from '../../ui/ContentInfo/ContentInfo';
+import { isShow } from '../../utils/movieUtils';
 
 const Home: React.FC = () => {
   const {
@@ -30,6 +32,33 @@ const Home: React.FC = () => {
     }
   }, []);
 
+  const topMovieData = useMemo(() => {
+    const topMovie = trending.find(({ overview }) => overview.length > 300);
+
+    if (!topMovie) return null;
+
+    const { poster_path: posterPath, backdrop_path: backdropPath, overview, genres, id } = topMovie;
+
+    let watchLink: string;
+    let title: string;
+
+    if (isShow(topMovie)) {
+      watchLink = `/shows/play/${id}`;
+      title = topMovie.name;
+    } else {
+      watchLink = `/movies/play/${id}`;
+      title = topMovie.title;
+    }
+
+    return { watchLink, posterPath, backdropPath, overview, genres, title };
+  }, [trending]);
+
+  const TopTrending = useMemo(() => {
+    if (!topMovieData) return null;
+
+    return <ContentInfo {...topMovieData} />;
+  }, [trending]);
+
   return (
     <AnimatedPage isLoading={isLoading}>
       <Helmet>
@@ -40,16 +69,15 @@ const Home: React.FC = () => {
         />
         <meta name="keywords" content={t('HOME_KEYWORDS') || ''} />
       </Helmet>
-      (
+      {TopTrending}
       <Container className={styles.home}>
         <InfiniteScrollLayout
           isLoading={isLoading}
-          movies={trending}
+          movies={trending.slice(1)}
           page={page}
           loadMovies={onLoadMovies}
         />
       </Container>
-      )
     </AnimatedPage>
   );
 };

@@ -8,6 +8,7 @@ import CarouselShow from '../../components/carousel/carouselShow/CarouselShow';
 import useMobile from '../../hooks/useMobile';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import { useTranslation } from 'react-i18next';
+import ImageBanner from '../../ui/ImageBanner/ImageBanner';
 
 interface Props {
   title: string;
@@ -15,6 +16,7 @@ interface Props {
   similar: Movie[] | TvShow[];
   recommended: Movie[] | TvShow[];
   isLoading: boolean;
+  backDropImage: string;
   isShow?: boolean;
 }
 
@@ -24,6 +26,7 @@ const WatchLayout: React.FC<Props> = ({
   similar,
   recommended,
   isLoading,
+  backDropImage,
   isShow = false,
   children,
 }) => {
@@ -104,6 +107,7 @@ const WatchLayout: React.FC<Props> = ({
 
   return (
     <div className={styles.wrapper}>
+      <ImageBanner img={backDropImage} />
       <Container className={styles.container}>
         <Typography sx={{ color: 'white' }} className={styles.title} align="center" variant="h3">
           {title}
