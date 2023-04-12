@@ -1,9 +1,0 @@
-.shows {
-  padding-top: 80px;
-}
-
-@media screen and (max-width: 768px) {
-  .shows {
-    padding: 80px 0 70px 0;
-  }
-}

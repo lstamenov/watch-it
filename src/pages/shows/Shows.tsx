@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import Carousel from '../../components/carousel/Carousel';
@@ -7,7 +7,7 @@ import useMobile from '../../hooks/useMobile';
 import { usePopularShows, useTopRatedShows, useTrendingShows } from '../../store';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
-import styles from './Shows.module.css';
+import ContentInfo from '../../ui/ContentInfo/ContentInfo';
 
 const Shows: React.FC = () => {
   const { i18n, t } = useTranslation();
@@ -47,6 +47,27 @@ const Shows: React.FC = () => {
     </>
   );
 
+  const TopPick = useMemo(() => {
+    const topPick = topRatedShowsData.shows.find((show) => show.overview.length > 300);
+
+    if (!topPick) return null;
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { name, backdrop_path, poster_path, genres, overview, id } = topPick;
+    const watchLink = `/shows/play/${id}`;
+
+    return (
+      <ContentInfo
+        title={name}
+        backdropPath={backdrop_path}
+        posterPath={poster_path}
+        genres={genres}
+        overview={overview}
+        watchLink={watchLink}
+      />
+    );
+  }, [topRatedShowsData]);
+
   return (
     <AnimatedPage
       isLoading={arePopularShowsLoading || areTopRatedShowsLoading || areTrendingShowsLoading}
@@ -55,7 +76,8 @@ const Shows: React.FC = () => {
         <title>watch365 - {t('SHOWS_TITLE')}</title>
         <meta name="description" content={t('SHOWS_DESCRIPTION') || ''} />
       </Helmet>
-      <div className={styles.shows}>
+      <div>
+        {TopPick}
         {isMobile ? (
           renderMobile()
         ) : (
