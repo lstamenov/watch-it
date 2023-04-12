@@ -56,7 +56,7 @@ const ContentInfo: React.FC<Props> = ({
             </Typography>
             {Genres}
             <Typography variant="body1" className={styles.overview}>
-              {overview}
+              {overview && overview.substring(0, 320) + '..'}
             </Typography>
             <WatchNowButton className={styles.watchButton} watchURL={watchLink} />
           </div>

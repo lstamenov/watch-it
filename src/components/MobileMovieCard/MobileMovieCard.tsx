@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Movie } from '../../types/types';
 import { Card, CardMedia } from '@mui/material';
 import styles from './MobileMovieCard.module.css';
 import { getMoviePosterPath } from '../../utils/movieUtils';
-import InfoModalMobile from '../../ui/InfoModalMobile/InfoModalMobile';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   movie: Movie;
@@ -11,17 +11,14 @@ interface Props {
 }
 
 const MobileMovieCard: React.FC<Props> = ({ movie }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const navigate = useNavigate();
 
-  const handleClose = () => setIsClicked(false);
+  const onClick = () => navigate(`/movies/${movie.id}`);
 
   return (
-    <>
-      <Card onClick={() => setIsClicked(true)}>
-        <CardMedia className={styles.card} image={getMoviePosterPath(movie.poster_path)} />
-      </Card>
-      <InfoModalMobile isOpen={isClicked} onClose={handleClose} movie={movie} />
-    </>
+    <Card onClick={onClick}>
+      <CardMedia className={styles.card} image={getMoviePosterPath(movie.poster_path)} />
+    </Card>
   );
 };
 
