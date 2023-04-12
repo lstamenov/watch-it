@@ -7,6 +7,7 @@ import styles from '../Watch.module.css';
 import { useTranslation } from 'react-i18next';
 import { useWatchMovie } from '../../../store';
 import { Helmet } from 'react-helmet';
+import { getMoviePosterPath } from '../../../utils/movieUtils';
 
 const MoviePlayer: React.FC = () => {
   const [isCorrectId, setIsCorrectId] = useState(false);
@@ -44,6 +45,7 @@ const MoviePlayer: React.FC = () => {
             recommended={recommendations}
             overview={movie.overview}
             title={movie.original_title}
+            backDropImage={getMoviePosterPath(movie.backdrop_path)}
           >
             <iframe
               frameBorder="0"

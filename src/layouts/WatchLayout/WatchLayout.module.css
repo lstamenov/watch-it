@@ -1,6 +1,8 @@
 .container {
   padding-top: 100px;
   padding-bottom: 50px;
+  margin-top: -420px;
+  position: relative;
 }
 
 .title {

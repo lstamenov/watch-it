@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Logo from '../../components/logo/Logo';
-import { AppBar, StyledEngineProvider } from '@mui/material';
+import { AppBar, StyledEngineProvider, useScrollTrigger } from '@mui/material';
 import LanguageSelector from '../../components/LanguageSelector/LanguageSelector';
 import { default as LanguageSelectorUI } from '../../ui/LanguageSelector/LanguageSelector';
 import SearchBar from '../../components/SearchBar/SearchBar';
@@ -13,6 +13,7 @@ import HeaderButton from '../../ui/HeaderButton/HeaderButton';
 const Header: React.FC = () => {
   const { user } = useUser();
   const { t } = useTranslation();
+  const trigger = useScrollTrigger();
 
   const items = [
     {
@@ -63,9 +64,25 @@ const Header: React.FC = () => {
     </>
   );
 
+  const TransparentHeaderStyles: React.CSSProperties = {
+    backgroundColor: 'transparent',
+    paddingTop: '40px',
+  };
+
+  const VisibleHeaderStyles: React.CSSProperties = {
+    backgroundColor: '#4f4f4f',
+    paddingTop: '5px',
+  };
+
   return (
     <StyledEngineProvider injectFirst>
-      <AppBar className={styles.header}>{renderAuthenticatedHeader()}</AppBar>
+      <AppBar
+        elevation={trigger ? 5 : 0}
+        sx={trigger ? VisibleHeaderStyles : TransparentHeaderStyles}
+        className={styles.header}
+      >
+        {renderAuthenticatedHeader()}
+      </AppBar>
     </StyledEngineProvider>
   );
 };
