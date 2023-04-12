@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Carousel from '../../components/carousel/Carousel';
 import MobileCarousel from '../../components/MobileCarousel/MobileCarousel';
 import useMobile from '../../hooks/useMobile';
 import AnimatedPage from '../../ui/AnimatedPage/AnimatedPage';
 import { useTranslation } from 'react-i18next';
 import CardsSkeleton from '../../ui/CardsSkeleton/CardsSkeleton';
-import styles from './Movies.module.css';
 import { usePopularMovies, useTopRatedMovies, useTrendingMovies } from '../../store';
 import { Helmet } from 'react-helmet';
+import ContentInfo from '../../ui/ContentInfo/ContentInfo';
 
 const Movies: React.FC = () => {
   const isMobile = useMobile();
@@ -53,13 +53,35 @@ const Movies: React.FC = () => {
     </>
   );
 
+  const TopPick = useMemo(() => {
+    const topPick = topRatedMoviesData.movies.find(({ overview }) => overview.length > 300);
+
+    if (!topPick) return null;
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { title, backdrop_path, poster_path, genres, overview, id } = topPick;
+    const watchLink = `/movies/play/${id}`;
+
+    return (
+      <ContentInfo
+        title={title}
+        backdropPath={backdrop_path}
+        posterPath={poster_path}
+        genres={genres}
+        overview={overview}
+        watchLink={watchLink}
+      />
+    );
+  }, [topRatedMoviesData]);
+
   return (
     <AnimatedPage isLoading={areMoviesLoading}>
       <Helmet>
         <title>watch365 - {t('MOVIES_TITLE')}</title>
         <meta name="description" content={t('MOVIES_DESCRIPTION') || ''} />
       </Helmet>
-      <div className={styles.home}>
+      <div>
+        {TopPick}
         {isMobile ? (
           renderMobile()
         ) : (
