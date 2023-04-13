@@ -52,7 +52,7 @@ const Header: React.FC = () => {
   const renderAuthenticatedHeader = () => (
     <>
       <div className={styles.main}>
-        <Logo />
+        {<Logo isVisible={trigger} />}
         {items.map((item) => (
           <HeaderButton key={item.path} {...item} />
         ))}

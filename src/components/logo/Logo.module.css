@@ -1,13 +1,25 @@
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .logo{
   margin-left: 10px;
   height: 65px;
   width: 65px;
+  opacity: 0;
   object-fit: fill;
+  animation-name: appear;
+  animation-duration: .7s;
+  animation-fill-mode: forwards
 }
 
 @media screen and (max-width: 768px) {
   .logo {
     margin-left: 0;
-    margin-right: 5px;
   }
 }

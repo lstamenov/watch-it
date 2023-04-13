@@ -8,6 +8,7 @@ import CarouselGenres from '../../carouselGenres/CarouselGenres';
 import styles from '../carouselMovie/CarouselMovie.module.css';
 import { useUser } from '../../../store';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   show: TvShow;
@@ -19,6 +20,7 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
   const [isWrapperHovered, setIsWrapperHovered] = useState(false);
   const [areActionsHovered, setAreActionsHovered] = useState(false);
   const { user } = useUser();
+  const { t } = useTranslation();
 
   const onMouseLeave = () => {
     setIsWrapperHovered(false);
@@ -59,12 +61,12 @@ const CarouselShow: React.FC<Props> = ({ show, isOnProfile = false }) => {
                 <Grid item>
                   <CarouselDetail
                     value={`${show.number_of_seasons} ${
-                      show.number_of_seasons === 1 ? 'Season' : 'Seasons'
+                      show.number_of_seasons === 1 ? t('SEASON') : t('SEASONS')
                     }`}
                   />
                 </Grid>
                 <Grid item>
-                  <CarouselDetail value={show.original_language.toUpperCase()} />
+                  <CarouselDetail value={show.vote_average.toFixed(1).toString() + '/10'} />
                 </Grid>
               </Grid>
               <CarouselCardActions

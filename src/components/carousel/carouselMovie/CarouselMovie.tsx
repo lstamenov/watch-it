@@ -67,7 +67,7 @@ const CarouselMovie: React.FC<CarouselMovieProps> = ({ movie, isOnProfile = fals
                   <CarouselDetail value={convertMinutesToHours(movie.runtime)} />
                 </Grid>
                 <Grid item>
-                  <CarouselDetail value={movie.original_language.toUpperCase()} />
+                  <CarouselDetail value={movie.vote_average.toFixed(1).toString() + '/10'} />
                 </Grid>
               </Grid>
             </CardContent>

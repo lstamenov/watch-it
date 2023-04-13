@@ -66,6 +66,7 @@
 
 .watchButton{
   animation-delay: 1.3s;
+  z-index: 99;
 }
 
 .overview, .genresContainer, .posterWrapper, .watchButton, .title {
