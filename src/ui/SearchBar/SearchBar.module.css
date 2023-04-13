@@ -1,6 +1,7 @@
 .inputWrapper{
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .iconWrapper{
@@ -10,6 +11,7 @@
   align-items: center;
   justify-content: center;
   transition: .5s;
+  cursor: pointer;
 }
 
 .input{
@@ -22,7 +24,7 @@
   color: white;
   font-size: 16px;
   background-color: #6d6d6d;
-  padding: 10px 0 10px 35px;
+  padding: 10px 35px 10px 5px;
   transition: .5s;
   user-select: text;
   -webkit-user-select: text;
@@ -49,10 +51,10 @@
 
 @media screen and (max-width: 768px) {
   .input{
-    width: 100%;
+    width: 80px;
   }
 
   .input:focus{
-    width: 100%;
+    width: 80%;
   }
 }
