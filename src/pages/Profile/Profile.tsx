@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import ProfileLayout from '../../components/ProfileLayout/ProfileLayout';
 import { default as ProfileLayoutUI } from '../../ui/ProfileLayout/ProfileLayout';
 import Carousel from '../../components/carousel/Carousel';
@@ -12,30 +12,37 @@ import { useTranslation } from 'react-i18next';
 import { useUser } from '../../store';
 
 const Profile: React.FC = () => {
-  const { user, authenticate } = useUser();
+  const {
+    user: { user, status },
+    authenticate,
+  } = useUser();
   const isMobile = useMobile();
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    authenticate();
+    if (!user) {
+      authenticate();
+    }
   }, [i18n.language]);
+
+  if (!user) return null;
 
   const renderMobileCarousel = () => {
     return (
       <>
-        {user.user && user.user.list.movies.length > 1 && (
+        {user && user.list.movies.length > 1 && (
           <MobileCarousel
-            isLoading={user.status === 'pending'}
+            isLoading={status === 'pending'}
             isMovieCarousel
             title={t('YOUR_MOVIES_LIST')}
-            items={user.user.list.movies}
+            items={user.list.movies}
           />
         )}
-        {user.user && user.user.list.shows.length > 1 && (
+        {user && user.list.shows.length > 1 && (
           <MobileCarousel
-            isLoading={user.status === 'pending'}
+            isLoading={status === 'pending'}
             title={t('YOUR_SHOWS_LIST')}
-            items={user.user.list.shows}
+            items={user.list.shows}
           />
         )}
       </>
@@ -43,18 +50,18 @@ const Profile: React.FC = () => {
   };
 
   const renderDesktopCarousel = () => {
-    return user.user ? (
+    return user ? (
       <>
-        {user.user.list.movies.length > 0 && (
+        {user.list.movies.length > 0 && (
           <Carousel title={t('YOUR_MOVIES_LIST')}>
-            {user.user.list.movies.map((movie) => (
+            {user.list.movies.map((movie) => (
               <CarouselMovie isOnProfile key={movie.id} movie={movie} />
             ))}
           </Carousel>
         )}
-        {user.user.list.shows.length > 0 && (
+        {user.list.shows.length > 0 && (
           <Carousel title={t('YOUR_SHOWS_LIST')}>
-            {user.user.list.shows.map((show) => (
+            {user.list.shows.map((show) => (
               <CarouselShow isOnProfile key={show.id} show={show} />
             ))}
           </Carousel>
@@ -65,14 +72,20 @@ const Profile: React.FC = () => {
 
   const renderCarousels = () => (isMobile ? renderMobileCarousel() : renderDesktopCarousel());
 
+  const ProfileContent = useMemo(
+    () =>
+      user && (
+        <ProfileLayout username={user.username} avatar={user.avatarURL}>
+          {(props) => <ProfileLayoutUI {...props} />}
+        </ProfileLayout>
+      ),
+    [],
+  );
+
   return (
-    <AnimatedPage isLoading={user.status === 'pending'}>
+    <AnimatedPage isLoading={status === 'pending'}>
       <Page>
-        {user.user && (
-          <ProfileLayout username={user.user.username} avatar={user.user.avatarURL}>
-            {(props) => <ProfileLayoutUI {...props} />}
-          </ProfileLayout>
-        )}
+        {ProfileContent}
         {renderCarousels()}
       </Page>
     </AnimatedPage>

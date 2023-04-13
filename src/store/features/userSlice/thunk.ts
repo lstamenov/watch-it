@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import i18n from '../../../i18n/i18n';

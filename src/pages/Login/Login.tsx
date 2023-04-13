@@ -20,8 +20,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (user.user || localStorage.getItem('user')) {
-      navigate(path !== '/login' ? path : '/');
+    if (user.user) {
+      navigate(path !== 'login' ? path : '/');
     }
   }, [user]);
 
