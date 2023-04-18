@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -14,13 +14,17 @@ const SearchResults: React.FC = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
   const { t } = useTranslation();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const isLoading = searchResults.status === 'pending';
 
   const handleLoadMovies = () => {
     loadSearchResults({ query, page });
     setPage((oldPage) => oldPage + 1);
   };
+
+  useEffect(() => {
+    loadSearchResults({ query, page: 1, isFirstSearch: true });
+  }, [query]);
 
   const renderResults = () => (
     <AnimatedPage isLoading={isLoading}>
