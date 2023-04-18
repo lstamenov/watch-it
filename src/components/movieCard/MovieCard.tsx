@@ -25,6 +25,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
   const onClick = () => {
     if (isShowContent) {
       navigate(`/shows/${movie.id}`);
+      return;
     }
 
     navigate(`/movies/${movie.id}`);

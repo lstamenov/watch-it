@@ -28,11 +28,13 @@ const ContentInfo: React.FC<Props> = ({
   const Genres: JSX.Element = useMemo(
     () => (
       <div className={styles.genresContainer}>
-        {genres.map(({ id, name }) => (
-          <Typography key={id} className={styles.genre}>
-            {name}
-          </Typography>
-        ))}
+        {genres
+          .filter((_, index) => index < 2)
+          .map(({ id, name }) => (
+            <Typography key={id} className={styles.genre}>
+              {name}
+            </Typography>
+          ))}
       </div>
     ),
     [genres],
