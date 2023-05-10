@@ -22,4 +22,4 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-#### `Watchi-it` is as free streaming platform with a variety of movies and tv shows.
+#### `Watchi-it` is a free streaming platform with a variety of movies and tv shows.
