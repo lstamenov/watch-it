@@ -20,8 +20,7 @@ const App: React.FC = () => {
   const isMobile = useMobile();
   const { authenticate } = useUser();
 
-  console.log('here');
- 
+  console.log('error'); 
 
   useLayoutEffect(() => {
     authenticate();
