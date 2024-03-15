@@ -1,12 +1,13 @@
 import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardMedia, Grid, StyledEngineProvider } from '@mui/material';
 import { Movie, TvShow } from '../../types/types';
 import { getMoviePosterPath, isShow } from '../../utils/movieUtils';
-import styles from './MovieCard.module.css';
 import useMobile from '../../hooks/useMobile';
 import CarouselCardActions from '../carouselCardActions/CarouselCardActions';
 import { useUser } from '../../store';
-import { useNavigate } from 'react-router-dom';
+
+import styles from './MovieCard.module.css';
 
 interface Props {
   movie: Movie | TvShow;
@@ -78,7 +79,7 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
                 onInfoClick={onClick}
                 id={movie.id}
                 title={getTitle()}
-                isMovie={!isShow}
+                isMovie={!isShowContent}
                 isMovieAddedToList={isAddedToList}
                 isOnBigCard
               />

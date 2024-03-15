@@ -22,5 +22,6 @@ export const formatMoney = (number: string): string => {
 };
 
 export function isShow(content: Movie | TvShow): content is TvShow {
-  return (content as TvShow).name !== undefined;
+  return Boolean((content as TvShow).name);
 }
+
