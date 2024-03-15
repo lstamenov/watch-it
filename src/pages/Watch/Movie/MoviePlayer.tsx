@@ -17,7 +17,7 @@ const MoviePlayer: React.FC = () => {
     loadMovie,
   } = useWatchMovie();
   const { i18n, t } = useTranslation();
-  const movieURL = `https://autoembed.to/movie/imdb/${movie?.imdb_id}`;
+  const movieURL = `https://autoembed.co/movie/imdb/${movie?.imdb_id}`;
 
   useEffect(() => {
     const id = movieId ? parseInt(movieId) : -1;

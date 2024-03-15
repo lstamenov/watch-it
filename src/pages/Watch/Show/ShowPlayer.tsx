@@ -34,7 +34,7 @@ const ShowPlayer: React.FC = () => {
   const [currentEpisode, setCurrentEpisode] = useState<Episode | null>(
     currentSeason ? currentSeason.episodes[Number(urlEpisode) - 1] : null,
   );
-  const showURL = `https://autoembed.to/tv/imdb/${show?.imdb_id}-${currentSeason?.season_number}-${currentEpisode?.episode_number}`;
+  const showURL = `https://autoembed.co/tv/imdb/${show?.imdb_id}-${currentSeason?.season_number}-${currentEpisode?.episode_number}`;
 
   useLayoutEffect(() => {
     const id = showId ? parseInt(showId) : -1;
