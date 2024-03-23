@@ -1,17 +1,14 @@
 import { Season, TvShow } from '../../types/types';
-import ContentService from '../types/ContentService';
+import Service from '../types/Service';
 import {
   LOAD_SHOW_EXTERNAL_LINKS,
   LOAD_SHOW_RECOMMENDATIONS,
   LOAD_SIMILAR_SHOWS,
-  POPULAR_SHOWS_URL,
   SEASON_URL,
   SHOW_URL,
-  TOP_RATED_SHOWS_URL,
-  TRENDING_SHOWS_URL,
 } from './constants';
 
-export default class ShowService extends ContentService<TvShow> {
+export default class ShowService extends Service {
   private async fetchFullDetailedSeason(seasonNumber: number, tvId: number): Promise<Season> {
     const lang = this.translator.language;
     const season = await this.fetcher.get(SEASON_URL(tvId, seasonNumber, lang));
@@ -29,6 +26,14 @@ export default class ShowService extends ContentService<TvShow> {
     return { ...fullShowDetails, imdb_id: imdbId, seasons: fullDetailedSeasons };
   }
 
+  private async fetchShows(path: string, page = 1): Promise<TvShow[]> {
+    const language = this.translator.language;
+    const response = await this.fetcher.get(this.buildUrl(path), {
+      params: { language, page },
+    });
+    return response.data;
+  }
+
   async fetchFullDetailed(content: TvShow[]): Promise<TvShow[]> {
     const fullDetailedMoviesResponse = Promise.all(content.map((show) => this.fetchById(show.id)));
     const fullDetailedShows = await fullDetailedMoviesResponse;
@@ -37,24 +42,15 @@ export default class ShowService extends ContentService<TvShow> {
   }
 
   async fetchTopRated(): Promise<TvShow[]> {
-    const lang = this.translator.language;
-    const response = await this.fetcher.get(TOP_RATED_SHOWS_URL(lang));
-    const fullDetailedShows = await this.fetchFullDetailed(response.data.results);
-    return fullDetailedShows;
+    return this.fetchShows('shows/top-rated');
   }
 
   async fetchPopular(): Promise<TvShow[]> {
-    const lang = this.translator.language;
-    const response = await this.fetcher.get(POPULAR_SHOWS_URL(lang));
-    const fullDetailedShows = await this.fetchFullDetailed(response.data.results);
-    return fullDetailedShows;
+    return this.fetchShows('shows/popular');
   }
 
   async fetchTrending(): Promise<TvShow[]> {
-    const lang = this.translator.language;
-    const response = await this.fetcher.get(TRENDING_SHOWS_URL(lang));
-    const fullDetailedShows = await this.fetchFullDetailed(response.data.results);
-    return fullDetailedShows;
+    return this.fetchShows('trending/shows');
   }
 
   async fetchRecommendations(id: number): Promise<TvShow[]> {
