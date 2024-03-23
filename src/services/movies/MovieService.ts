@@ -1,15 +1,8 @@
 import { Movie } from '../../types/types';
-import ContentService from '../types/ContentService';
-import {
-  LOAD_MOVIE_RECOMMENDATIONS,
-  LOAD_SIMILAR_MOVIES,
-  MOVIE_URL,
-  POPULAR_MOVIES_URL,
-  TOP_RATED_MOVIES_URL,
-  TRENDING_MOVIES_URL,
-} from './constants';
+import Service from '../types/Service';
+import { LOAD_MOVIE_RECOMMENDATIONS, LOAD_SIMILAR_MOVIES, MOVIE_URL } from './constants';
 
-export default class MovieService extends ContentService<Movie> {
+export default class MovieService extends Service {
   async fetchById(id: number): Promise<Movie> {
     const lang = this.translator.language;
     const response = await this.fetcher.get(MOVIE_URL(id, lang));
@@ -23,25 +16,24 @@ export default class MovieService extends ContentService<Movie> {
     return fullDetailedMoviesResponse;
   }
 
+  private async fetchMovies(path: string, page = 1): Promise<Movie[]> {
+    const language = this.translator.language;
+    const response = await this.fetcher.get(this.buildUrl(path), {
+      params: { language, page },
+    });
+    return response.data;
+  }
+
   async fetchTopRated(): Promise<Movie[]> {
-    const lang = this.translator.language;
-    const response = await this.fetcher.get(TOP_RATED_MOVIES_URL(lang));
-    const fullDetailedMovies = this.fetchFullDetailed(response.data.results);
-    return fullDetailedMovies;
+    return this.fetchMovies('movies/top-rated');
   }
 
   async fetchPopular(): Promise<Movie[]> {
-    const lang = this.translator.language;
-    const response = await this.fetcher.get(POPULAR_MOVIES_URL(lang));
-    const fullDetailedMovies = this.fetchFullDetailed(response.data.results);
-    return fullDetailedMovies;
+    return this.fetchMovies('movies/popular');
   }
 
   async fetchTrending(): Promise<Movie[]> {
-    const lang = this.translator.language;
-    const response = await this.fetcher.get(TRENDING_MOVIES_URL(lang));
-    const fullDetailedMovies = this.fetchFullDetailed(response.data.results);
-    return fullDetailedMovies;
+    return this.fetchMovies('trending/movies');
   }
 
   async fetchRecommendations(id: number): Promise<Movie[]> {
